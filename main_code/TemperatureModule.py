@@ -31,3 +31,6 @@ class TemperatureModule(BModule):
 
     def update(self):
         ct = self.sensor.temperature
+
+    def print_c_data(self):
+        print(self.ct)

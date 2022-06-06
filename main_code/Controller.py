@@ -20,4 +20,4 @@ class Controller():
         time.sleep(1)
 
     def __init__(self):
-        self.modules.append(TemperatureModule)
+        self.modules.append(TemperatureModule())
