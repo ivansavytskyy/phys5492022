@@ -31,7 +31,7 @@ class Controller():
 
     def __init__(self):
         self.modules.append(TemperatureModule())
-        self.modules.append(GPSModule)
+        self.modules.append(GPSModule())
 
         for i in range(len(self.modules)):
             self.mod_name_map[self.modules[i].name] = i
