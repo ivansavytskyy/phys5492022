@@ -4,7 +4,7 @@ Author: Erik Stacey
 Date:
 """
 import time
-from TModule import TModule
+from BModule import BModule
 
 class Controller():
     """Attributes:
@@ -19,5 +19,5 @@ class Controller():
         time.sleep(1)
 
     def __init__(self):
-        testmodule = TModule()
+        testmodule = BModule()
         self.modules.append(testmodule)
