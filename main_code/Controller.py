@@ -6,6 +6,7 @@ Date:
 import time
 from BModule import BModule
 from TemperatureModule import TemperatureModule
+from HumidityModule import HumidityModule
 
 class Controller():
     """Attributes:
@@ -21,4 +22,4 @@ class Controller():
         time.sleep(1)
 
     def __init__(self):
-        self.modules.append(TemperatureModule())
+        self.modules.append(HumidityModule())
