@@ -52,7 +52,7 @@ class GPSModule(BModule):
     def update(self):
         for i in range(2):  # reads gpgga and gpvtg
             raw_data = self.serial.readline()
-            self.parse_raw(raw_data)
+            s = self.parse_raw(raw_data)
 
     def parse_raw(self, raw_data):
         # convert from bytecode to utf-8
