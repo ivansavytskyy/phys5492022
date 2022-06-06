@@ -79,6 +79,7 @@ class GPSModule(BModule):
 
 
     def read_gpgga(self, s_data):
+        print(s_data)
         self.utc = s_data[1]
         lat = s_data[2]
         latd = s_data[3]
