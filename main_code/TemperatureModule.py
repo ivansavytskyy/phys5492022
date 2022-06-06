@@ -30,7 +30,7 @@ class TemperatureModule(BModule):
         self.sensor = adafruit_max31865.MAX31865(self.spi, self.cs)
 
     def update(self):
-        ct = self.sensor.temperature
+        self.ct = self.sensor.temperature
 
     def print_diagnostic_data(self):
         print(self.ct)
