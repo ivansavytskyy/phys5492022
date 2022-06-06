@@ -5,7 +5,7 @@ Author: Erik Stacey
 Date:
 """
 
-class TModule():
+class BModule():
     name = "UndefinedModule"
 
     def update(self):
