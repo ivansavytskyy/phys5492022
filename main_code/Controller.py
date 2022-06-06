@@ -16,6 +16,7 @@ class Controller():
     def run(self):
         for module in self.modules:
             module.update()
+            module.print_diagnostic_data()
 
         time.sleep(1)
 

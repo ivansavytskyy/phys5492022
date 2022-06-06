@@ -13,3 +13,6 @@ class BModule():
         set in the controller module."""
         print(f"Undefined update called on {self.name}")
         pass
+
+    def print_diagnostic_data(self):
+        pass
