@@ -42,6 +42,7 @@ class GPSModule(BModule):
                 :returns None
            """
     serial = None
+    utc = None
 
     def __init__(self):
         self.name = "CopernicusII-GPS"

@@ -25,6 +25,7 @@ class Controller():
             module.update()
             module.print_diagnostic_data()
 
+        print(self.modules[self.mod_name_map["CopernicusII-GPS"]].utc)
 
         time.sleep(1)
 
