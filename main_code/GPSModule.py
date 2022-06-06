@@ -103,6 +103,7 @@ class GPSModule(BModule):
         checksum = s_data[13]
 
     def read_gpvtg(self, s_data):
+        print(s_data)
         # I don't know what most of these things are
         tracktrue = s_data[1]
         trackindicator = s_data[2]
