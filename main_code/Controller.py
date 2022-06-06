@@ -7,6 +7,7 @@ import time
 from BModule import BModule
 from TemperatureModule import TemperatureModule
 from GPSModule import GPSModule
+from HumidityModule import HumidityModule
 
 class Controller():
     """Attributes:
@@ -32,6 +33,7 @@ class Controller():
     def __init__(self):
         self.modules.append(TemperatureModule())
         self.modules.append(GPSModule())
+        self.modules.append(HumidityModule())
 
         for i in range(len(self.modules)):
             self.mod_name_map[self.modules[i].name] = i
