@@ -100,9 +100,7 @@ class GPSModule(BModule):
         alt_units = s_data[10]
         und = s_data[11]  # undulation
         und_units = s_data[12]
-        age = s_data[13]  # age of correction data in s. Not sure what this is.
-        station_id = s_data[14]  # will be undefined if age is undefined. Also not sure what this is.
-        checksum = s_data[15]
+        checksum = s_data[13]
 
     def read_gpvtg(self, s_data):
         # I don't know what most of these things are
