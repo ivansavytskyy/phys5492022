@@ -22,7 +22,7 @@ class Controller():
 
     def run(self):
         for module in self.modules:
-            module.update()
+            module.update(module)
             module.print_diagnostic_data()
 
         print(self.modules[self.mod_name_map["CopernicusII-GPS"]].utc)
