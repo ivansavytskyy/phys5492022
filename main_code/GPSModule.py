@@ -26,17 +26,17 @@ class GPSModule(BModule):
            :type string
 
        Methods:
-            update(): retrieves and parses gps data
+            update(self): retrieves and parses gps data
                 :returns None
-            parse_raw(raw_data):
+            parse_raw(self, raw_data):
                 reads raw GPS data and assigns appropriate attributes
                 :param raw_data: is the object from serial.readline() - this is binary and needs to be decoded
                 :returns True if data read successful, else False
-            read_gpgga(s_data):
+            read_gpgga(self, s_data):
                 reads the split data and assigns the appropriate attributes in this object - requires GPVTG format
                 :param s_data: a list of strings split about commas, corresponding to GPGGA formatted GPS data
                 :returns  None
-            read_gpvtg(s_Data):
+            read_gpvtg(self, s_Data):
                 reads the split data and assigns the appropriate attributes in this object - requires GPVTG format
                 :param s_data: a list of strings split about commas, corresponding to GPVTG formatted GPS data
                 :returns None
