@@ -7,6 +7,7 @@ Date:
 
 class BModule():
     name = "UndefinedModule"
+    active = False  # set this to true at the end of init
 
     def update(self):
         """Called every n seconds for all modules in the controller module. The update rate is
