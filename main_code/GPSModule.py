@@ -69,13 +69,21 @@ class GPSModule(BModule):
                 print("no satellite data available")
                 return False
             else:
-                self.read_gpgga(s_data)
-                return True
+                try:
+                    self.read_gpgga(s_data)
+                    return True
+                except IndexError:
+                    return False
+
 
         # GPVTG lines handled here
         if ddata[0:6] == "$GPVTG":
             s_data = ddata.split(",")
-            self.read_gpvtg(s_data)
+            try:
+                self.read_gpvtg(s_data)
+                return True
+            except IndexError:
+                return False
 
 
     def read_gpgga(self, s_data):
