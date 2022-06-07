@@ -20,7 +20,6 @@ class TemperatureCPUModule(BModule):
         self.active = True
     
     def update(self):
-        self.ct = self.sensor.temperature
         # The first line in this file holds the CPU temperature as an integer times 1000
         # Read the first line and remove the newline character at the end of the string.
         if os.path.isfile('/sys/class/thermal/thermal_zone0/temp'):
