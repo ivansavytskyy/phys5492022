@@ -12,10 +12,10 @@ class CommunicationsModule(BModule):
 
     def __init__(self, serial_port = "/dev/ttyACM0"):
         self.name="Antenna"
-        self.serial = serial.Serial(serial_port, 9600, timeout=1)
+        self.ser = serial.Serial(serial_port, 9600, timeout=1)
         self.active = True
 
     def send(self, data):
-        self.serial.write(data.encode("utf-8"))
-        line = self.serial.readline().decode("utf-8").rstrip()
+        self.ser.write(data.encode("utf-8"))
+        line = self.ser.readline().decode("utf-8").rstrip()
         print(f"Received from feather: {line}")

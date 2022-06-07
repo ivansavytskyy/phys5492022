@@ -41,13 +41,13 @@ class GPSModule(BModule):
                 :param s_data: a list of strings split about commas, corresponding to GPVTG formatted GPS data
                 :returns None
            """
-    serial = None
+    ser = None
     utc = None
 
     def __init__(self, serial_port = "/dev/serial0"):
         self.name = "CopernicusII-GPS"
-        self.serial = serial.Serial(serial_port, 4800, timeout=1)
-        self.serial.reset_input_buffer()
+        self.ser = serial.Serial(serial_port, 4800, timeout=1)
+        self.ser.reset_input_buffer()
 
         self.active = True
 
