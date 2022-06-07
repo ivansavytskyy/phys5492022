@@ -1,5 +1,5 @@
-"""Class module for temperature sensor
-Author: Erik Stacey
+"""Class module for CPU temperature sensor
+Author: Ivan Savytskyy
 Date: 2022/06/07"""
 
 from BModule import BModule
@@ -14,8 +14,10 @@ class TemperatureCPUModule(BModule):
             :returns void
     """
     tempCPU = None
+
     def __init__(self):
-        self.name="TemperatureCPU"
+        self.name = "TemperatureCPU"
+        self.active = True
     
     def update(self):
         self.ct = self.sensor.temperature
@@ -28,8 +30,6 @@ class TemperatureCPUModule(BModule):
             if line.isdigit():
                 # Convert the string with the CPU temperature to a float in degrees Celsius.
                 self.tempCPU = float(line) / 1000
-    # Give the result back to the caller.
-    print(f'\nTemperature RPi CPU   [deg C]: {tempCPU:2.2f}')
 
     def print_diagnostic_data(self):
-        print(self.tempCPU)
+        print(f"Temperature for {self.name}: {self.tempCPU}")

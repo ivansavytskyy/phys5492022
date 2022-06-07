@@ -6,6 +6,7 @@ Date:
 import time
 from BModule import BModule
 from TemperatureModule import TemperatureModule
+from TemperatureCPU import TemperatureCPUModule
 from GPSModule import GPSModule
 from HumidityModule import HumidityModule
 from CameraModule import CameraModule
@@ -61,11 +62,11 @@ class Controller():
 
         self.mod_list.append(TemperatureModule(name="MAX31865-E", board_pin = "D5"))
         self.mod_list.append(TemperatureModule(name="MAX31865-I", board_pin="D6"))
+        self.mod_list.append(TemperatureCPUModule())
         self.mod_list.append(GPSModule())
         self.mod_list.append(CameraModule())
         self.mod_list.append(CommunicationsModule())
         self.mod_list.append(HumidityModule())
-
 
         for module in self.mod_list:
             self.modules[module.name] = module
@@ -96,6 +97,14 @@ class Controller():
         # internal temperature
         if "MAX31865-I" in self.modules.keys() and self.modules["MAX31865-I"].active:
             out = self.modules["MAX31865-I"].ct
+        else:
+            out = None
+        return out
+
+    def get_t_CPU(self):
+        # CPU temperature
+        if "TemperatureCPU" in self.modules.keys() and self.modules["TemperatureCPU"].active:
+            out = self.modules["TemperatureCPU"].tempCPU
         else:
             out = None
         return out
