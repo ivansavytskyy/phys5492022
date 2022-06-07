@@ -49,6 +49,8 @@ class GPSModule(BModule):
         self.serial = serial.Serial(serial_port, 4800, timeout=1)
         self.serial.reset_input_buffer()
 
+        self.active = True
+
     def update(self):
         for i in range(2):  # reads gpgga and gpvtg
             raw_data = self.serial.readline()

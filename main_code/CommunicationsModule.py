@@ -12,6 +12,7 @@ class CommunicationsModule(BModule):
 
     def __init__(self, serial_port = "/dev/ttyACM0"):
         self.serial = serial.Serial(serial_port, 9600, timeout=1)
+        self.active = True
 
     def send(self, data):
         self.serial.write(data.encode("utf-8"))

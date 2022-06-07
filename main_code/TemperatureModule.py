@@ -34,6 +34,8 @@ class TemperatureModule(BModule):
             self.cs = digitalio.DigitalInOut(board.D6)
         self.sensor = adafruit_max31865.MAX31865(self.spi, self.cs)
 
+        self.active = True
+
     def update(self):
         self.ct = self.sensor.temperature
 

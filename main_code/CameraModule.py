@@ -21,6 +21,8 @@ class CameraModule(BModule):
         self.save_path = f'/home/phys5492022/Desktop/test_images'
         self.num_pics = 0
 
+        self.active = True
+
     def update(self):
         # taking a picture of it
         save_str = self.save_path + self.num_pics + '.jpg'

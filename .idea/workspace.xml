@@ -2,8 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="cedd325f-df50-42ce-b8ff-ec855d63322b" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/main_code/CommunicationsModule.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main_code/CameraModule.py" beforeDir="false" afterPath="$PROJECT_DIR$/main_code/CameraModule.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main_code/CommunicationsModule.py" beforeDir="false" afterPath="$PROJECT_DIR$/main_code/CommunicationsModule.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main_code/GPSModule.py" beforeDir="false" afterPath="$PROJECT_DIR$/main_code/GPSModule.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main_code/HumidityModule.py" beforeDir="false" afterPath="$PROJECT_DIR$/main_code/HumidityModule.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main_code/TemperatureModule.py" beforeDir="false" afterPath="$PROJECT_DIR$/main_code/TemperatureModule.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -71,7 +73,7 @@
       <workItem from="1654529008230" duration="9870000" />
       <workItem from="1654548204146" duration="159000" />
       <workItem from="1654548376782" duration="98000" />
-      <workItem from="1654613335280" duration="1252000" />
+      <workItem from="1654613335280" duration="1735000" />
     </task>
     <task id="LOCAL-00001" summary="Added basic architecture code">
       <created>1654529294953</created>
@@ -213,7 +215,14 @@
       <option name="project" value="LOCAL" />
       <updated>1654613628821</updated>
     </task>
-    <option name="localTasksCounter" value="21" />
+    <task id="LOCAL-00021" summary="Added communications module&#10;Added the ability to initialize on specified ports">
+      <created>1654614756790</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1654614756790</updated>
+    </task>
+    <option name="localTasksCounter" value="22" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -238,13 +247,14 @@
     <MESSAGE value="prints both gps lines" />
     <MESSAGE value="Added humidity module to controller for test" />
     <MESSAGE value="Added capability to initialize temperature module differently for internal/external" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added capability to initialize temperature module differently for internal/external" />
+    <MESSAGE value="Added communications module&#10;Added the ability to initialize on specified ports" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added communications module&#10;Added the ability to initialize on specified ports" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="479" y="134" key="CommitChangelistDialog2" timestamp="1654613628667">
+    <state x="479" y="134" key="CommitChangelistDialog2" timestamp="1654614756682">
       <screen x="0" y="23" width="1792" height="1017" />
     </state>
-    <state x="479" y="134" key="CommitChangelistDialog2/0.23.1792.1017@0.23.1792.1017" timestamp="1654613628667" />
+    <state x="479" y="134" key="CommitChangelistDialog2/0.23.1792.1017@0.23.1792.1017" timestamp="1654614756682" />
     <state width="1750" height="276" key="GridCell.Tab.0.bottom" timestamp="1654548200466">
       <screen x="0" y="23" width="1792" height="1017" />
     </state>
@@ -281,9 +291,9 @@
       <screen x="0" y="23" width="1792" height="1017" />
     </state>
     <state x="397" y="170" key="SettingsEditor/0.23.1792.1017@0.23.1792.1017" timestamp="1654548370812" />
-    <state x="496" y="260" key="Vcs.Push.Dialog.v2" timestamp="1654614702110">
+    <state x="496" y="260" key="Vcs.Push.Dialog.v2" timestamp="1654614759608">
       <screen x="0" y="23" width="1792" height="1017" />
     </state>
-    <state x="496" y="260" key="Vcs.Push.Dialog.v2/0.23.1792.1017@0.23.1792.1017" timestamp="1654614702110" />
+    <state x="496" y="260" key="Vcs.Push.Dialog.v2/0.23.1792.1017@0.23.1792.1017" timestamp="1654614759608" />
   </component>
 </project>
