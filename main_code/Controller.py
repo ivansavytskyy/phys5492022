@@ -53,7 +53,7 @@ class Controller():
             last_cycle_delay_true = float(self.current_time[-5:]) - float(self.last_time[-5:])
         else:
             last_cycle_delay_true = 0
-
+        last_cycle_delay_true = 0
         time.sleep(self.cycle_time * (1-last_cycle_delay_true))
 
     def __init__(self):
