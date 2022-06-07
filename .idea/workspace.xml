@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="cedd325f-df50-42ce-b8ff-ec855d63322b" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/main_code/CommunicationsModule.py" beforeDir="false" afterPath="$PROJECT_DIR$/main_code/CommunicationsModule.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main_code/Controller.py" beforeDir="false" afterPath="$PROJECT_DIR$/main_code/Controller.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -98,7 +99,7 @@
       <workItem from="1654529008230" duration="9870000" />
       <workItem from="1654548204146" duration="159000" />
       <workItem from="1654548376782" duration="98000" />
-      <workItem from="1654613335280" duration="5626000" />
+      <workItem from="1654613335280" duration="5910000" />
     </task>
     <task id="LOCAL-00001" summary="Added basic architecture code">
       <created>1654529294953</created>
@@ -310,7 +311,21 @@
       <option name="project" value="LOCAL" />
       <updated>1654618985981</updated>
     </task>
-    <option name="localTasksCounter" value="31" />
+    <task id="LOCAL-00031" summary="fixed bug with time system">
+      <created>1654619074568</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1654619074568</updated>
+    </task>
+    <task id="LOCAL-00032" summary="workaround to test communications">
+      <created>1654619127617</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1654619127617</updated>
+    </task>
+    <option name="localTasksCounter" value="33" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -341,13 +356,15 @@
     <MESSAGE value="included CommunicationsModule.py" />
     <MESSAGE value="small fix" />
     <MESSAGE value="added debug" />
-    <option name="LAST_COMMIT_MESSAGE" value="added debug" />
+    <MESSAGE value="fixed bug with time system" />
+    <MESSAGE value="workaround to test communications" />
+    <option name="LAST_COMMIT_MESSAGE" value="workaround to test communications" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="665" y="179" key="CommitChangelistDialog2" timestamp="1654619074459">
+    <state x="665" y="179" key="CommitChangelistDialog2" timestamp="1654619127517">
       <screen x="0" y="23" width="1792" height="1017" />
     </state>
-    <state x="665" y="179" key="CommitChangelistDialog2/0.23.1792.1017@0.23.1792.1017" timestamp="1654619074459" />
+    <state x="665" y="179" key="CommitChangelistDialog2/0.23.1792.1017@0.23.1792.1017" timestamp="1654619127517" />
     <state width="1750" height="341" key="GridCell.Tab.0.bottom" timestamp="1654617850297">
       <screen x="0" y="23" width="1792" height="1017" />
     </state>
@@ -384,10 +401,10 @@
       <screen x="0" y="23" width="1792" height="1017" />
     </state>
     <state x="397" y="170" key="SettingsEditor/0.23.1792.1017@0.23.1792.1017" timestamp="1654548370812" />
-    <state x="496" y="260" key="Vcs.Push.Dialog.v2" timestamp="1654619076190">
+    <state x="496" y="260" key="Vcs.Push.Dialog.v2" timestamp="1654619128943">
       <screen x="0" y="23" width="1792" height="1017" />
     </state>
-    <state x="496" y="260" key="Vcs.Push.Dialog.v2/0.23.1792.1017@0.23.1792.1017" timestamp="1654619076190" />
+    <state x="496" y="260" key="Vcs.Push.Dialog.v2/0.23.1792.1017@0.23.1792.1017" timestamp="1654619128943" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

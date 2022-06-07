@@ -48,6 +48,10 @@ class Controller():
 
         self.update_time()
 
+        current_temp = self.modules[self.mod_name_map["MAX31865-E"]].ct
+        print(f"Trying to send current temp: {current_temp}")
+        self.modules[self.mod_name_map["Antenna"]].send(current_temp)
+
         # if cycle length is longer than 60 seconds this breaks
         if self.current_time is not None and self.last_time is not None:
             last_cycle_delay_true = float(self.current_time[-5:]) - float(self.last_time[-5:])
@@ -62,6 +66,8 @@ class Controller():
         self.modules.append(HumidityModule())
         self.modules.append(CameraModule())
         self.modules.append(CommunicationsModule())
+
+
 
         for i in range(len(self.modules)):
             self.mod_name_map[self.modules[i].name] = i

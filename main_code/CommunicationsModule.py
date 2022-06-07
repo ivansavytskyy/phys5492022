@@ -11,6 +11,7 @@ class CommunicationsModule(BModule):
             :returns None"""
 
     def __init__(self, serial_port = "/dev/ttyACM0"):
+        self.name="Antenna"
         self.serial = serial.Serial(serial_port, 9600, timeout=1)
         self.active = True
 
