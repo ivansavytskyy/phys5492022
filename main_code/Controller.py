@@ -59,7 +59,6 @@ class Controller():
         self.modules.append(HumidityModule())
         self.modules.append(CameraModule())
         self.modules.append(CommunicationsModule())
-        self.modules.append()
 
         self.update_time()
 
