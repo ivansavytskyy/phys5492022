@@ -48,6 +48,10 @@ class Controller():
 
         self.update_time()
 
+        # writing it to file
+        for module in self.mod_list:
+            module.write_to_file(self.current_time)
+
         print(self.modules["MAX31865-E"].ct)
 
         # if cycle length is longer than 60 seconds this breaks

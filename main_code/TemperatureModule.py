@@ -35,9 +35,17 @@ class TemperatureModule(BModule):
         self.sensor = adafruit_max31865.MAX31865(self.spi, self.cs)
 
         self.active = True
+        self.filename = f'/home/phys5492022/Desktop/instrument_data/' + self.name + '.txt'
 
     def update(self):
         self.ct = self.sensor.temperature
+
+    def write_to_file(self, time):
+        # time is in utc
+        # append to the file
+        with open(self.filename, "a") as myfile:
+            myfile.write("\n" + str(time) + "\t" + str(self.ct))
+
 
     def print_diagnostic_data(self):
         print(f"Temperature for sensor {self.name}: {self.ct}")

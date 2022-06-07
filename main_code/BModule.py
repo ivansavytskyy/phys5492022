@@ -17,3 +17,6 @@ class BModule():
 
     def print_diagnostic_data(self):
         pass
+
+    def write_to_file(self, time):
+        pass

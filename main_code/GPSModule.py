@@ -72,12 +72,22 @@ class GPSModule(BModule):
         self.ser.reset_input_buffer()
 
         self.active = True
+        self.filename = f'/home/phys5492022/Desktop/instrument_data/' + self.name + '.txt'
 
     def update(self):
         # todo: make this read until the buffer is empty
         for i in range(2):  # reads gpgga and gpvtg
             raw_data = self.ser.readline()
             s = self.parse_raw(raw_data)
+
+    def write_to_file(self, time):
+        # time is in utc
+        # append to the file
+        data_to_write = self.lat + "\t" + self.latd + "\t" + self.long + "\t" + self.longd + "\t" + self.nsats + "\t" \
+                        + self.ground_speed + "\t" + self.quality_flag + "\t" + self.alt
+
+        with open(self.filename, "a") as myfile:
+            myfile.write("\n" + str(time) + "\t" + data_to_write)
 
     def parse_raw(self, raw_data):
         # convert from bytecode to utf-8

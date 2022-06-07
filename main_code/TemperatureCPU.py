@@ -18,6 +18,7 @@ class TemperatureCPUModule(BModule):
     def __init__(self):
         self.name = "TemperatureCPU"
         self.active = True
+        self.filename = f'/home/phys5492022/Desktop/instrument_data/' + self.name + '.txt'
     
     def update(self):
         # The first line in this file holds the CPU temperature as an integer times 1000
@@ -29,6 +30,12 @@ class TemperatureCPUModule(BModule):
             if line.isdigit():
                 # Convert the string with the CPU temperature to a float in degrees Celsius.
                 self.tempCPU = float(line) / 1000
+
+    def write_to_file(self, time):
+        # time is in utc
+        # append to the file
+        with open(self.filename, "a") as myfile:
+            myfile.write("\n" + str(time) + "\t" + str(self.tempCPU))
 
     def print_diagnostic_data(self):
         print(f"Temperature for {self.name}: {self.tempCPU}")
