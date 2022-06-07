@@ -8,13 +8,14 @@ import digitalio
 import adafruit_max31865
 
 class TemperatureModule(BModule):
-    """Class module for temperature sensor.
+    """Class module for temperature sensor. Set names to MAX31865-E for external and MAX31865-I for internal
     Attributes:
-        float ct: current temperature measurement to be updated when update is called by controller
+        :var ct: current temperature measurement to be updated when update is called by controller
+        :type ct: string
 
-        spi: serial connection
-        cs: something associated with serial connection
-        sensor: object from which temperature can be read
+        :var spi: serial connection
+        :var cs: something associated with serial connection
+        :var sensor: object from which temperature can be read
     Methods:
         update: retrieves temperature from sensor
             :returns void

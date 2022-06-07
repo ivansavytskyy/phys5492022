@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="cedd325f-df50-42ce-b8ff-ec855d63322b" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/main_code/CommunicationsModule.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main_code/Controller.py" beforeDir="false" afterPath="$PROJECT_DIR$/main_code/Controller.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main_code/TemperatureModule.py" beforeDir="false" afterPath="$PROJECT_DIR$/main_code/TemperatureModule.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -71,7 +71,7 @@
       <workItem from="1654529008230" duration="9870000" />
       <workItem from="1654548204146" duration="159000" />
       <workItem from="1654548376782" duration="98000" />
-      <workItem from="1654613335280" duration="250000" />
+      <workItem from="1654613335280" duration="1252000" />
     </task>
     <task id="LOCAL-00001" summary="Added basic architecture code">
       <created>1654529294953</created>
@@ -206,7 +206,14 @@
       <option name="project" value="LOCAL" />
       <updated>1654548741378</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL-00020" summary="Added capability to initialize temperature module differently for internal/external">
+      <created>1654613628821</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1654613628821</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -230,13 +237,14 @@
     <MESSAGE value="maybe fixed indexerror" />
     <MESSAGE value="prints both gps lines" />
     <MESSAGE value="Added humidity module to controller for test" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added humidity module to controller for test" />
+    <MESSAGE value="Added capability to initialize temperature module differently for internal/external" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added capability to initialize temperature module differently for internal/external" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="479" y="134" key="CommitChangelistDialog2" timestamp="1654548741272">
+    <state x="479" y="134" key="CommitChangelistDialog2" timestamp="1654613628667">
       <screen x="0" y="23" width="1792" height="1017" />
     </state>
-    <state x="479" y="134" key="CommitChangelistDialog2/0.23.1792.1017@0.23.1792.1017" timestamp="1654548741272" />
+    <state x="479" y="134" key="CommitChangelistDialog2/0.23.1792.1017@0.23.1792.1017" timestamp="1654613628667" />
     <state width="1750" height="276" key="GridCell.Tab.0.bottom" timestamp="1654548200466">
       <screen x="0" y="23" width="1792" height="1017" />
     </state>
@@ -273,9 +281,9 @@
       <screen x="0" y="23" width="1792" height="1017" />
     </state>
     <state x="397" y="170" key="SettingsEditor/0.23.1792.1017@0.23.1792.1017" timestamp="1654548370812" />
-    <state x="496" y="260" key="Vcs.Push.Dialog.v2" timestamp="1654548745808">
+    <state x="496" y="260" key="Vcs.Push.Dialog.v2" timestamp="1654614702110">
       <screen x="0" y="23" width="1792" height="1017" />
     </state>
-    <state x="496" y="260" key="Vcs.Push.Dialog.v2/0.23.1792.1017@0.23.1792.1017" timestamp="1654548745808" />
+    <state x="496" y="260" key="Vcs.Push.Dialog.v2/0.23.1792.1017@0.23.1792.1017" timestamp="1654614702110" />
   </component>
 </project>

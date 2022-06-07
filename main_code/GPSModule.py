@@ -44,9 +44,9 @@ class GPSModule(BModule):
     serial = None
     utc = None
 
-    def __init__(self):
+    def __init__(self, serial_port = "/dev/serial0"):
         self.name = "CopernicusII-GPS"
-        self.serial = serial.Serial("/dev/serial0", 4800, timeout=1)
+        self.serial = serial.Serial(serial_port, 4800, timeout=1)
         self.serial.reset_input_buffer()
 
     def update(self):
