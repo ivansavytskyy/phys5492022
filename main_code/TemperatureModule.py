@@ -23,10 +23,14 @@ class TemperatureModule(BModule):
     spi = None
     cs = None
     sensor = None
-    def __init__(self):
-        self.name="MAX31865"
+    def __init__(self, name, board_pin):
+        # board pin is D5 or D6
+        self.name=name
         self.spi = board.SPI()
-        self.cs = digitalio.DigitalInOut(board.D5)
+        if board_pin == "D5":
+            self.cs = digitalio.DigitalInOut(board.D5)
+        elif board_pin == "D6":
+            self.cs = digitalio.DigitalInOut(board.D6)
         self.sensor = adafruit_max31865.MAX31865(self.spi, self.cs)
 
     def update(self):

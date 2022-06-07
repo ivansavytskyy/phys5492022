@@ -31,7 +31,7 @@ class Controller():
         time.sleep(1)
 
     def __init__(self):
-        self.modules.append(TemperatureModule())
+        self.modules.append(TemperatureModule(name="MAX31865-E", board_pins = "D5"))
         self.modules.append(GPSModule())
         self.modules.append(HumidityModule())
 
