@@ -29,3 +29,6 @@ class CameraModule(BModule):
         self.sensor.capture(save_str)
         self.sensor.stop_preview()
         self.num_pics += 1
+
+    def print_diagnostic_data(self):
+        print("Hope the camera is working")
