@@ -64,7 +64,7 @@ class Controller():
 
         for i in range(len(self.modules)):
             self.mod_name_map[self.modules[i].name] = i
-        print(self.mod_name_map)
+        print("module name map:",self.mod_name_map)
 
     def update_time(self):
         # if the gps is active and has a time measurement, read it
