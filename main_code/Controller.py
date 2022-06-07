@@ -68,8 +68,7 @@ class Controller():
     def update_time(self):
         # if the gps is active and has a time measurement, read it
         # otherwise use system time
-        if self.modules[self.mod_name_map["CopernicusII-GPS"]].active == True and self.modules[
-            self.mod_name_map["CopernicusII-GPS"]].utc not in [None, ""]:
+        if self.modules[self.mod_name_map["CopernicusII-GPS"]].active == True and self.modules[self.mod_name_map["CopernicusII-GPS"]].utc not in [None, ""]:
             self.last_time = self.current_time
             self.current_time == self.modules[self.mod_name_map["CopernicusII-GPS"]].utc
         else:
