@@ -98,7 +98,7 @@
       <workItem from="1654529008230" duration="9870000" />
       <workItem from="1654548204146" duration="159000" />
       <workItem from="1654548376782" duration="98000" />
-      <workItem from="1654613335280" duration="4615000" />
+      <workItem from="1654613335280" duration="5050000" />
     </task>
     <task id="LOCAL-00001" summary="Added basic architecture code">
       <created>1654529294953</created>
@@ -261,7 +261,21 @@
       <option name="project" value="LOCAL" />
       <updated>1654617540787</updated>
     </task>
-    <option name="localTasksCounter" value="24" />
+    <task id="LOCAL-00024" summary="added time correction to cycle time for GPS satellite data">
+      <created>1654618070038</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1654618070038</updated>
+    </task>
+    <task id="LOCAL-00025" summary="included CommunicationsModule.py">
+      <created>1654618292373</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1654618292373</updated>
+    </task>
+    <option name="localTasksCounter" value="26" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -289,13 +303,15 @@
     <MESSAGE value="Added communications module&#10;Added the ability to initialize on specified ports" />
     <MESSAGE value="specified active in all modules" />
     <MESSAGE value="added time awareness to Controller.py" />
-    <option name="LAST_COMMIT_MESSAGE" value="added time awareness to Controller.py" />
+    <MESSAGE value="added time correction to cycle time for GPS satellite data" />
+    <MESSAGE value="included CommunicationsModule.py" />
+    <option name="LAST_COMMIT_MESSAGE" value="included CommunicationsModule.py" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="665" y="179" key="CommitChangelistDialog2" timestamp="1654618069937">
+    <state x="665" y="179" key="CommitChangelistDialog2" timestamp="1654618485448">
       <screen x="0" y="23" width="1792" height="1017" />
     </state>
-    <state x="665" y="179" key="CommitChangelistDialog2/0.23.1792.1017@0.23.1792.1017" timestamp="1654618069937" />
+    <state x="665" y="179" key="CommitChangelistDialog2/0.23.1792.1017@0.23.1792.1017" timestamp="1654618485448" />
     <state width="1750" height="341" key="GridCell.Tab.0.bottom" timestamp="1654617850297">
       <screen x="0" y="23" width="1792" height="1017" />
     </state>
@@ -332,10 +348,10 @@
       <screen x="0" y="23" width="1792" height="1017" />
     </state>
     <state x="397" y="170" key="SettingsEditor/0.23.1792.1017@0.23.1792.1017" timestamp="1654548370812" />
-    <state x="496" y="260" key="Vcs.Push.Dialog.v2" timestamp="1654618072072">
+    <state x="496" y="260" key="Vcs.Push.Dialog.v2" timestamp="1654618293793">
       <screen x="0" y="23" width="1792" height="1017" />
     </state>
-    <state x="496" y="260" key="Vcs.Push.Dialog.v2/0.23.1792.1017@0.23.1792.1017" timestamp="1654618072072" />
+    <state x="496" y="260" key="Vcs.Push.Dialog.v2/0.23.1792.1017@0.23.1792.1017" timestamp="1654618293793" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
