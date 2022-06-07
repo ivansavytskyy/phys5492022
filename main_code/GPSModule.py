@@ -25,6 +25,18 @@ class GPSModule(BModule):
            :var longd: longitude direction
            :type string
 
+           :var nsats: number of satellites
+           :type nsats: string
+
+           :var ground_speed: groundspeed in km/h
+           :type ground_speed: string
+
+           :var quality_flag: see gpgga documentation - indicates gps data quality
+           :type quality_flag: string
+
+           :var alt: altitude in meters
+           :type alt: string
+
        Methods:
             update(self): retrieves and parses gps data
                 :returns None
@@ -43,6 +55,16 @@ class GPSModule(BModule):
            """
     ser = None
     utc = None
+    lat = None
+    latd=None
+    long = None
+    longd = None
+    nsats = None
+    ground_speed = None
+    quality_flag = None
+    alt = None
+
+
 
     def __init__(self, serial_port = "/dev/serial0"):
         self.name = "CopernicusII-GPS"
@@ -90,23 +112,21 @@ class GPSModule(BModule):
 
 
     def read_gpgga(self, s_data):
-        print(s_data)
         self.utc = s_data[1]
-        lat = s_data[2]
-        latd = s_data[3]
-        long = s_data[4]
-        longd = s_data[5]
-        quality_flag = s_data[6]
-        nsat = s_data[7]
+        self.lat = s_data[2]
+        self.latd = s_data[3]
+        self.long = s_data[4]
+        self.longd = s_data[5]
+        self.quality_flag = s_data[6]
+        self.nsats = s_data[7]
         hdop = s_data[8] # horizontal dilution of precision
-        alt = s_data[9]
+        self.alt = s_data[9]
         alt_units = s_data[10]
         und = s_data[11]  # undulation
         und_units = s_data[12]
         checksum = s_data[13]
 
     def read_gpvtg(self, s_data):
-        print(s_data)
         # I don't know what most of these things are
         tracktrue = s_data[1]
         trackindicator = s_data[2]
@@ -114,7 +134,7 @@ class GPSModule(BModule):
         track_mag_indicator = s_data[4]
         speed_knots = s_data[5]
         speed_knots_indicator = s_data[6]
-        speed_kmh = s_data[7]
+        self.ground_speed = s_data[7]
         speed_kmh_indicator = s_data[7]
         mode_indicator = s_data[8]
         checksum = s_data[9]

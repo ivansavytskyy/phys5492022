@@ -29,5 +29,6 @@ class HumidityModule(BModule):
         self.hum = self.sensor.relative_humidity
 
     def print_diagnostic_data(self):
+
         print("Current temperature: " + str(self.temp) + " deg C")
         print("Current relative humidity: " + str(self.hum) + "%")

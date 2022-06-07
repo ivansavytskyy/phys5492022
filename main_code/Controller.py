@@ -84,3 +84,37 @@ class Controller():
             decimal_time = f"{time_object.microsecond/1e6:.2}"
             self.current_time = base_time + decimal_time[-3:]
 
+    def get_t_ext(self):
+        # External temperature
+        if "MAX31865-E" in self.modules.keys() and self.modules["MAX31865-E"].active:
+            out = self.modules["MAX31865-E"].ct
+        else:
+            out = None
+        return out
+
+    def get_t_int(self):
+        # internal temperature
+        if "MAX31865-I" in self.modules.keys() and self.modules["MAX31865-I"].active:
+            out = self.modules["MAX31865-I"].ct
+        else:
+            out = None
+        return out
+
+    def get_humidity(self):
+        if "Si7021-Humidity" in self.modules.keys() and self.modules["Si7021-Humidity"].active:
+            out = self.modules["Si7021-Humidity"].ct
+        else:
+            out = None
+        return out
+
+    def get_gps(self):
+        if "CopernicusII-GPS" in self.modules.keys() and self.modules["CopernicusII-GPS"].active:
+            out = [self.modules["CopernicusII-GPS"].lat,
+            self.modules["CopernicusII-GPS"].latd,
+            self.modules["CopernicusII-GPS"].long,
+            self.modules["CopernicusII-GPS"].longd,
+            self.modules["CopernicusII-GPS"].nsats,
+            self.modules["CopernicusII-GPS"].ground_speed,
+            self.modules["CopernicusII-GPS"].quality_flag,
+            self.modules["CopernicusII-GPS"].alt]
+
