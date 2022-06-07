@@ -25,7 +25,7 @@ class CameraModule(BModule):
 
     def update(self):
         # taking a picture of it
-        save_str = self.save_path + self.num_pics + '.jpg'
+        save_str = self.save_path + str(self.num_pics) + '.jpg'
 
         self.sensor.start_preview()
         self.sensor.capture(save_str)
