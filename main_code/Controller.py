@@ -48,9 +48,9 @@ class Controller():
 
         self.update_time()
 
-        current_temp = str(self.modules[self.mod_name_map["MAX31865-E"]].ct)+"\n"
-        print(f"Trying to send current temp: {current_temp}")
-        self.modules[self.mod_name_map["Antenna"]].send(current_temp)
+        #current_temp = str(self.modules[self.mod_name_map["MAX31865-E"]].ct)+"\n"
+        #print(f"Trying to send current temp: {current_temp}")
+        self.modules[self.mod_name_map["Antenna"]].send("AAAA\n")
 
         # if cycle length is longer than 60 seconds this breaks
         if self.current_time is not None and self.last_time is not None:
