@@ -8,6 +8,7 @@ from BModule import BModule
 from TemperatureModule import TemperatureModule
 from GPSModule import GPSModule
 from HumidityModule import HumidityModule
+from CameraModule import CameraModule
 
 class Controller():
     """Attributes:
@@ -34,6 +35,7 @@ class Controller():
         self.modules.append(TemperatureModule(name="MAX31865-E", board_pins = "D5"))
         self.modules.append(GPSModule())
         self.modules.append(HumidityModule())
+        self.modules.append(CameraModule())
 
         for i in range(len(self.modules)):
             self.mod_name_map[self.modules[i].name] = i
