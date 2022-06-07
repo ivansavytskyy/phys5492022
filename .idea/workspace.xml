@@ -100,7 +100,7 @@
       <workItem from="1654529008230" duration="9870000" />
       <workItem from="1654548204146" duration="159000" />
       <workItem from="1654548376782" duration="98000" />
-      <workItem from="1654613335280" duration="7220000" />
+      <workItem from="1654613335280" duration="7488000" />
     </task>
     <task id="LOCAL-00001" summary="Added basic architecture code">
       <created>1654529294953</created>
@@ -375,7 +375,21 @@
       <option name="project" value="LOCAL" />
       <updated>1654619876030</updated>
     </task>
-    <option name="localTasksCounter" value="40" />
+    <task id="LOCAL-00040" summary="changed structure of controller to allow direct access to modules by name">
+      <created>1654621990114</created>
+      <option name="number" value="00040" />
+      <option name="presentableId" value="LOCAL-00040" />
+      <option name="project" value="LOCAL" />
+      <updated>1654621990114</updated>
+    </task>
+    <task id="LOCAL-00041" summary="removed communications test code">
+      <created>1654622080276</created>
+      <option name="number" value="00041" />
+      <option name="presentableId" value="LOCAL-00041" />
+      <option name="project" value="LOCAL" />
+      <updated>1654622080276</updated>
+    </task>
+    <option name="localTasksCounter" value="42" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -383,8 +397,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="added TemperatureModule to controller" />
-    <MESSAGE value="fixes&#10;added dev branch" />
     <MESSAGE value="added diagnostic data function to BModule and Temperature" />
     <MESSAGE value="populated GPS module&#10;it currently only reads time" />
     <MESSAGE value="prepared for GPS module test" />
@@ -408,13 +420,15 @@
     <MESSAGE value="added test for communications functionality" />
     <MESSAGE value="maybe fixed serial bug" />
     <MESSAGE value="testing communications" />
-    <option name="LAST_COMMIT_MESSAGE" value="testing communications" />
+    <MESSAGE value="changed structure of controller to allow direct access to modules by name" />
+    <MESSAGE value="removed communications test code" />
+    <option name="LAST_COMMIT_MESSAGE" value="removed communications test code" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="665" y="179" key="CommitChangelistDialog2" timestamp="1654621989997">
+    <state x="665" y="179" key="CommitChangelistDialog2" timestamp="1654622194307">
       <screen x="0" y="23" width="1792" height="1017" />
     </state>
-    <state x="665" y="179" key="CommitChangelistDialog2/0.23.1792.1017@0.23.1792.1017" timestamp="1654621989997" />
+    <state x="665" y="179" key="CommitChangelistDialog2/0.23.1792.1017@0.23.1792.1017" timestamp="1654622194307" />
     <state width="1750" height="341" key="GridCell.Tab.0.bottom" timestamp="1654617850297">
       <screen x="0" y="23" width="1792" height="1017" />
     </state>
@@ -451,10 +465,10 @@
       <screen x="0" y="23" width="1792" height="1017" />
     </state>
     <state x="397" y="170" key="SettingsEditor/0.23.1792.1017@0.23.1792.1017" timestamp="1654548370812" />
-    <state x="496" y="260" key="Vcs.Push.Dialog.v2" timestamp="1654621992168">
+    <state x="496" y="260" key="Vcs.Push.Dialog.v2" timestamp="1654622081671">
       <screen x="0" y="23" width="1792" height="1017" />
     </state>
-    <state x="496" y="260" key="Vcs.Push.Dialog.v2/0.23.1792.1017@0.23.1792.1017" timestamp="1654621992168" />
+    <state x="496" y="260" key="Vcs.Push.Dialog.v2/0.23.1792.1017@0.23.1792.1017" timestamp="1654622081671" />
     <state x="679" y="455" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1654621687813">
       <screen x="0" y="23" width="1792" height="1017" />
     </state>

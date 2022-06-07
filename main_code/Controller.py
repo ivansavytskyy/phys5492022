@@ -40,12 +40,14 @@ class Controller():
 
 
     def run(self):
-        for module in self.modules:
+        for module in self.mod_list:
             if module.active:
                 module.update()
                 module.print_diagnostic_data()
 
         self.update_time()
+
+        print(self.modules["MAX31865-E"].ct)
 
         # if cycle length is longer than 60 seconds this breaks
         if self.current_time is not None and self.last_time is not None:
