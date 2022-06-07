@@ -60,6 +60,7 @@ class Controller():
     def __init__(self):
 
         self.mod_list.append(TemperatureModule(name="MAX31865-E", board_pin = "D5"))
+        self.mod_list.append(TemperatureModule(name="MAX31865-I", board_pin="D6"))
         self.mod_list.append(GPSModule())
         self.mod_list.append(CameraModule())
         self.mod_list.append(CommunicationsModule())

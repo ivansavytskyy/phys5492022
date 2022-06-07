@@ -40,4 +40,4 @@ class TemperatureModule(BModule):
         self.ct = self.sensor.temperature
 
     def print_diagnostic_data(self):
-        print(self.ct)
+        print(f"Temperature for sensor {self.name}: {self.ct}")
