@@ -16,3 +16,5 @@ class CommunicationsModule(BModule):
 
     def send(self, data):
         self.serial.write(data.encode("utf-8"))
+        line = self.serial.readline().decode("utf-8").rstrip()
+        print(f"Received from feather: {line}")

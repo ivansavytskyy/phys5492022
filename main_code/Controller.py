@@ -9,6 +9,7 @@ from TemperatureModule import TemperatureModule
 from GPSModule import GPSModule
 from HumidityModule import HumidityModule
 from CameraModule import CameraModule
+from CommunicationsModule import CommunicationsModule
 from datetime import datetime
 from datetime import timezone
 class Controller():
@@ -57,6 +58,8 @@ class Controller():
         self.modules.append(GPSModule())
         self.modules.append(HumidityModule())
         self.modules.append(CameraModule())
+        self.modules.append(CommunicationsModule())
+        self.modules.append()
 
         self.update_time()
 
