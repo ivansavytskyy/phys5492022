@@ -14,9 +14,9 @@ from datetime import datetime
 from datetime import timezone
 class Controller():
     """Attributes:
-        :var modules: list of classes extending TModule. This will store sensors and objects with behaviour
+        :var modules: dict of classes extending BModule. This will store sensors and objects with behaviour
         (e.g. reading, writing, transmitting)
-        :type modules: list
+        :type modules: dict
 
         :var mod_name_map: a dictionary with keys named as the module names mapped to integers of their index in modules
         :type mod_name_map: dict
@@ -29,9 +29,8 @@ class Controller():
         :var cycle_time: length in seconds for each refresh cycle
         :type cycle_time: float"""
 
-
-    modules = []
-    mod_name_map = {}
+    mod_list = []
+    modules = {}
 
     last_time = None
     current_time = None
@@ -61,23 +60,23 @@ class Controller():
         time.sleep(self.cycle_time * (1-last_cycle_delay_true))
 
     def __init__(self):
-        self.modules.append(TemperatureModule(name="MAX31865-E", board_pin = "D5"))
-        self.modules.append(GPSModule())
-        self.modules.append(CameraModule())
-        self.modules.append(CommunicationsModule())
-        self.modules.append(HumidityModule())
+
+        self.mod_list.append(TemperatureModule(name="MAX31865-E", board_pin = "D5"))
+        self.mod_list.append(GPSModule())
+        self.mod_list.append(CameraModule())
+        self.mod_list.append(CommunicationsModule())
+        self.mod_list.append(HumidityModule())
 
 
-        for i in range(len(self.modules)):
-            self.mod_name_map[self.modules[i].name] = i
-        print("module name map:",self.mod_name_map)
+        for module in self.mod_list:
+            self.modules[module.name] = module
 
     def update_time(self):
         # if the gps is active and has a time measurement, read it
         # otherwise use system time
-        if self.modules[self.mod_name_map["CopernicusII-GPS"]].active == True and self.modules[self.mod_name_map["CopernicusII-GPS"]].utc not in [None, ""]:
+        if self.modules["CopernicusII-GPS"].active == True and self.modules["CopernicusII-GPS"].utc not in [None, ""]:
             self.last_time = self.current_time
-            self.current_time == self.modules[self.mod_name_map["CopernicusII-GPS"]].utc
+            self.current_time == self.modules["CopernicusII-GPS"].utc
         else:
             # gets time and formats it like hhmmss.ss to match gps output
             time_object = datetime.now(timezone.utc)
