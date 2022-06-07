@@ -48,7 +48,7 @@ class Controller():
 
         self.update_time()
 
-        current_temp = self.modules[self.mod_name_map["MAX31865-E"]].ct
+        current_temp = string(self.modules[self.mod_name_map["MAX31865-E"]].ct)
         print(f"Trying to send current temp: {current_temp}")
         self.modules[self.mod_name_map["Antenna"]].send(current_temp)
 
