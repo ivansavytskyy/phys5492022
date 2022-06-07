@@ -49,7 +49,10 @@ class Controller():
         self.update_time()
 
         # if cycle length is longer than 60 seconds this breaks
-        last_cycle_delay_true = float(self.current_time[-5:]) - float(self.last_time[-5:])
+        if self.current_time is not None and self.last_time is not None:
+            last_cycle_delay_true = float(self.current_time[-5:]) - float(self.last_time[-5:])
+        else:
+            last_cycle_delay_true = 0
 
         time.sleep(self.cycle_time * (1-last_cycle_delay_true))
 
@@ -59,8 +62,6 @@ class Controller():
         self.modules.append(HumidityModule())
         self.modules.append(CameraModule())
         self.modules.append(CommunicationsModule())
-
-        self.update_time()
 
         for i in range(len(self.modules)):
             self.mod_name_map[self.modules[i].name] = i
