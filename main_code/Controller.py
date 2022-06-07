@@ -48,9 +48,9 @@ class Controller():
 
         self.update_time()
 
-        #current_temp = str(self.modules[self.mod_name_map["MAX31865-E"]].ct)+"\n"
-        #print(f"Trying to send current temp: {current_temp}")
-        self.modules[self.mod_name_map["Antenna"]].send("AAAA\n")
+        current_temp = self.modules[self.mod_name_map["MAX31865-E"]].ct
+        print(f"Trying to send current temp: {current_temp:2.2f}")
+        self.modules[self.mod_name_map["Antenna"]].send(f"{current_temp:2.2f}\n")
 
         # if cycle length is longer than 60 seconds this breaks
         if self.current_time is not None and self.last_time is not None:
@@ -63,10 +63,9 @@ class Controller():
     def __init__(self):
         self.modules.append(TemperatureModule(name="MAX31865-E", board_pin = "D5"))
         self.modules.append(GPSModule())
-        self.modules.append(HumidityModule())
         self.modules.append(CameraModule())
         self.modules.append(CommunicationsModule())
-
+        self.modules.append(HumidityModule())
 
 
         for i in range(len(self.modules)):
