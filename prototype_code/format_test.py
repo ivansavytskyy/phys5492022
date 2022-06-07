@@ -90,7 +90,7 @@ def format_and_send_data(t_ext=None, t_int=None, humidity=None, humidity_temp=No
             elif f_alt < 0:
                 out_alt = "LLLLLLL"
             else:
-                out_alt = f"{f_alt:.2f}".replace(".", "")
+                out_alt = force_format_float(f_alt, 5, 2)
         else:
             out_alt = "XXXXXXX"
         # nsats
@@ -107,7 +107,7 @@ def format_and_send_data(t_ext=None, t_int=None, humidity=None, humidity_temp=No
             elif f_gs < 0:
                 out_gs = "LLLLLLL"
             else:
-                out_gs = f"{f_alt:.2f}".replace(".", "")
+                out_gs = force_format_float(f_gs, 3, 2)
         else:
             out_gs = "XXXXX"
         # quality flag
@@ -133,27 +133,65 @@ def format_and_send_data(t_ext=None, t_int=None, humidity=None, humidity_temp=No
         elif r_t_int < -999.99:
             out_t_int = "-LLLLL"
         elif r_t_int < 0:
-            out_t_int = f"{r_t_int:03.2f}".replace(".", "")
+            out_t_int = force_format_float(r_t_int, 3, 2)
         else:
-            out_t_int = "+" + f"{r_t_int:03.2f}".replace(".", "")
+            out_t_int = "+" + force_format_float(r_t_int, 3, 2)
+    else:
+        out_t_int = "XXXXXX"
 
     print(f"Formatted int temperature is: {out_t_int}")
 
+    # external temperature
+    if t_ext is not None:
+        r_t_ext = round(t_ext, 2)
+        if r_t_ext > 999.99:
+            out_t_ext = "+GGGGG"
+        elif r_t_ext < -999.99:
+            out_t_ext = "-LLLLL"
+        elif r_t_ext < 0:
+            out_t_ext = force_format_float(r_t_ext, 3, 2)
+        else:
+            out_t_ext = "+" + force_format_float(r_t_ext, 3, 2)
+    else:
+        out_t_ext = "XXXXXX"
+
+    print(f"Formatted ext temperature is: {out_t_ext}")
+
+    # cpu temperature
+    if t_cpu is not None:
+        r_t_cpu = round(t_cpu, 2)
+        if r_t_cpu > 999.99:
+            out_t_cpu = "+GGGGG"
+        elif r_t_cpu < -999.99:
+            out_t_cpu = "-LLLLL"
+        elif r_t_cpu < 0:
+            out_t_cpu = force_format_float(r_t_cpu, 3, 2)
+        else:
+            out_t_cpu = "+" + force_format_float(r_t_cpu, 3, 2)
+    else:
+        out_t_cpu = "XXXXXX"
+
+    print(f"Formatted cpu temperature is: {out_t_cpu}")
 def force_format_float(f, n1, n2):
-    strintf = str(int(f))
-    if n1 == len(strintf):
-        return str(round(f, n2)).replace(".", "")
-    elif n1 > len(strintf):
-        leading_zeros = "0" * (n1-len(strintf))
-        return leading_zeros + str(round(f, n2)).replace(".", "")
+    len_int = len(str(int(f)))
+    if f < 0:  # accounting for negative sign
+        len_int -=1
+    if n1 == len_int:
+        return f"{f:.2f}".replace(".", "")
+    elif n1 > len_int:
+        leading_zeros = "0" * (n1-len_int)
+        if not f<0:
+            return leading_zeros + f"{f:.2f}".replace(".", "")
+        else:
+            return "-" + leading_zeros + f"{f:.2f}".replace(".", "")[1:]
     else:
         return "F" * (n1+n2)
 
 
 
-print("Force format float test:", force_format_float(1.0234341, 3, 0))
+print("Force format float test:", force_format_float(-1.0234341, 3, 0))
 
-format_and_send_data(t_ext=89.3495953920, t_int = -15.234535, humidity = 30.3436939920293940506,
-                     humidity_temp = 25.00000000, gps_package=[
+format_and_send_data(t_ext=-10000, t_int = 123.12, humidity = 30.3436939920293940506,
+                     humidity_temp = 25.00000000, t_cpu=100.00, gps_package=[
         "4545.02", "N", "13759.89", "W", "14", "132.2149493020", "7", "4500.133939"
     ], utc = "125925.33")
