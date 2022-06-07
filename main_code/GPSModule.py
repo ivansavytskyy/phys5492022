@@ -52,6 +52,7 @@ class GPSModule(BModule):
         self.active = True
 
     def update(self):
+        # todo: make this read until the buffer is empty
         for i in range(2):  # reads gpgga and gpvtg
             raw_data = self.serial.readline()
             s = self.parse_raw(raw_data)
