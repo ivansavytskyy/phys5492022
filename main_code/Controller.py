@@ -24,7 +24,9 @@ class Controller():
         format = hhmmss.ss
         :type last_time: string.
         :var current_time: stores the retrieved time from the GPS. format = hhmmss.ss
-        :type current_time: string"""
+        :type current_time: string
+        :var cycle_time: length in seconds for each refresh cycle
+        :type cycle_time: float"""
 
 
     modules = []
@@ -32,6 +34,8 @@ class Controller():
 
     last_time = None
     current_time = None
+
+    cycle_time = 1.0  # second
 
 
 
@@ -43,7 +47,10 @@ class Controller():
 
         self.update_time()
 
-        time.sleep(1)
+        # if cycle length is longer than 60 seconds this breaks
+        last_cycle_delay_true = float(self.current_time[-5:]) - float(self.last_time[-5:])
+
+        time.sleep(self.cycle_time * (1-last_cycle_delay_true))
 
     def __init__(self):
         self.modules.append(TemperatureModule(name="MAX31865-E", board_pin = "D5"))

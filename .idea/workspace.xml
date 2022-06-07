@@ -2,10 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="cedd325f-df50-42ce-b8ff-ec855d63322b" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/prototype_code/local_datetime_test.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main_code/Controller.py" beforeDir="false" afterPath="$PROJECT_DIR$/main_code/Controller.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main_code/GPSModule.py" beforeDir="false" afterPath="$PROJECT_DIR$/main_code/GPSModule.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -101,7 +98,7 @@
       <workItem from="1654529008230" duration="9870000" />
       <workItem from="1654548204146" duration="159000" />
       <workItem from="1654548376782" duration="98000" />
-      <workItem from="1654613335280" duration="4014000" />
+      <workItem from="1654613335280" duration="4615000" />
     </task>
     <task id="LOCAL-00001" summary="Added basic architecture code">
       <created>1654529294953</created>
@@ -257,7 +254,14 @@
       <option name="project" value="LOCAL" />
       <updated>1654615086257</updated>
     </task>
-    <option name="localTasksCounter" value="23" />
+    <task id="LOCAL-00023" summary="added time awareness to Controller.py">
+      <created>1654617540787</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1654617540787</updated>
+    </task>
+    <option name="localTasksCounter" value="24" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -284,53 +288,54 @@
     <MESSAGE value="Added capability to initialize temperature module differently for internal/external" />
     <MESSAGE value="Added communications module&#10;Added the ability to initialize on specified ports" />
     <MESSAGE value="specified active in all modules" />
-    <option name="LAST_COMMIT_MESSAGE" value="specified active in all modules" />
+    <MESSAGE value="added time awareness to Controller.py" />
+    <option name="LAST_COMMIT_MESSAGE" value="added time awareness to Controller.py" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="665" y="179" key="CommitChangelistDialog2" timestamp="1654617490620">
+    <state x="665" y="179" key="CommitChangelistDialog2" timestamp="1654617540678">
       <screen x="0" y="23" width="1792" height="1017" />
     </state>
-    <state x="665" y="179" key="CommitChangelistDialog2/0.23.1792.1017@0.23.1792.1017" timestamp="1654617490620" />
-    <state width="1750" height="341" key="GridCell.Tab.0.bottom" timestamp="1654617062468">
+    <state x="665" y="179" key="CommitChangelistDialog2/0.23.1792.1017@0.23.1792.1017" timestamp="1654617540678" />
+    <state width="1750" height="341" key="GridCell.Tab.0.bottom" timestamp="1654617850297">
       <screen x="0" y="23" width="1792" height="1017" />
     </state>
-    <state width="1750" height="341" key="GridCell.Tab.0.bottom/0.23.1792.1017@0.23.1792.1017" timestamp="1654617062468" />
-    <state width="1750" height="341" key="GridCell.Tab.0.center" timestamp="1654617062467">
+    <state width="1750" height="341" key="GridCell.Tab.0.bottom/0.23.1792.1017@0.23.1792.1017" timestamp="1654617850297" />
+    <state width="1750" height="341" key="GridCell.Tab.0.center" timestamp="1654617850295">
       <screen x="0" y="23" width="1792" height="1017" />
     </state>
-    <state width="1750" height="341" key="GridCell.Tab.0.center/0.23.1792.1017@0.23.1792.1017" timestamp="1654617062467" />
-    <state width="1750" height="341" key="GridCell.Tab.0.left" timestamp="1654617062466">
+    <state width="1750" height="341" key="GridCell.Tab.0.center/0.23.1792.1017@0.23.1792.1017" timestamp="1654617850295" />
+    <state width="1750" height="341" key="GridCell.Tab.0.left" timestamp="1654617850295">
       <screen x="0" y="23" width="1792" height="1017" />
     </state>
-    <state width="1750" height="341" key="GridCell.Tab.0.left/0.23.1792.1017@0.23.1792.1017" timestamp="1654617062466" />
-    <state width="1750" height="341" key="GridCell.Tab.0.right" timestamp="1654617062468">
+    <state width="1750" height="341" key="GridCell.Tab.0.left/0.23.1792.1017@0.23.1792.1017" timestamp="1654617850295" />
+    <state width="1750" height="341" key="GridCell.Tab.0.right" timestamp="1654617850296">
       <screen x="0" y="23" width="1792" height="1017" />
     </state>
-    <state width="1750" height="341" key="GridCell.Tab.0.right/0.23.1792.1017@0.23.1792.1017" timestamp="1654617062468" />
-    <state width="1750" height="341" key="GridCell.Tab.1.bottom" timestamp="1654617067682">
+    <state width="1750" height="341" key="GridCell.Tab.0.right/0.23.1792.1017@0.23.1792.1017" timestamp="1654617850296" />
+    <state width="1750" height="341" key="GridCell.Tab.1.bottom" timestamp="1654617851429">
       <screen x="0" y="23" width="1792" height="1017" />
     </state>
-    <state width="1750" height="341" key="GridCell.Tab.1.bottom/0.23.1792.1017@0.23.1792.1017" timestamp="1654617067682" />
-    <state width="1750" height="341" key="GridCell.Tab.1.center" timestamp="1654617067681">
+    <state width="1750" height="341" key="GridCell.Tab.1.bottom/0.23.1792.1017@0.23.1792.1017" timestamp="1654617851429" />
+    <state width="1750" height="341" key="GridCell.Tab.1.center" timestamp="1654617851427">
       <screen x="0" y="23" width="1792" height="1017" />
     </state>
-    <state width="1750" height="341" key="GridCell.Tab.1.center/0.23.1792.1017@0.23.1792.1017" timestamp="1654617067681" />
-    <state width="1750" height="341" key="GridCell.Tab.1.left" timestamp="1654617067680">
+    <state width="1750" height="341" key="GridCell.Tab.1.center/0.23.1792.1017@0.23.1792.1017" timestamp="1654617851427" />
+    <state width="1750" height="341" key="GridCell.Tab.1.left" timestamp="1654617851427">
       <screen x="0" y="23" width="1792" height="1017" />
     </state>
-    <state width="1750" height="341" key="GridCell.Tab.1.left/0.23.1792.1017@0.23.1792.1017" timestamp="1654617067680" />
-    <state width="1750" height="341" key="GridCell.Tab.1.right" timestamp="1654617067682">
+    <state width="1750" height="341" key="GridCell.Tab.1.left/0.23.1792.1017@0.23.1792.1017" timestamp="1654617851427" />
+    <state width="1750" height="341" key="GridCell.Tab.1.right" timestamp="1654617851428">
       <screen x="0" y="23" width="1792" height="1017" />
     </state>
-    <state width="1750" height="341" key="GridCell.Tab.1.right/0.23.1792.1017@0.23.1792.1017" timestamp="1654617067682" />
+    <state width="1750" height="341" key="GridCell.Tab.1.right/0.23.1792.1017@0.23.1792.1017" timestamp="1654617851428" />
     <state x="397" y="170" key="SettingsEditor" timestamp="1654548370812">
       <screen x="0" y="23" width="1792" height="1017" />
     </state>
     <state x="397" y="170" key="SettingsEditor/0.23.1792.1017@0.23.1792.1017" timestamp="1654548370812" />
-    <state x="496" y="260" key="Vcs.Push.Dialog.v2" timestamp="1654615087688">
+    <state x="496" y="260" key="Vcs.Push.Dialog.v2" timestamp="1654617543997">
       <screen x="0" y="23" width="1792" height="1017" />
     </state>
-    <state x="496" y="260" key="Vcs.Push.Dialog.v2/0.23.1792.1017@0.23.1792.1017" timestamp="1654615087688" />
+    <state x="496" y="260" key="Vcs.Push.Dialog.v2/0.23.1792.1017@0.23.1792.1017" timestamp="1654617543997" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
