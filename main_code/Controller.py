@@ -97,13 +97,33 @@ class Controller():
 
     def __init__(self):
 
-        self.mod_list.append(TemperatureModule(name="MAX31865-E", board_pin="D5"))
-        self.mod_list.append(TemperatureModule(name="MAX31865-I", board_pin="D6"))
-        self.mod_list.append(TemperatureCPUModule())
-        self.mod_list.append(GPSModule())
+        # try initializing every module - if they fail just ignore it. The rest of the program can function fine without
+        # any individual module. If you don't like naked exceptions bite me.
+        try:
+            self.mod_list.append(TemperatureModule(name="MAX31865-E", board_pin="D5"))
+        except:
+            print("Could not initialize MAX31865-E")
+        try:
+            self.mod_list.append(TemperatureModule(name="MAX31865-I", board_pin="D6"))
+        except:
+            print("Could not initialize MAX31865-I")
+        try:
+            self.mod_list.append(TemperatureCPUModule())
+        except:
+            print("Could not initialize CPUTemp")
+        try:
+            self.mod_list.append(GPSModule())
+        except:
+            print("Could not initialize GPS module")
         # self.mod_list.append(CameraModule())
-        # self.mod_list.append(CommunicationsModule())
-        self.mod_list.append(HumidityModule())
+        try:
+            self.mod_list.append(HumidityModule())
+        except:
+            print("Could not initialize humidity module")
+        try:
+            self.mod_list.append(CommunicationsModule())
+        except:
+            print("Could not initialize communications module")
 
         for module in self.mod_list:
             self.modules[module.name] = module
