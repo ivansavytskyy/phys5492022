@@ -1,7 +1,7 @@
 from datetime import datetime, timezone
 
 def format_and_send_data(t_ext=None, t_int=None, humidity=None, humidity_temp=None,
-                         gps_package=None, utc=None, t_cpu = None):
+                         gps_package=None, utc=None, t_cpu = None, print_debug = False):
     """
     Args:
         t_ext: float
@@ -67,7 +67,8 @@ def format_and_send_data(t_ext=None, t_int=None, humidity=None, humidity_temp=No
         out_datetime = f"{cyear}{cdt.month:02}{cdt.day:02}" + utc.replace(".", "")
     else:
         out_datetime = "XXXXXXXXXXXXXX"
-    print("Datetime format test:", out_datetime)
+    if print_debug:
+        print("Datetime format test:", out_datetime)
 
     # format coordinates
     if gps_package is not None:
@@ -122,8 +123,8 @@ def format_and_send_data(t_ext=None, t_int=None, humidity=None, humidity_temp=No
         out_nsats = "XX"
         out_gs = "XXXXX"
         out_qf = "X"
-
-    print(f"out_lat = {out_lat}, out_long = {out_long}, out_alt = {out_alt}, out_nsats = {out_nsats}, out_gs = {out_gs}, out_qf = {out_qf}")
+    if print_debug:
+        print(f"out_lat = {out_lat}, out_long = {out_long}, out_alt = {out_alt}, out_nsats = {out_nsats}, out_gs = {out_gs}, out_qf = {out_qf}")
 
     #  internal temperature
     if t_int is not None:
@@ -139,7 +140,8 @@ def format_and_send_data(t_ext=None, t_int=None, humidity=None, humidity_temp=No
     else:
         out_t_int = "XXXXXX"
 
-    print(f"Formatted int temperature is: {out_t_int}")
+    if print_debug:
+        print(f"Formatted int temperature is: {out_t_int}")
 
     # external temperature
     if t_ext is not None:
@@ -155,7 +157,8 @@ def format_and_send_data(t_ext=None, t_int=None, humidity=None, humidity_temp=No
     else:
         out_t_ext = "XXXXXX"
 
-    print(f"Formatted ext temperature is: {out_t_ext}")
+    if print_debug:
+        print(f"Formatted ext temperature is: {out_t_ext}")
 
     # cpu temperature
     if t_cpu is not None:
@@ -171,27 +174,63 @@ def format_and_send_data(t_ext=None, t_int=None, humidity=None, humidity_temp=No
     else:
         out_t_cpu = "XXXXXX"
 
-    print(f"Formatted cpu temperature is: {out_t_cpu}")
+    if print_debug:
+        print(f"Formatted cpu temperature is: {out_t_cpu}")
+
+    if humidity is not None:
+        r_humidity = round(humidity, 8)
+        if r_humidity > 99.99999999:
+            out_humidity = "+GGGGG"
+        elif r_humidity < 0:
+            out_humidity = "-LLLLL"
+        else:
+            out_humidity = force_format_float(r_humidity, 2, 8)
+    else:
+        out_t_cpu = "XXXXXX"
+
+    if print_debug:
+        print(f"Formatted humidity is: {out_humidity}")
+
+        # [time][lat][long][altitude][nsats][groundspeed][quality_flag][itemp][etemp][cputemp][humidity]\n
+        print("Lengths:")
+        print(f"time: {len(out_datetime)}, lat: {len(out_lat)}, long: {len(out_long)}, alt: {len(out_alt)},"
+          f"nsats: {len(out_nsats)}, gs: {len(out_gs)}, qf: {len(out_qf)}, t_i: {len(out_t_int)},"
+          f"t_e: {len(out_t_ext)}, t_cpu: {len(out_t_cpu)}, humidity: {len(out_humidity)}")
+
+    string_to_send =\
+        f"{out_datetime}{out_lat}{out_long}{out_alt}" \
+        f"{out_nsats}{out_gs}{out_qf}{out_t_int}{out_t_ext}{out_t_cpu}{out_humidity}"
+
+    if print_debug:
+        print("String to send:", string_to_send)
+        print("String length:", len(string_to_send))
+
 def force_format_float(f, n1, n2):
+    if n2 ==0:
+        return int(round(f,0))
     len_int = len(str(int(f)))
+    decimal_component = str(round(f, n2)).split(".")[1]
+    n_trailing_zeros = n2 - len(decimal_component)
     if f < 0:  # accounting for negative sign
         len_int -=1
-    if n1 == len_int:
-        return f"{f:.2f}".replace(".", "")
-    elif n1 > len_int:
-        leading_zeros = "0" * (n1-len_int)
-        if not f<0:
-            return leading_zeros + f"{f:.2f}".replace(".", "")
-        else:
-            return "-" + leading_zeros + f"{f:.2f}".replace(".", "")[1:]
-    else:
+    n_leading_zeros = n1 - len_int
+
+    # handle issues - instead of confusing truncation behavior
+    # when n1 < the number of lhs decimal places of f, just output
+    if n_leading_zeros < 0:
         return "F" * (n1+n2)
 
+    if not f<0:
+        return n_leading_zeros*"0" + f"{int(f)}" + decimal_component + n_trailing_zeros * "0"
+    else:
+        return "-" + n_leading_zeros*"0" + f"{int(f)}"[1:] + decimal_component + n_trailing_zeros * "0"
 
 
-print("Force format float test:", force_format_float(-1.0234341, 3, 0))
 
-format_and_send_data(t_ext=-10000, t_int = 123.12, humidity = 30.3436939920293940506,
+
+print("Force format float test:", force_format_float(-1.0234341, 3, 1))
+
+format_and_send_data(t_ext=-10000, t_int = 123.12, humidity = 30.34,
                      humidity_temp = 25.00000000, t_cpu=100.00, gps_package=[
         "4545.02", "N", "13759.89", "W", "14", "132.2149493020", "7", "4500.133939"
     ], utc = "125925.33")
