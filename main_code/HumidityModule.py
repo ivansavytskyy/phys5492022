@@ -4,6 +4,7 @@ Date: 2022/06/06"""
 
 from BModule import BModule
 import board
+import os
 import adafruit_si7021
 
 
@@ -25,7 +26,11 @@ class HumidityModule(BModule):
         self.name = "Si7021-Humidity"
         self.active = True
         self.sensor = adafruit_si7021.SI7021(board.I2C())
-        self.filename = f'/home/phys5492022/Desktop/instrument_data/' + self.name + '.csv'
+        self.filepath = self.basefilepath + self.name + '/'
+        self.filename = f"{self.filepath}{self.name}0.csv"
+        if not os.path.isdir(self.filepath):
+            os.makedirs(self.filepath)
+        self._update_filename()
 
     def update(self):
         self.temp = self.sensor.temperature
@@ -35,7 +40,17 @@ class HumidityModule(BModule):
         # time is in utc
         # append to the file
         with open(self.filename, "a") as myfile:
-            myfile.write("\n" + str(time) + "," + str (self.hum)+ "," + str(self.temp))
+            myfile.write(str(time) + "," + str (self.hum)+ "," + str(self.temp)+ "\n" )
+            self.line_counter += 1
+
+        if self.line_counter >= self.num_lines:
+            self._update_filename()
+            self.line_counter = 0
+
+    def _update_filename(self):
+        while os.path.exists(self.filename):
+            self.file_counter += 1
+            self.filename = f"{self.filepath}{self.name}{self.file_counter}.csv"
 
     def print_diagnostic_data(self):
 

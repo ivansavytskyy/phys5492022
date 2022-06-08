@@ -3,6 +3,7 @@ Author: Erik Stacey
 Date: 2022/06/06"""
 
 from BModule import BModule
+import os
 import board
 import digitalio
 import adafruit_max31865
@@ -35,7 +36,11 @@ class TemperatureModule(BModule):
         self.sensor = adafruit_max31865.MAX31865(self.spi, self.cs)
 
         self.active = True
-        self.filename = f'/home/phys5492022/Desktop/instrument_data/' + self.name + '.csv'
+        self.filepath = self.basefilepath + self.name + '/'
+        self.filename = f"{self.filepath}{self.name}0.csv"
+        if not os.path.isdir(self.filepath):
+            os.makedirs(self.filepath)
+        self._update_filename()
 
     def update(self):
         self.ct = self.sensor.temperature
@@ -44,8 +49,17 @@ class TemperatureModule(BModule):
         # time is in utc
         # append to the file
         with open(self.filename, "a") as myfile:
-            myfile.write("\n" + str(time) + "," + str(self.ct))
+            myfile.write(str(time) + "," + str(self.ct) + "\n")
+            self.line_counter += 1
 
+        if self.line_counter >= self.num_lines:
+            self._update_filename()
+            self.line_counter = 0
+
+    def _update_filename(self):
+        while os.path.exists(self.filename):
+            self.file_counter +=1
+            self.filename = f"{self.filepath}{self.name}{self.file_counter}.csv"
 
     def print_diagnostic_data(self):
         print(f"Temperature for sensor {self.name}: {self.ct}")
