@@ -74,6 +74,7 @@ class Controller():
                 try:
                     module.update()
                 except:
+                    module.update_failure_counter += 1
                     print(f"{module.name} failed an update - count = {module.update_failure_counter}")
                 if self.debug_mode:
                     module.print_diagnostic_data()
