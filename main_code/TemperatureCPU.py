@@ -18,7 +18,7 @@ class TemperatureCPUModule(BModule):
     def __init__(self):
         self.name = "TemperatureCPU"
         self.active = True
-        self.filepath = f'/home/phys5492022/Desktop/instrument_data/' + self.name
+        self.filepath = f'/home/phys5492022/Desktop/instrument_data/' + self.name + '/'
         self.file_counter = 0
         self.line_counter = 0
         self.filename = f"{self.filepath}{self.name}0.csv"
@@ -50,6 +50,7 @@ class TemperatureCPUModule(BModule):
 
         if self.line_counter >= 10:
             self._update_filename()
+            self.line_counter = 0
 
     def _update_filename(self):
         while os.path.exists(self.filename):
