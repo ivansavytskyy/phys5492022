@@ -72,7 +72,6 @@ class GPSModule(BModule):
         self.ser = serial.Serial(serial_port, 4800, timeout=1)
         self.ser.reset_input_buffer()
 
-        self.active = True
         self.filepath = self.basefilepath + self.name + '/'
         self.filename = f"{self.filepath}{self.name}0.csv"
         if not os.path.isdir(self.filepath):

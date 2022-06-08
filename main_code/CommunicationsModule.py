@@ -56,7 +56,6 @@ class CommunicationsModule(BModule):
     def activate(self, serial_port = "/dev/ttyACM0"):
         self.name="Antenna"
         self.ser = serial.Serial(serial_port, 9600, timeout=1)
-        self.active = True
 
     def update(self):
         self.communication_interval_counter += 1

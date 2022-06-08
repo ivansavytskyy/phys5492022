@@ -35,7 +35,6 @@ class TemperatureModule(BModule):
             self.cs = digitalio.DigitalInOut(board.D6)
         self.sensor = adafruit_max31865.MAX31865(self.spi, self.cs)
 
-        self.active = True
         self.filepath = self.basefilepath + self.name + '/'
         self.filename = f"{self.filepath}{self.name}0.csv"
         if not os.path.isdir(self.filepath):

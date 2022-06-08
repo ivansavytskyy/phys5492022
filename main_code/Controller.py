@@ -108,32 +108,38 @@ class Controller():
         try:
             self.mod_list.append(TemperatureModule())
             self.mod_list[-1].activate(name="MAX31865-E", board_pin="D5")
+            self.mod_list[-1].active = True
         except:
             print("Failed to initialize MAX31865-E")
         try:
             self.mod_list.append(TemperatureModule())
             self.mod_list[-1].activate(name="MAX31865-I", board_pin="D6")
+            self.mod_list[-1].active = True
         except:
             print("Failed to initialize MAX31865-I")
         try:
             self.mod_list.append(TemperatureCPUModule())
             self.mod_list[-1].activate()
+            self.mod_list[-1].active = True
         except:
             print("Failed to initialize CPUTemp")
         try:
             self.mod_list.append(GPSModule())
             self.mod_list[-1].activate()
+            self.mod_list[-1].active = True
         except:
             print("Failed to initialize GPS module")
         # self.mod_list.append(CameraModule())
         try:
             self.mod_list.append(HumidityModule())
             self.mod_list[-1].activate()
+            self.mod_list[-1].active = True
         except:
             print("Failed to initialize humidity module")
         try:
             self.mod_list.append(CommunicationsModule())
             self.mod_list[-1].activate()
+            self.mod_list[-1].active = True
         except:
             print("Failed to initialize communications module")
 

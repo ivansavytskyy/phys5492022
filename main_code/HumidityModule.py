@@ -24,7 +24,6 @@ class HumidityModule(BModule):
 
     def activate(self):
         self.name = "Si7021-Humidity"
-        self.active = True
         self.sensor = adafruit_si7021.SI7021(board.I2C())
         self.filepath = self.basefilepath + self.name + '/'
         self.filename = f"{self.filepath}{self.name}0.csv"

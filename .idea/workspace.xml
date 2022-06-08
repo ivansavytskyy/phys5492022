@@ -2,8 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="cedd325f-df50-42ce-b8ff-ec855d63322b" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main_code/CommunicationsModule.py" beforeDir="false" afterPath="$PROJECT_DIR$/main_code/CommunicationsModule.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main_code/Controller.py" beforeDir="false" afterPath="$PROJECT_DIR$/main_code/Controller.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main_code/GPSModule.py" beforeDir="false" afterPath="$PROJECT_DIR$/main_code/GPSModule.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main_code/HumidityModule.py" beforeDir="false" afterPath="$PROJECT_DIR$/main_code/HumidityModule.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main_code/TemperatureCPU.py" beforeDir="false" afterPath="$PROJECT_DIR$/main_code/TemperatureCPU.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main_code/TemperatureModule.py" beforeDir="false" afterPath="$PROJECT_DIR$/main_code/TemperatureModule.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -124,28 +128,7 @@
       <workItem from="1654548204146" duration="159000" />
       <workItem from="1654548376782" duration="98000" />
       <workItem from="1654613335280" duration="13016000" />
-      <workItem from="1654631588109" duration="21586000" />
-    </task>
-    <task id="LOCAL-00010" summary="prepared for GPS module test">
-      <created>1654547017897</created>
-      <option name="number" value="00010" />
-      <option name="presentableId" value="LOCAL-00010" />
-      <option name="project" value="LOCAL" />
-      <updated>1654547017897</updated>
-    </task>
-    <task id="LOCAL-00011" summary="will this fix it idk">
-      <created>1654547086672</created>
-      <option name="number" value="00011" />
-      <option name="presentableId" value="LOCAL-00011" />
-      <option name="project" value="LOCAL" />
-      <updated>1654547086672</updated>
-    </task>
-    <task id="LOCAL-00012" summary="will this fix it idk">
-      <created>1654547134735</created>
-      <option name="number" value="00012" />
-      <option name="presentableId" value="LOCAL-00012" />
-      <option name="project" value="LOCAL" />
-      <updated>1654547134735</updated>
+      <workItem from="1654631588109" duration="21934000" />
     </task>
     <task id="LOCAL-00013" summary="will this fix it idk">
       <created>1654547220711</created>
@@ -469,7 +452,28 @@
       <option name="project" value="LOCAL" />
       <updated>1654719883740</updated>
     </task>
-    <option name="localTasksCounter" value="59" />
+    <task id="LOCAL-00059" summary="removed the shutdown/restarting module code">
+      <created>1654727548870</created>
+      <option name="number" value="00059" />
+      <option name="presentableId" value="LOCAL-00059" />
+      <option name="project" value="LOCAL" />
+      <updated>1654727548870</updated>
+    </task>
+    <task id="LOCAL-00060" summary="small fix">
+      <created>1654727650944</created>
+      <option name="number" value="00060" />
+      <option name="presentableId" value="LOCAL-00060" />
+      <option name="project" value="LOCAL" />
+      <updated>1654727650944</updated>
+    </task>
+    <task id="LOCAL-00061" summary="added report after initialization of modules">
+      <created>1654727749831</created>
+      <option name="number" value="00061" />
+      <option name="presentableId" value="LOCAL-00061" />
+      <option name="project" value="LOCAL" />
+      <updated>1654727749832</updated>
+    </task>
+    <option name="localTasksCounter" value="62" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -477,9 +481,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="included CommunicationsModule.py" />
-    <MESSAGE value="small fix" />
-    <MESSAGE value="added debug" />
     <MESSAGE value="fixed bug with time system" />
     <MESSAGE value="workaround to test communications" />
     <MESSAGE value="added test for communications functionality" />
@@ -502,17 +503,20 @@
     <MESSAGE value="Added some preliminary module activity handling/failure state code" />
     <MESSAGE value="fixed bug with graceful intializers" />
     <MESSAGE value="bug fixes" />
-    <option name="LAST_COMMIT_MESSAGE" value="bug fixes" />
+    <MESSAGE value="removed the shutdown/restarting module code" />
+    <MESSAGE value="small fix" />
+    <MESSAGE value="added report after initialization of modules" />
+    <option name="LAST_COMMIT_MESSAGE" value="added report after initialization of modules" />
   </component>
   <component name="WindowStateProjectService">
     <state x="456" y="291" key="#xdebugger.XInspectDialog" timestamp="1654704134951">
       <screen x="0" y="23" width="1792" height="1017" />
     </state>
     <state x="456" y="291" key="#xdebugger.XInspectDialog/0.23.1792.1017@0.23.1792.1017" timestamp="1654704134951" />
-    <state x="264" y="154" key="CommitChangelistDialog2" timestamp="1654727650826">
+    <state x="264" y="154" key="CommitChangelistDialog2" timestamp="1654727749715">
       <screen x="0" y="23" width="1792" height="1017" />
     </state>
-    <state x="264" y="154" key="CommitChangelistDialog2/0.23.1792.1017@0.23.1792.1017" timestamp="1654727650826" />
+    <state x="264" y="154" key="CommitChangelistDialog2/0.23.1792.1017@0.23.1792.1017" timestamp="1654727749715" />
     <state x="683" y="293" key="FileChooserDialogImpl" timestamp="1654631288597">
       <screen x="0" y="23" width="1792" height="1017" />
     </state>
@@ -553,10 +557,10 @@
       <screen x="0" y="23" width="1792" height="1017" />
     </state>
     <state x="397" y="170" key="SettingsEditor/0.23.1792.1017@0.23.1792.1017" timestamp="1654631930370" />
-    <state x="496" y="260" key="Vcs.Push.Dialog.v2" timestamp="1654727652509">
+    <state x="496" y="260" key="Vcs.Push.Dialog.v2" timestamp="1654727751451">
       <screen x="0" y="23" width="1792" height="1017" />
     </state>
-    <state x="496" y="260" key="Vcs.Push.Dialog.v2/0.23.1792.1017@0.23.1792.1017" timestamp="1654727652509" />
+    <state x="496" y="260" key="Vcs.Push.Dialog.v2/0.23.1792.1017@0.23.1792.1017" timestamp="1654727751451" />
     <state x="679" y="455" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1654706102493">
       <screen x="0" y="23" width="1792" height="1017" />
     </state>

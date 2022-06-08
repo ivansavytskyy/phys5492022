@@ -17,7 +17,6 @@ class TemperatureCPUModule(BModule):
 
     def activate(self):
         self.name = "TemperatureCPU"
-        self.active = True
         self.filepath = self.basefilepath + self.name + '/'
         self.filename = f"{self.filepath}{self.name}0.csv"
         if not os.path.isdir(self.filepath):
