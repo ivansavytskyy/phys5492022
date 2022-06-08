@@ -4,6 +4,16 @@ from datetime import datetime, timezone
 
 
 def force_format_float(f, n1, n2):
+    """
+    Formats a float f with a fixed n1 and n2 places on the lhs/rhs of the decimal point respectively. Yields a string.
+    Args:
+        f: float to be formatted
+        n1: number of digits on lhs of decimal point
+        n2: number of digits on rhs of decimal point
+
+    Returns:
+        string containing formatted number, with a leading +/-
+    """
     prefix = "+"
     if f < 0:
         rfstr = str(round(f, n2)).replace("-", "")
@@ -67,7 +77,7 @@ class CommunicationsModule(BModule):
                 groundspeed: x.x
                 qualityflag: n
                 alt: x.x
-
+            all gps package information in strings. They will be empty if there is no data.
 
         Format information
         [time],[lat],[long],[altitude],[nsats],[groundspeed],[quality_flag],[itemp],[etemp],[cputemp],[humidity]\n

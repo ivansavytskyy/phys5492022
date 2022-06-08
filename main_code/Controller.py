@@ -21,17 +21,41 @@ class Controller():
         (e.g. reading, writing, transmitting)
         :type modules: dict
 
-        :var mod_name_map: a dictionary with keys named as the module names mapped to integers of their index in modules
-        :type mod_name_map: dict
+        :var mod_list: list of modules. This shouldn't be used to access specific modules, use the modules attribute
+        instead.
+        :type mod_list: list
 
         :var last_time: stores the time at the end of the previous cycle such that we can ensure steady cycle time.
         format = hhmmss.ss
         :type last_time: string.
         :var current_time: stores the retrieved time from the GPS. format = hhmmss.ss
         :type current_time: string
-        :var cycle_time: length in seconds for each refresh cycle
+        :var cycle_time: length in seconds for each controller cycle
         :type cycle_time: float
-    todo: add documentation"""
+    Methods:
+        run(self): iterates over all the modules to call update and write_to_file. updates the controller time.
+            :returns None
+        update_time(self): retrieves the UTC from the GPS module. If the GPS module has no reading, it reads system
+        time
+            :returns None
+        get_t_ext(self): retrieves the current temperature measurement from the external sensor
+            :returns float if module is active and has measurement, otherwise None
+        get_t_int(self): retrieves the current temperature measurement from the internal sensor
+            :returns float if module is active and has measurement, otherwise None
+        get_t_CPU(self): retrieves the current temperature measurement from the CPU
+            :returns float if module is active and has measurement, otherwise None
+        get_humidity(self): retrieves the current humidity measurement from the humidity sensor
+            :returns float if module is active and has measurement, otherwise None
+        get_humidity_temp(self): retrieves the current temperature measurement from the humidity sensor
+            :returns float if module is active and has measurement, otherwise None
+        get_gps(self): retrieves a package of GPS measurements. Each element of the returned list will be a string,
+        however they will be empty strings if the GPS doesn't have a measurement.
+            :returns list of strings [lat, latd, long, longd, nsats, ground_speed, quality_flag, alt] if module is
+            active, otherwise None
+        transmit_data(self): collects position data from the gps, external/internal/cpu temp sensors, humidity sensor
+        and the current_time and calls the communications module to format and transmit.
+            :returns None"""
+
 
     mod_list = []
     modules = {}
@@ -136,13 +160,13 @@ class Controller():
     def get_gps(self):
         if "CopernicusII-GPS" in self.modules.keys() and self.modules["CopernicusII-GPS"].active:
             return [self.modules["CopernicusII-GPS"].lat,
-            self.modules["CopernicusII-GPS"].latd,
-            self.modules["CopernicusII-GPS"].long,
-            self.modules["CopernicusII-GPS"].longd,
-            self.modules["CopernicusII-GPS"].nsats,
-            self.modules["CopernicusII-GPS"].ground_speed,
-            self.modules["CopernicusII-GPS"].quality_flag,
-            self.modules["CopernicusII-GPS"].alt]
+                    self.modules["CopernicusII-GPS"].latd,
+                    self.modules["CopernicusII-GPS"].long,
+                    self.modules["CopernicusII-GPS"].longd,
+                    self.modules["CopernicusII-GPS"].nsats,
+                    self.modules["CopernicusII-GPS"].ground_speed,
+                    self.modules["CopernicusII-GPS"].quality_flag,
+                    self.modules["CopernicusII-GPS"].alt]
         else:
             return None
 
