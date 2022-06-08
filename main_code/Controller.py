@@ -4,6 +4,7 @@ Author: Erik Stacey
 Date:
 """
 import time
+import os
 from BModule import BModule
 from TemperatureModule import TemperatureModule
 from TemperatureCPU import TemperatureCPUModule
@@ -13,6 +14,7 @@ from CameraModule import CameraModule
 from CommunicationsModule import CommunicationsModule
 from datetime import datetime
 from datetime import timezone
+
 class Controller():
     """Attributes:
         :var modules: dict of classes extending BModule. This will store sensors and objects with behaviour
@@ -37,8 +39,6 @@ class Controller():
     current_time = None
 
     cycle_time = 1.0  # second
-
-
 
     def run(self):
         for module in self.mod_list:
@@ -74,6 +74,10 @@ class Controller():
 
         for module in self.mod_list:
             self.modules[module.name] = module
+
+        # create the directory for instrument data
+        if not os.path.isdir(f'/home/phys5492022/Desktop/instrument_data/'):
+            os.makedirs(f'/home/phys5492022/Desktop/instrument_data/')
 
     def update_time(self):
         # if the gps is active and has a time measurement, read it
