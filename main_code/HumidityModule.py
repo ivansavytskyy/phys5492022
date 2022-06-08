@@ -17,7 +17,9 @@ class HumidityModule(BModule):
            update(): retrieves humidity and temperature data
                 :returns void
            """
-    # serial = None
+    ct = None
+    hum = None
+
 
     def __init__(self):
         self.name = "Si7021-Humidity"
