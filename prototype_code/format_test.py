@@ -22,35 +22,38 @@ def format_and_send_data(t_ext=None, t_int=None, humidity=None, humidity_temp=No
 
     Format information
     [time][lat][long][altitude][nsats][groundspeed][quality_flag][itemp][etemp][cputemp][humidity]\n
-    time (14): YYMMDDhhmmss.ss
+    time (15): YYMMDDhhmmss.ss
         min/max: 000101000000.00 / 991231235959.99 - 00:00:00.00 Jan 1, 2000 / 23:59:59.99 Dec 31, 2099
         YY = Year, MM = month, DD = day, hh = hour, mm = minute, ss.ss = seconds
-    lat (7): DDmm.mmO
+    lat (8): DDmm.mmO
         min/max: 0000.00N / 9000.00N
         DD = degrees, mm.mm = minutes of arc, O = orientation N/S
-    long (8): DDDmm.mmO
+    long (9): DDDmm.mmO
         min/max: 00000.00E / 18000.00E
         DDD = degrees, mm.mm = minutes of arc, O = orientation E/W
-    altitude (7): aaaaa.aa
+    altitude (8): aaaaa.aa
         min/max: 00000.00 / 99999.99
     nsats (2): nn
         min/max 00 / 99
-    groundspeed (5): kkk.kk
+    groundspeed (6): kkk.kk
         min/max 000.00 / 999.99
     quality_flag (1): n
         refer to documentation for allowable values, these won't be enforced here
-    itemp (6): sttt.tt
+    itemp (7): sttt.tt
         min/max -999.99 / 999.99
         s = sign, ttt.tt = temp
-    etemp (6): sttt.tt
+    etemp (7): sttt.tt
         min/max -999.99 / 999.99
         s = sign, ttt.tt = temp
-    cputemp (6): sttt.tt
+    cputemp (7): sttt.tt
         min/max -999.99 / 999.99
         s = sign, ttt.tt = temp
-    humidity (10): hh.hhhhhhhh
+    humidity (11): hh.hhhhhhhh
         min/max 00.00000000 / 99.99999999
-    Total characters: 72
+
+    Delimiters: 10
+    newline:1
+    Total characters: 92
 
     Non-numeric characters:
     E/W/N/S - directions for coordinates
@@ -61,39 +64,39 @@ def format_and_send_data(t_ext=None, t_int=None, humidity=None, humidity_temp=No
     """
 
     # format time - get date from computer and time from satellite
-    if utc is not None:
+    if utc is not None and type(utc) == str:
         cdt = datetime.now(timezone.utc)
         cyear = str(cdt.year)[-2:]
-        out_datetime = f"{cyear}{cdt.month:02}{cdt.day:02}" + utc.replace(".", "")
+        out_datetime = f"{cyear}{cdt.month:02}{cdt.day:02}" + utc
     else:
-        out_datetime = "XXXXXXXXXXXXXX"
+        out_datetime = "XXXXXXXXXXXX.XX"
     if print_debug:
         print("Datetime format test:", out_datetime)
 
     # format coordinates
-    if gps_package is not None:
+    if gps_package is not None and type(gps_package) == list:
         # latitude
         if gps_package[0] not in ["", None]:
-            out_lat = gps_package[0].replace(".", "") + gps_package[1]
+            out_lat = gps_package[0] + gps_package[1]
         else:
-            out_lat = "XXXXXXX"
+            out_lat = "XXXXX.XX"
         # longitude
-        if gps_package[2] != "":
-            out_long = gps_package[2].replace(".", "") + gps_package[3]
+        if gps_package[2] not in ["", None]:
+            out_long = gps_package[2] + gps_package[3]
         else:
-            out_long = "XXXXXXXX"
+            out_long = "XXXXXX.XX"
         # Altitude
         if gps_package[7] not in ["", None]:
             f_alt = round(float(gps_package[7]), 2)
             # check bounds
             if f_alt > 99999.99:
-                out_alt = "GGGGGGG"
+                out_alt = "GGGGG.GG"
             elif f_alt < 0:
-                out_alt = "LLLLLLL"
+                out_alt = "LLLLL.LL"
             else:
-                out_alt = force_format_float(f_alt, 5, 2)
+                out_alt = force_format_float(f_alt, 5, 2)[1:]
         else:
-            out_alt = "XXXXXXX"
+            out_alt = "XXXXX.XX"
         # nsats
         if gps_package[4] not in ["", None]:
             out_nsats = gps_package[4]
@@ -104,133 +107,136 @@ def format_and_send_data(t_ext=None, t_int=None, humidity=None, humidity_temp=No
             f_gs = round(float(gps_package[5]), 2)
             # check bounds
             if f_gs > 999.99:
-                out_gs = "GGGGGGG"
+                out_gs = "GGG.GG"
             elif f_gs < 0:
-                out_gs = "LLLLLLL"
+                out_gs = "LLL.LL"
             else:
-                out_gs = force_format_float(f_gs, 3, 2)
+                out_gs = force_format_float(f_gs, 3, 2)[1:]
         else:
-            out_gs = "XXXXX"
+            out_gs = "XXX.XX"
         # quality flag
         if gps_package[6] not in ["", None]:
             out_qf = gps_package[6]
         else:
             out_qf = "X"
     else:
-        out_lat = "XXXXXXX"
-        out_long = "XXXXXXXX"
-        out_alt = "XXXXXXX"
+        out_lat = "XXXXX.XX"
+        out_long = "XXXXXX.XX"
+        out_alt = "XXXXX.XX"
         out_nsats = "XX"
-        out_gs = "XXXXX"
+        out_gs = "XXX.XX"
         out_qf = "X"
     if print_debug:
         print(f"out_lat = {out_lat}, out_long = {out_long}, out_alt = {out_alt}, out_nsats = {out_nsats}, out_gs = {out_gs}, out_qf = {out_qf}")
 
     #  internal temperature
-    if t_int is not None:
+    if t_int is not None and type(t_int) == float:
         r_t_int = round(t_int, 2)
         if r_t_int > 999.99:
-            out_t_int = "+GGGGG"
+            out_t_int = "+GGG.GG"
         elif r_t_int < -999.99:
-            out_t_int = "-LLLLL"
+            out_t_int = "-LLL.LL"
         elif r_t_int < 0:
             out_t_int = force_format_float(r_t_int, 3, 2)
         else:
-            out_t_int = "+" + force_format_float(r_t_int, 3, 2)
+            out_t_int = force_format_float(r_t_int, 3, 2)
     else:
-        out_t_int = "XXXXXX"
+        out_t_int = "+XXX.XX"
 
     if print_debug:
         print(f"Formatted int temperature is: {out_t_int}")
 
     # external temperature
-    if t_ext is not None:
+    if t_ext is not None and type(t_ext) == float:
         r_t_ext = round(t_ext, 2)
         if r_t_ext > 999.99:
-            out_t_ext = "+GGGGG"
+            out_t_ext = "+GGG.GG"
         elif r_t_ext < -999.99:
-            out_t_ext = "-LLLLL"
+            out_t_ext = "-LLL.LL"
         elif r_t_ext < 0:
             out_t_ext = force_format_float(r_t_ext, 3, 2)
         else:
-            out_t_ext = "+" + force_format_float(r_t_ext, 3, 2)
+            out_t_ext = force_format_float(r_t_ext, 3, 2)
     else:
-        out_t_ext = "XXXXXX"
+        out_t_ext = "+XXX.XX"
 
     if print_debug:
         print(f"Formatted ext temperature is: {out_t_ext}")
 
     # cpu temperature
-    if t_cpu is not None:
+    if t_cpu is not None and type(t_cpu) == float:
         r_t_cpu = round(t_cpu, 2)
         if r_t_cpu > 999.99:
-            out_t_cpu = "+GGGGG"
+            out_t_cpu = "+GGG.GG"
         elif r_t_cpu < -999.99:
-            out_t_cpu = "-LLLLL"
-        elif r_t_cpu < 0:
-            out_t_cpu = force_format_float(r_t_cpu, 3, 2)
+            out_t_cpu = "-LLL.LL"
         else:
-            out_t_cpu = "+" + force_format_float(r_t_cpu, 3, 2)
+            out_t_cpu = force_format_float(r_t_cpu, 3, 2)
     else:
-        out_t_cpu = "XXXXXX"
+        out_t_cpu = "+XXX.XX"
 
     if print_debug:
         print(f"Formatted cpu temperature is: {out_t_cpu}")
 
-    if humidity is not None:
+    if humidity is not None and type(humidity) == float:
         r_humidity = round(humidity, 8)
         if r_humidity > 99.99999999:
-            out_humidity = "+GGGGG"
+            out_humidity = "GG.GGGGGGGG"
         elif r_humidity < 0:
-            out_humidity = "-LLLLL"
+            out_humidity = "LL.LLLLLLLL"
         else:
-            out_humidity = force_format_float(r_humidity, 2, 8)
+            out_humidity = force_format_float(r_humidity, 2, 8)[1:]
     else:
-        out_t_cpu = "XXXXXX"
+        out_humidity = "XX.XXXXXXXX"
 
     if print_debug:
         print(f"Formatted humidity is: {out_humidity}")
 
         # [time][lat][long][altitude][nsats][groundspeed][quality_flag][itemp][etemp][cputemp][humidity]\n
         print("Lengths:")
-        print(f"time: {len(out_datetime)}, lat: {len(out_lat)}, long: {len(out_long)}, alt: {len(out_alt)},"
-          f"nsats: {len(out_nsats)}, gs: {len(out_gs)}, qf: {len(out_qf)}, t_i: {len(out_t_int)},"
-          f"t_e: {len(out_t_ext)}, t_cpu: {len(out_t_cpu)}, humidity: {len(out_humidity)}")
+        print(f"time: {len(out_datetime)==15}, lat: {len(out_lat)==8}, long: {len(out_long)==9}, alt: {len(out_alt)==8},"
+          f"nsats: {len(out_nsats)==2}, gs: {len(out_gs)==6}, qf: {len(out_qf)==1}, t_i: {len(out_t_int)==7},"
+          f"t_e: {len(out_t_ext)==7}, t_cpu: {len(out_t_cpu)==7}, humidity: {len(out_humidity)==11}")
 
     string_to_send =\
-        f"{out_datetime}{out_lat}{out_long}{out_alt}" \
-        f"{out_nsats}{out_gs}{out_qf}{out_t_int}{out_t_ext}{out_t_cpu}{out_humidity}"
+        f"{out_datetime},{out_lat},{out_long},{out_alt}," \
+        f"{out_nsats},{out_gs},{out_qf},{out_t_int},{out_t_ext},{out_t_cpu},{out_humidity}\n"
 
     if print_debug:
         print("String to send:", string_to_send)
         print("String length:", len(string_to_send))
 
 def force_format_float(f, n1, n2):
-    if n2 ==0:
-        return int(round(f,0))
-    len_int = len(str(int(f)))
-    decimal_component = str(round(f, n2)).split(".")[1]
-    n_trailing_zeros = n2 - len(decimal_component)
-    if f < 0:  # accounting for negative sign
-        len_int -=1
-    n_leading_zeros = n1 - len_int
-
-    # handle issues - instead of confusing truncation behavior
-    # when n1 < the number of lhs decimal places of f, just output
-    if n_leading_zeros < 0:
-        return "F" * (n1+n2)
-
-    if not f<0:
-        return n_leading_zeros*"0" + f"{int(f)}" + decimal_component + n_trailing_zeros * "0"
+    prefix = "+"
+    if f < 0:
+        rfstr = str(round(f, n2)).replace("-", "")
+        prefix = "-"
     else:
-        return "-" + n_leading_zeros*"0" + f"{int(f)}"[1:] + decimal_component + n_trailing_zeros * "0"
+        rfstr = str(round(f, n2)).replace("-", "")
+
+    if "." not in rfstr:
+        rfstr = rfstr + "."
+
+    splitnum = rfstr.split(".")
+    len_lhs = len(splitnum[0])
+    if len(splitnum) == 1:
+        len_rhs = 0
+    else:
+        len_rhs = len(splitnum[1])
+    if n1 < len_lhs:
+        return "F"*(n1+n2+1)
+    else:
+        return prefix + "0" * (n1 - len_lhs) + rfstr + "0" * (n2 - len_rhs)
 
 
 
 
-print("Force format float test:", force_format_float(-1.0234341, 3, 1))
 
-format_and_send_data(t_ext=-10000, t_int = 123.12, humidity = 30.34,
-                     humidity_temp = 25.00000000, t_cpu=100.00, gps_package=[
-        "4545.02", "N", "13759.89", "W", "14", "132.2149493020", "7", "4500.133939"
-    ], utc = "125925.33")
+print("Force format float test:", force_format_float(-100, 3, 2))
+
+
+test_gps_package1 = ["4545.02", "N", "13759.89", "W", "14", "132.2149493020", "7", "4500.133939"]
+test_gps_package2 = [None, None, None, None, None, None, None, None]
+
+format_and_send_data(t_ext=62.4359605950, t_int = 22.393040, humidity = 33.43059302095060,
+                     humidity_temp = None, t_cpu = 72.34, gps_package=test_gps_package1, utc = "102803.10", print_debug=True)

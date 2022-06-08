@@ -30,7 +30,8 @@ class Controller():
         :var current_time: stores the retrieved time from the GPS. format = hhmmss.ss
         :type current_time: string
         :var cycle_time: length in seconds for each refresh cycle
-        :type cycle_time: float"""
+        :type cycle_time: float
+    todo: add documentation"""
 
     mod_list = []
     modules = {}
@@ -59,12 +60,12 @@ class Controller():
             last_cycle_delay_true = float(self.current_time[-5:]) - float(self.last_time[-5:])
         else:
             last_cycle_delay_true = 0
-        last_cycle_delay_true = 0
+        last_cycle_delay_true = 0  # todo: fix self-correcting time cycle
         time.sleep(self.cycle_time * (1-last_cycle_delay_true))
 
     def __init__(self):
 
-        self.mod_list.append(TemperatureModule(name="MAX31865-E", board_pin = "D5"))
+        self.mod_list.append(TemperatureModule(name="MAX31865-E", board_pin="D5"))
         self.mod_list.append(TemperatureModule(name="MAX31865-I", board_pin="D6"))
         self.mod_list.append(TemperatureCPUModule())
         self.mod_list.append(GPSModule())
@@ -121,6 +122,12 @@ class Controller():
 
     def get_humidity(self):
         if "Si7021-Humidity" in self.modules.keys() and self.modules["Si7021-Humidity"].active:
+            out = self.modules["Si7021-Humidity"].hum
+        else:
+            out = None
+        return out
+    def get_humidity_sensor_t(self):
+        if "Si7021-Humidity" in self.modules.keys() and self.modules["Si7021-Humidity"].active:
             out = self.modules["Si7021-Humidity"].ct
         else:
             out = None
@@ -128,7 +135,7 @@ class Controller():
 
     def get_gps(self):
         if "CopernicusII-GPS" in self.modules.keys() and self.modules["CopernicusII-GPS"].active:
-            out = [self.modules["CopernicusII-GPS"].lat,
+            return [self.modules["CopernicusII-GPS"].lat,
             self.modules["CopernicusII-GPS"].latd,
             self.modules["CopernicusII-GPS"].long,
             self.modules["CopernicusII-GPS"].longd,
@@ -136,4 +143,14 @@ class Controller():
             self.modules["CopernicusII-GPS"].ground_speed,
             self.modules["CopernicusII-GPS"].quality_flag,
             self.modules["CopernicusII-GPS"].alt]
+        else:
+            return None
 
+    def transmit_data(self):
+        if "Antenna" in self.modules.keys() and self.modules["Antenna"].active:
+            self.modules["Antenna"].format_and_send_data(gps_package=self.get_gps(),
+                                                         utc = self.current_time,
+                                                         t_ext = self.get_t_ext(),
+                                                         t_int = self.get_t_int(),
+                                                         t_cpu = self.get_t_CPU(),
+                                                         print_debug = True)
