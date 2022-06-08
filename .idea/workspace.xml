@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="cedd325f-df50-42ce-b8ff-ec855d63322b" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main_code/Controller.py" beforeDir="false" afterPath="$PROJECT_DIR$/main_code/Controller.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main_code/HumidityModule.py" beforeDir="false" afterPath="$PROJECT_DIR$/main_code/HumidityModule.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -124,14 +124,7 @@
       <workItem from="1654548204146" duration="159000" />
       <workItem from="1654548376782" duration="98000" />
       <workItem from="1654613335280" duration="13016000" />
-      <workItem from="1654631588109" duration="20823000" />
-    </task>
-    <task id="LOCAL-00009" summary="prepared for GPS module test">
-      <created>1654546771891</created>
-      <option name="number" value="00009" />
-      <option name="presentableId" value="LOCAL-00009" />
-      <option name="project" value="LOCAL" />
-      <updated>1654546771891</updated>
+      <workItem from="1654631588109" duration="21586000" />
     </task>
     <task id="LOCAL-00010" summary="prepared for GPS module test">
       <created>1654547017897</created>
@@ -469,7 +462,14 @@
       <option name="project" value="LOCAL" />
       <updated>1654719800240</updated>
     </task>
-    <option name="localTasksCounter" value="58" />
+    <task id="LOCAL-00058" summary="bug fixes">
+      <created>1654719883740</created>
+      <option name="number" value="00058" />
+      <option name="presentableId" value="LOCAL-00058" />
+      <option name="project" value="LOCAL" />
+      <updated>1654719883740</updated>
+    </task>
+    <option name="localTasksCounter" value="59" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -477,7 +477,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="added time correction to cycle time for GPS satellite data" />
     <MESSAGE value="included CommunicationsModule.py" />
     <MESSAGE value="small fix" />
     <MESSAGE value="added debug" />
@@ -502,17 +501,18 @@
     <MESSAGE value="Changed all modules to have their constructor be handled in activate() - __init__ passes through arguments to activate.&#10;The template module BModule.py now has activate and deactivate functions." />
     <MESSAGE value="Added some preliminary module activity handling/failure state code" />
     <MESSAGE value="fixed bug with graceful intializers" />
-    <option name="LAST_COMMIT_MESSAGE" value="fixed bug with graceful intializers" />
+    <MESSAGE value="bug fixes" />
+    <option name="LAST_COMMIT_MESSAGE" value="bug fixes" />
   </component>
   <component name="WindowStateProjectService">
     <state x="456" y="291" key="#xdebugger.XInspectDialog" timestamp="1654704134951">
       <screen x="0" y="23" width="1792" height="1017" />
     </state>
     <state x="456" y="291" key="#xdebugger.XInspectDialog/0.23.1792.1017@0.23.1792.1017" timestamp="1654704134951" />
-    <state x="264" y="154" key="CommitChangelistDialog2" timestamp="1654719800136">
+    <state x="264" y="154" key="CommitChangelistDialog2" timestamp="1654719883617">
       <screen x="0" y="23" width="1792" height="1017" />
     </state>
-    <state x="264" y="154" key="CommitChangelistDialog2/0.23.1792.1017@0.23.1792.1017" timestamp="1654719800136" />
+    <state x="264" y="154" key="CommitChangelistDialog2/0.23.1792.1017@0.23.1792.1017" timestamp="1654719883617" />
     <state x="683" y="293" key="FileChooserDialogImpl" timestamp="1654631288597">
       <screen x="0" y="23" width="1792" height="1017" />
     </state>
@@ -553,10 +553,10 @@
       <screen x="0" y="23" width="1792" height="1017" />
     </state>
     <state x="397" y="170" key="SettingsEditor/0.23.1792.1017@0.23.1792.1017" timestamp="1654631930370" />
-    <state x="496" y="260" key="Vcs.Push.Dialog.v2" timestamp="1654719802069">
+    <state x="496" y="260" key="Vcs.Push.Dialog.v2" timestamp="1654719885630">
       <screen x="0" y="23" width="1792" height="1017" />
     </state>
-    <state x="496" y="260" key="Vcs.Push.Dialog.v2/0.23.1792.1017@0.23.1792.1017" timestamp="1654719802069" />
+    <state x="496" y="260" key="Vcs.Push.Dialog.v2/0.23.1792.1017@0.23.1792.1017" timestamp="1654719885630" />
     <state x="679" y="455" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1654706102493">
       <screen x="0" y="23" width="1792" height="1017" />
     </state>
