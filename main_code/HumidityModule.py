@@ -32,7 +32,7 @@ class HumidityModule(BModule):
         self._update_filename()
 
     def update(self):
-        self.temp = self.sensor.temperature
+        self.ct = self.sensor.temperature
         self.hum = self.sensor.relative_humidity
 
     def write_to_file(self, time):
@@ -53,5 +53,5 @@ class HumidityModule(BModule):
 
     def print_diagnostic_data(self):
 
-        print("Current temperature: " + str(self.ct) + " deg C")
-        print("Current relative humidity: " + str(self.hum) + "%")
+        print("Temperature for sensor Si7021-Humidity: " + str(self.ct) + " deg C")
+        print("Humidity for sensor Si7021-Humidity: " + str(self.hum) + "%")

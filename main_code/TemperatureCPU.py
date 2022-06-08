@@ -53,5 +53,5 @@ class TemperatureCPUModule(BModule):
 
 
     def print_diagnostic_data(self):
-        print(f"Temperature for {self.name}: {self.tempCPU}")
+        print(f"Temperature for sensor {self.name}: {self.tempCPU}")
 
