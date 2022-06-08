@@ -21,7 +21,7 @@ class TemperatureCPUModule(BModule):
         self.filepath = f'/home/phys5492022/Desktop/instrument_data/' + self.name
         self.file_counter = 0
         self.line_counter = 0
-        self.filename = None
+        self.filename = f"{self.filepath}{self.name}powercycle.csv"
         if not os.path.isdir(self.filepath):
             os.makedirs(self.filepath)
         self._update_filename()
