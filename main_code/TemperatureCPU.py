@@ -43,7 +43,7 @@ class TemperatureCPUModule(BModule):
             myfile.write("\n" + str(time) + "," + str(self.tempCPU))
             self.line_counter +=1
 
-        if self.line_counter >= 10:
+        if self.line_counter >= self.num_lines:
             self._update_filename()
             self.line_counter = 0
 

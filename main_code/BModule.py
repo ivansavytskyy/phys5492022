@@ -11,6 +11,7 @@ class BModule():
     basefilepath = f'/home/phys5492022/Desktop/instrument_data/'
     file_counter = 0
     line_counter = 0
+    num_lines = 500
 
     def update(self):
         """Called every n seconds for all modules in the controller module. The update rate is
