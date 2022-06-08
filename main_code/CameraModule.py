@@ -5,6 +5,7 @@ Date: 2022/06/07"""
 from BModule import BModule
 from picamera import PiCamera
 from threading import Thread, Lock
+import time
 import os
 
 class CameraModule(BModule):
