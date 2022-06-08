@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="cedd325f-df50-42ce-b8ff-ec855d63322b" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/main_code/Controller.py" beforeDir="false" afterPath="$PROJECT_DIR$/main_code/Controller.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main_code/GPSModule.py" beforeDir="false" afterPath="$PROJECT_DIR$/main_code/GPSModule.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -123,21 +123,7 @@
       <workItem from="1654548204146" duration="159000" />
       <workItem from="1654548376782" duration="98000" />
       <workItem from="1654613335280" duration="13016000" />
-      <workItem from="1654631588109" duration="22186000" />
-    </task>
-    <task id="LOCAL-00015" summary="prints gpgga message">
-      <created>1654547384930</created>
-      <option name="number" value="00015" />
-      <option name="presentableId" value="LOCAL-00015" />
-      <option name="project" value="LOCAL" />
-      <updated>1654547384930</updated>
-    </task>
-    <task id="LOCAL-00016" summary="error handling for empty gps messages">
-      <created>1654547574449</created>
-      <option name="number" value="00016" />
-      <option name="presentableId" value="LOCAL-00016" />
-      <option name="project" value="LOCAL" />
-      <updated>1654547574449</updated>
+      <workItem from="1654631588109" duration="22480000" />
     </task>
     <task id="LOCAL-00017" summary="maybe fixed indexerror">
       <created>1654547829292</created>
@@ -468,7 +454,21 @@
       <option name="project" value="LOCAL" />
       <updated>1654728041191</updated>
     </task>
-    <option name="localTasksCounter" value="64" />
+    <task id="LOCAL-00064" summary="small edit to controller time read">
+      <created>1654728150848</created>
+      <option name="number" value="00064" />
+      <option name="presentableId" value="LOCAL-00064" />
+      <option name="project" value="LOCAL" />
+      <updated>1654728150848</updated>
+    </task>
+    <task id="LOCAL-00065" summary="small edit to controller time read">
+      <created>1654728268247</created>
+      <option name="number" value="00065" />
+      <option name="presentableId" value="LOCAL-00065" />
+      <option name="project" value="LOCAL" />
+      <updated>1654728268247</updated>
+    </task>
+    <option name="localTasksCounter" value="66" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -476,7 +476,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="added test for communications functionality" />
     <MESSAGE value="maybe fixed serial bug" />
     <MESSAGE value="testing communications" />
     <MESSAGE value="changed structure of controller to allow direct access to modules by name" />
@@ -501,17 +500,18 @@
     <MESSAGE value="added report after initialization of modules" />
     <MESSAGE value="removed the set active lines from module activate functions - the controller will set them active now" />
     <MESSAGE value="added consistency between diagnostic stuff" />
-    <option name="LAST_COMMIT_MESSAGE" value="added consistency between diagnostic stuff" />
+    <MESSAGE value="small edit to controller time read" />
+    <option name="LAST_COMMIT_MESSAGE" value="small edit to controller time read" />
   </component>
   <component name="WindowStateProjectService">
     <state x="456" y="291" key="#xdebugger.XInspectDialog" timestamp="1654704134951">
       <screen x="0" y="23" width="1792" height="1017" />
     </state>
     <state x="456" y="291" key="#xdebugger.XInspectDialog/0.23.1792.1017@0.23.1792.1017" timestamp="1654704134951" />
-    <state x="397" y="147" key="CommitChangelistDialog2" timestamp="1654728150736">
+    <state x="397" y="147" key="CommitChangelistDialog2" timestamp="1654728268124">
       <screen x="0" y="23" width="1792" height="1017" />
     </state>
-    <state x="397" y="147" key="CommitChangelistDialog2/0.23.1792.1017@0.23.1792.1017" timestamp="1654728150736" />
+    <state x="397" y="147" key="CommitChangelistDialog2/0.23.1792.1017@0.23.1792.1017" timestamp="1654728268124" />
     <state x="683" y="293" key="FileChooserDialogImpl" timestamp="1654631288597">
       <screen x="0" y="23" width="1792" height="1017" />
     </state>
@@ -552,10 +552,10 @@
       <screen x="0" y="23" width="1792" height="1017" />
     </state>
     <state x="397" y="170" key="SettingsEditor/0.23.1792.1017@0.23.1792.1017" timestamp="1654631930370" />
-    <state x="496" y="260" key="Vcs.Push.Dialog.v2" timestamp="1654728152316">
+    <state x="496" y="260" key="Vcs.Push.Dialog.v2" timestamp="1654728270764">
       <screen x="0" y="23" width="1792" height="1017" />
     </state>
-    <state x="496" y="260" key="Vcs.Push.Dialog.v2/0.23.1792.1017@0.23.1792.1017" timestamp="1654728152316" />
+    <state x="496" y="260" key="Vcs.Push.Dialog.v2/0.23.1792.1017@0.23.1792.1017" timestamp="1654728270764" />
     <state x="679" y="455" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1654706102493">
       <screen x="0" y="23" width="1792" height="1017" />
     </state>

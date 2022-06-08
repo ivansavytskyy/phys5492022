@@ -163,4 +163,6 @@ class GPSModule(BModule):
         mode_indicator = s_data[8]
         checksum = s_data[9]
 
-
+    def print_diagnostic_data(self):
+        print(f"UTC: {self.utc}, Lat: {self.lat}{self.latd}, Long: {self.long}{self.longd}, qf: {self.quality_flag},"
+              f"nsats: {self.nsats}, alt: {self.alt}")
