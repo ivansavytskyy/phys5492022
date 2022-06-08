@@ -238,5 +238,5 @@ print("Force format float test:", force_format_float(-100, 3, 2))
 test_gps_package1 = ["4545.02", "N", "13759.89", "W", "14", "132.2149493020", "7", "4500.133939"]
 test_gps_package2 = [None, None, None, None, None, None, None, None]
 
-format_and_send_data(t_ext=62.4359605950, t_int = 22.393040, humidity = 33.43059302095060,
+format_and_send_data(t_ext=62.4359605950, t_int = 20000.3, humidity = 33.43059302095060,
                      humidity_temp = None, t_cpu = 72.34, gps_package=test_gps_package1, utc = "102803.10", print_debug=True)

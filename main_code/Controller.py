@@ -68,13 +68,20 @@ class Controller():
     debug_mode = True
 
     def run(self):
+        # run update on all the modules
         for module in self.mod_list:
             if module.active:
                 module.update()
                 if self.debug_mode:
                     module.print_diagnostic_data()
 
+        # grab the time from the GPS or computer and set it in the controller
         self.update_time()
+
+        # if communication module is still alive, check if we should transmit
+        if "Antenna" in self.modules.keys() and self.modules["Antenna"].active:
+            if self.modules["Antenna"].is_it_time_to_transmit():
+                self.transmit_data()
 
         # writing it to file
         for module in self.mod_list:

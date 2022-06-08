@@ -44,7 +44,14 @@ class CommunicationsModule(BModule):
         update(self): nothing
             :returns None
         send(self, data):
+        format_and_send_data: see documentation below
+            :returns None
+        is_it_time_to_transmit(self): decides if it's time to transmit
+            :returns bool
         """
+
+    communication_interval = 5  # controller cycles
+    communication_interval_counter = 0
 
     def __init__(self, serial_port = "/dev/ttyACM0"):
         self.name="Antenna"
@@ -52,7 +59,7 @@ class CommunicationsModule(BModule):
         self.active = True
 
     def update(self):
-        return None
+        self.communication_interval_counter += 1
 
     def send(self, data):
         self.ser.write(data.encode("utf-8"))
@@ -269,6 +276,12 @@ class CommunicationsModule(BModule):
 
         self.send(string_to_send)
 
+    def is_it_time_to_transmit(self):
+        if self.communication_interval_counter >= self.communication_interval:
+            self.communication_interval_counter = 0
+            return True
+        else:
+            return False
 
 if __name__ == "__main__":
     import time
