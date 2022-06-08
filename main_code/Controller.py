@@ -70,7 +70,7 @@ class Controller():
         self.mod_list.append(GPSModule())
         self.mod_list.append(CameraModule())
         # self.mod_list.append(CommunicationsModule())
-        self.mod_list.append(HumidityModule())
+        # self.mod_list.append(HumidityModule())
 
         for module in self.mod_list:
             self.modules[module.name] = module
