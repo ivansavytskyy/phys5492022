@@ -126,7 +126,7 @@ class Controller():
         except:
             print("Failed to initialize MAX31865-E")
         try:
-            self.mod_list.append(TemperatureModule(name="MAX31865-I", board_pin="D6"))
+            self.mod_list.append(TemperatureModule())
             self.mod_list[-1].activate(name="MAX31865-I", board_pin="D6")
         except:
             print("Failed to initialize MAX31865-I")

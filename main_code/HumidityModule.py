@@ -54,5 +54,5 @@ class HumidityModule(BModule):
 
     def print_diagnostic_data(self):
 
-        print("Current temperature: " + str(self.temp) + " deg C")
+        print("Current temperature: " + str(self.ct) + " deg C")
         print("Current relative humidity: " + str(self.hum) + "%")
