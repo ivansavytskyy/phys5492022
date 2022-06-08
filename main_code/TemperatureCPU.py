@@ -40,7 +40,7 @@ class TemperatureCPUModule(BModule):
 
         # append to the file
         with open(self.filename, "a") as myfile:
-            myfile.write("\n" + str(time) + "," + str(self.tempCPU))
+            myfile.write(str(time) + "," + str(self.tempCPU) + "\n")
             self.line_counter +=1
 
         if self.line_counter >= self.num_lines:

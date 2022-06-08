@@ -49,7 +49,7 @@ class TemperatureModule(BModule):
         # time is in utc
         # append to the file
         with open(self.filename, "a") as myfile:
-            myfile.write("\n" + str(time) + "," + str(self.ct))
+            myfile.write(str(time) + "," + str(self.ct) + "\n")
             self.line_counter += 1
 
         if self.line_counter >= self.num_lines:

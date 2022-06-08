@@ -92,7 +92,7 @@ class GPSModule(BModule):
                         + self.ground_speed + "," + self.quality_flag + "," + self.alt
 
         with open(self.filename, "a") as myfile:
-            myfile.write("\n" + str(time) + "," + data_to_write)
+            myfile.write(str(time) + "," + data_to_write + "\n")
             self.line_counter +=1
 
         if self.line_counter >= self.num_lines:
