@@ -65,19 +65,20 @@ class Controller():
 
     cycle_time = 1.0  # second
 
+    debug_mode = True
+
     def run(self):
         for module in self.mod_list:
             if module.active:
                 module.update()
-                module.print_diagnostic_data()
+                if self.debug_mode:
+                    module.print_diagnostic_data()
 
         self.update_time()
 
         # writing it to file
         for module in self.mod_list:
             module.write_to_file(self.current_time)
-
-        print(self.modules["MAX31865-E"].ct)
 
         # if cycle length is longer than 60 seconds this breaks
         if self.current_time is not None and self.last_time is not None:
