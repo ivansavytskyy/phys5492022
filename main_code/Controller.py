@@ -69,6 +69,9 @@ class Controller():
 
     def run(self):
         # run update on all the modules
+        if self.debug_mode:
+            print("\n ===== STARTING RUN =======")
+
         for module in self.mod_list:
             if module.active:
                 try:
