@@ -18,9 +18,7 @@ class TemperatureCPUModule(BModule):
     def __init__(self):
         self.name = "TemperatureCPU"
         self.active = True
-        self.filepath = f'/home/phys5492022/Desktop/instrument_data/' + self.name + '/'
-        self.file_counter = 0
-        self.line_counter = 0
+        self.filepath = self.basefilepath + self.name + '/'
         self.filename = f"{self.filepath}{self.name}0.csv"
         if not os.path.isdir(self.filepath):
             os.makedirs(self.filepath)
@@ -39,9 +37,6 @@ class TemperatureCPUModule(BModule):
 
     def write_to_file(self, time):
         # time is in utc
-        # while os.path.exists(self.filename):
-        #     self.file_counter +=1
-        #     self.filename = f"{self.filepath}{self.name}{self.file_counter}.csv"
 
         # append to the file
         with open(self.filename, "a") as myfile:

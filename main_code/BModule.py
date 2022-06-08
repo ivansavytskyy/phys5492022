@@ -8,6 +8,9 @@ Date:
 class BModule():
     name = "UndefinedModule"
     active = False  # set this to true at the end of init
+    basefilepath = f'/home/phys5492022/Desktop/instrument_data/'
+    file_counter = 0
+    line_counter = 0
 
     def update(self):
         """Called every n seconds for all modules in the controller module. The update rate is
