@@ -18,7 +18,13 @@ class TemperatureCPUModule(BModule):
     def __init__(self):
         self.name = "TemperatureCPU"
         self.active = True
-        self.filename = f'/home/phys5492022/Desktop/instrument_data/' + self.name + '.csv'
+        self.filepath = f'/home/phys5492022/Desktop/instrument_data/' + self.name
+        self.file_counter = 0
+        self.line_counter = 0
+        self.filename = None
+        if not os.path.isdir(self.filepath):
+            os.makedirs(self.filepath)
+        self._update_filename()
     
     def update(self):
         # The first line in this file holds the CPU temperature as an integer times 1000
@@ -33,9 +39,24 @@ class TemperatureCPUModule(BModule):
 
     def write_to_file(self, time):
         # time is in utc
+        # while os.path.exists(self.filename):
+        #     self.file_counter +=1
+        #     self.filename = f"{self.filepath}{self.name}{self.file_counter}.csv"
+
         # append to the file
         with open(self.filename, "a") as myfile:
             myfile.write("\n" + str(time) + "," + str(self.tempCPU))
+            self.line_counter +=1
+
+        if self.line_counter >= 10:
+            self._update_filename()
+
+    def _update_filename(self):
+        while os.path.exists(self.filename):
+            self.file_counter +=1
+            self.filename = f"{self.filepath}{self.name}{self.file_counter}.csv"
+
 
     def print_diagnostic_data(self):
         print(f"Temperature for {self.name}: {self.tempCPU}")
+
