@@ -72,7 +72,7 @@ class GPSModule(BModule):
         self.ser.reset_input_buffer()
 
         self.active = True
-        self.filename = f'/home/phys5492022/Desktop/instrument_data/' + self.name + '.txt'
+        self.filename = f'/home/phys5492022/Desktop/instrument_data/' + self.name + '.csv'
 
     def update(self):
         # todo: make this read until the buffer is empty
@@ -83,11 +83,11 @@ class GPSModule(BModule):
     def write_to_file(self, time):
         # time is in utc
         # append to the file
-        data_to_write = self.lat + "\t" + self.latd + "\t" + self.long + "\t" + self.longd + "\t" + self.nsats + "\t" \
-                        + self.ground_speed + "\t" + self.quality_flag + "\t" + self.alt
+        data_to_write = self.lat + "," + self.latd + "," + self.long + "," + self.longd + "," + self.nsats + "," \
+                        + self.ground_speed + "," + self.quality_flag + "," + self.alt
 
         with open(self.filename, "a") as myfile:
-            myfile.write("\n" + str(time) + "\t" + data_to_write)
+            myfile.write("\n" + str(time) + "," + data_to_write)
 
     def parse_raw(self, raw_data):
         # convert from bytecode to utf-8

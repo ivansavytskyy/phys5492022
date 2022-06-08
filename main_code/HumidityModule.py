@@ -23,7 +23,7 @@ class HumidityModule(BModule):
         self.name = "Si7021-Humidity"
         self.active = True
         self.sensor = adafruit_si7021.SI7021(board.I2C())
-        self.filename = f'/home/phys5492022/Desktop/instrument_data/' + self.name + '.txt'
+        self.filename = f'/home/phys5492022/Desktop/instrument_data/' + self.name + '.csv'
 
     def update(self):
         self.temp = self.sensor.temperature
@@ -33,7 +33,7 @@ class HumidityModule(BModule):
         # time is in utc
         # append to the file
         with open(self.filename, "a") as myfile:
-            myfile.write("\n" + str(time) + "\t" + str (self.hum)+ "\t" + str(self.temp))
+            myfile.write("\n" + str(time) + "," + str (self.hum)+ "," + str(self.temp))
 
     def print_diagnostic_data(self):
 
