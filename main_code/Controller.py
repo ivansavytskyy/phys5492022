@@ -159,7 +159,7 @@ class Controller():
         if self.modules["CopernicusII-GPS"].active == True and self.modules["CopernicusII-GPS"].utc not in [None, ""]:
             self.last_time = self.current_time
             self.current_time == self.modules["CopernicusII-GPS"].utc
-            print(f"Updated current time to {self.current_time}")
+            print(f"Read current time from GPS and set to {self.current_time}")
         else:
             # gets time and formats it like hhmmss.ss to match gps output
             time_object = datetime.now(timezone.utc)
@@ -167,7 +167,7 @@ class Controller():
             base_time = f"{time_object.hour:02}{time_object.minute:02}{time_object.second:02}"
             decimal_time = f"{time_object.microsecond/1e6:.2}"
             self.current_time = base_time + decimal_time[-3:]
-            print(f"Updated current time to {self.current_time}")
+            print(f"Read current time from computer and set to {self.current_time}")
 
     def get_t_ext(self):
         # External temperature
