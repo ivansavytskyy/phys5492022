@@ -4,6 +4,7 @@ Date: 2022/06/06"""
 
 from BModule import BModule
 import serial
+import os
 
 
 class GPSModule(BModule):
@@ -72,7 +73,11 @@ class GPSModule(BModule):
         self.ser.reset_input_buffer()
 
         self.active = True
-        self.filename = f'/home/phys5492022/Desktop/instrument_data/' + self.name + '.csv'
+        self.filepath = self.basefilepath + self.name + '/'
+        self.filename = f"{self.filepath}{self.name}0.csv"
+        if not os.path.isdir(self.filepath):
+            os.makedirs(self.filepath)
+        self._update_filename()
 
     def update(self):
         # todo: make this read until the buffer is empty
@@ -88,6 +93,16 @@ class GPSModule(BModule):
 
         with open(self.filename, "a") as myfile:
             myfile.write("\n" + str(time) + "," + data_to_write)
+            self.line_counter +=1
+
+        if self.line_counter >= 10:
+            self._update_filename()
+            self.line_counter = 0
+
+    def _update_filename(self):
+        while os.path.exists(self.filename):
+            self.file_counter +=1
+            self.filename = f"{self.filepath}{self.name}{self.file_counter}.csv"
 
     def parse_raw(self, raw_data):
         # convert from bytecode to utf-8
