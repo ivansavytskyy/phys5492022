@@ -54,16 +54,16 @@ class GPSModule(BModule):
                 :param s_data: a list of strings split about commas, corresponding to GPVTG formatted GPS data
                 :returns None
            """
-    ser = None
-    utc = None
-    lat = None
-    latd=None
-    long = None
-    longd = None
-    nsats = None
-    ground_speed = None
-    quality_flag = None
-    alt = None
+    ser = ""
+    utc = ""
+    lat = ""
+    latd= ""
+    long = ""
+    longd = ""
+    nsats = ""
+    ground_speed = ""
+    quality_flag = ""
+    alt = ""
 
 
 
