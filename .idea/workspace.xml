@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="cedd325f-df50-42ce-b8ff-ec855d63322b" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/main_code/BModule.py" beforeDir="false" afterPath="$PROJECT_DIR$/main_code/BModule.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main_code/Controller.py" beforeDir="false" afterPath="$PROJECT_DIR$/main_code/Controller.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -123,14 +124,7 @@
       <workItem from="1654548204146" duration="159000" />
       <workItem from="1654548376782" duration="98000" />
       <workItem from="1654613335280" duration="13016000" />
-      <workItem from="1654631588109" duration="19196000" />
-    </task>
-    <task id="LOCAL-00002" summary="Added TemperatureModule.py&#10;Renamed TModule to BModule (Basic Module) to avoid confusion">
-      <created>1654529960235</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1654529960235</updated>
+      <workItem from="1654631588109" duration="19493000" />
     </task>
     <task id="LOCAL-00003" summary="added GPSmodule&#10;fixed some TModule references">
       <created>1654542204273</created>
@@ -468,7 +462,14 @@
       <option name="project" value="LOCAL" />
       <updated>1654717849269</updated>
     </task>
-    <option name="localTasksCounter" value="51" />
+    <task id="LOCAL-00051" summary="Added exception handling for initialization of modules">
+      <created>1654718261503</created>
+      <option name="number" value="00051" />
+      <option name="presentableId" value="LOCAL-00051" />
+      <option name="project" value="LOCAL" />
+      <updated>1654718261503</updated>
+    </task>
+    <option name="localTasksCounter" value="52" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -476,7 +477,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="Added humidity module to controller for test" />
     <MESSAGE value="Added capability to initialize temperature module differently for internal/external" />
     <MESSAGE value="Added communications module&#10;Added the ability to initialize on specified ports" />
     <MESSAGE value="specified active in all modules" />
@@ -501,17 +501,18 @@
     <MESSAGE value="Added/updated documentation" />
     <MESSAGE value="added debug mode to Controller.py" />
     <MESSAGE value="Added checks for transmission to the CommunicationsModule.py and the associated code in Controller.py, added some documentation" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added checks for transmission to the CommunicationsModule.py and the associated code in Controller.py, added some documentation" />
+    <MESSAGE value="Added exception handling for initialization of modules" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added exception handling for initialization of modules" />
   </component>
   <component name="WindowStateProjectService">
     <state x="456" y="291" key="#xdebugger.XInspectDialog" timestamp="1654704134951">
       <screen x="0" y="23" width="1792" height="1017" />
     </state>
     <state x="456" y="291" key="#xdebugger.XInspectDialog/0.23.1792.1017@0.23.1792.1017" timestamp="1654704134951" />
-    <state x="513" y="165" key="CommitChangelistDialog2" timestamp="1654717849145">
+    <state x="264" y="154" key="CommitChangelistDialog2" timestamp="1654718261385">
       <screen x="0" y="23" width="1792" height="1017" />
     </state>
-    <state x="513" y="165" key="CommitChangelistDialog2/0.23.1792.1017@0.23.1792.1017" timestamp="1654717849145" />
+    <state x="264" y="154" key="CommitChangelistDialog2/0.23.1792.1017@0.23.1792.1017" timestamp="1654718261385" />
     <state x="683" y="293" key="FileChooserDialogImpl" timestamp="1654631288597">
       <screen x="0" y="23" width="1792" height="1017" />
     </state>
@@ -552,10 +553,10 @@
       <screen x="0" y="23" width="1792" height="1017" />
     </state>
     <state x="397" y="170" key="SettingsEditor/0.23.1792.1017@0.23.1792.1017" timestamp="1654631930370" />
-    <state x="496" y="260" key="Vcs.Push.Dialog.v2" timestamp="1654717851016">
+    <state x="496" y="260" key="Vcs.Push.Dialog.v2" timestamp="1654718263047">
       <screen x="0" y="23" width="1792" height="1017" />
     </state>
-    <state x="496" y="260" key="Vcs.Push.Dialog.v2/0.23.1792.1017@0.23.1792.1017" timestamp="1654717851016" />
+    <state x="496" y="260" key="Vcs.Push.Dialog.v2/0.23.1792.1017@0.23.1792.1017" timestamp="1654718263047" />
     <state x="679" y="455" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1654706102493">
       <screen x="0" y="23" width="1792" height="1017" />
     </state>

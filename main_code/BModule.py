@@ -13,6 +13,8 @@ class BModule():
     line_counter = 0
     num_lines = 600
 
+    update_failure_counter = 0
+
     def update(self):
         """Called every n seconds for all modules in the controller module. The update rate is
         set in the controller module."""
@@ -23,4 +25,10 @@ class BModule():
         pass
 
     def write_to_file(self, time):
+        pass
+
+
+    def activate(self):
+        pass
+    def deactivate(self):
         pass

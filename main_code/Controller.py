@@ -71,7 +71,10 @@ class Controller():
         # run update on all the modules
         for module in self.mod_list:
             if module.active:
-                module.update()
+                try:
+                    module.update()
+                except:
+                    print(f"{module.name} failed an update - count = {module.update_failure_counter}")
                 if self.debug_mode:
                     module.print_diagnostic_data()
 
@@ -102,28 +105,28 @@ class Controller():
         try:
             self.mod_list.append(TemperatureModule(name="MAX31865-E", board_pin="D5"))
         except:
-            print("Could not initialize MAX31865-E")
+            print("Failed to initialize MAX31865-E")
         try:
             self.mod_list.append(TemperatureModule(name="MAX31865-I", board_pin="D6"))
         except:
-            print("Could not initialize MAX31865-I")
+            print("Failed to initialize MAX31865-I")
         try:
             self.mod_list.append(TemperatureCPUModule())
         except:
-            print("Could not initialize CPUTemp")
+            print("Failed to initialize CPUTemp")
         try:
             self.mod_list.append(GPSModule())
         except:
-            print("Could not initialize GPS module")
+            print("Failed to initialize GPS module")
         # self.mod_list.append(CameraModule())
         try:
             self.mod_list.append(HumidityModule())
         except:
-            print("Could not initialize humidity module")
+            print("Failed to initialize humidity module")
         try:
             self.mod_list.append(CommunicationsModule())
         except:
-            print("Could not initialize communications module")
+            print("Failed to initialize communications module")
 
         for module in self.mod_list:
             self.modules[module.name] = module
