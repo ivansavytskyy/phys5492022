@@ -14,6 +14,8 @@ class BModule():
     num_lines = 600
 
     update_failure_counter = 0
+    cooldown_period = 60  # update cycles
+    cooldown_counter = None
 
     # when the object is created just call the activate function. This means we can re-initialize the object without
     # destroying it (if we want)
@@ -34,6 +36,6 @@ class BModule():
 
 
     def activate(self):
-        pass
+        self.active = True
     def deactivate(self):
-        pass
+        self.active = False

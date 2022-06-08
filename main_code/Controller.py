@@ -72,12 +72,29 @@ class Controller():
         for module in self.mod_list:
             if module.active:
                 try:
+                    # every module should have an update function, even if it does nothing otherwise this will yell
                     module.update()
+                    module.update_failure_counter = 0  # reset failure counter
                 except:
-                    module.update_failure_counter += 1
+                    module.update_failure_counter += 1  # increment failure counter if it throws and exception
                     print(f"{module.name} failed an update - count = {module.update_failure_counter}")
+                    if module.update_failure_counter >= 10:
+                        print(f"{module.name} failed 10 consecutive updates"
+                              f" deactivating for {module.cooldown_period} cycles")
+                        module.deactivate()
+                        module.cooldown_counter = 0
                 if self.debug_mode:
                     module.print_diagnostic_data()
+            else:
+                module.cooldown_counter += 1
+                if module.cooldown_counter >= module.cooldown_period:
+                    try:
+                        print(f"Trying to re-activate {module.name}")
+                        module.activate()
+                        module.cooldown_counter = None
+                    except:
+                        print(f"Failed to reactivate {module.name} - resetting counter")
+
 
         # grab the time from the GPS or computer and set it in the controller
         self.update_time()
