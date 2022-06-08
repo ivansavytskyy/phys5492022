@@ -53,7 +53,7 @@ class CommunicationsModule(BModule):
     communication_interval = 5  # controller cycles
     communication_interval_counter = 0
 
-    def __init__(self, serial_port = "/dev/ttyACM0"):
+    def activate(self, serial_port = "/dev/ttyACM0"):
         self.name="Antenna"
         self.ser = serial.Serial(serial_port, 9600, timeout=1)
         self.active = True

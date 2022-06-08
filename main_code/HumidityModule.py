@@ -22,7 +22,7 @@ class HumidityModule(BModule):
     hum = None
 
 
-    def __init__(self):
+    def activate(self):
         self.name = "Si7021-Humidity"
         self.active = True
         self.sensor = adafruit_si7021.SI7021(board.I2C())

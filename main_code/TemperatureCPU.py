@@ -15,7 +15,7 @@ class TemperatureCPUModule(BModule):
     """
     tempCPU = None
 
-    def __init__(self):
+    def activate(self):
         self.name = "TemperatureCPU"
         self.active = True
         self.filepath = self.basefilepath + self.name + '/'

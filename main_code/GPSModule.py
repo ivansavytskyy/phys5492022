@@ -67,7 +67,7 @@ class GPSModule(BModule):
 
 
 
-    def __init__(self, serial_port = "/dev/serial0"):
+    def activate(self, serial_port = "/dev/serial0"):
         self.name = "CopernicusII-GPS"
         self.ser = serial.Serial(serial_port, 4800, timeout=1)
         self.ser.reset_input_buffer()

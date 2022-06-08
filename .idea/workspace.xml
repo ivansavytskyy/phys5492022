@@ -3,7 +3,11 @@
   <component name="ChangeListManager">
     <list default="true" id="cedd325f-df50-42ce-b8ff-ec855d63322b" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/main_code/BModule.py" beforeDir="false" afterPath="$PROJECT_DIR$/main_code/BModule.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main_code/Controller.py" beforeDir="false" afterPath="$PROJECT_DIR$/main_code/Controller.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main_code/CommunicationsModule.py" beforeDir="false" afterPath="$PROJECT_DIR$/main_code/CommunicationsModule.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main_code/GPSModule.py" beforeDir="false" afterPath="$PROJECT_DIR$/main_code/GPSModule.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main_code/HumidityModule.py" beforeDir="false" afterPath="$PROJECT_DIR$/main_code/HumidityModule.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main_code/TemperatureCPU.py" beforeDir="false" afterPath="$PROJECT_DIR$/main_code/TemperatureCPU.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main_code/TemperatureModule.py" beforeDir="false" afterPath="$PROJECT_DIR$/main_code/TemperatureModule.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -124,28 +128,7 @@
       <workItem from="1654548204146" duration="159000" />
       <workItem from="1654548376782" duration="98000" />
       <workItem from="1654613335280" duration="13016000" />
-      <workItem from="1654631588109" duration="19493000" />
-    </task>
-    <task id="LOCAL-00003" summary="added GPSmodule&#10;fixed some TModule references">
-      <created>1654542204273</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1654542204273</updated>
-    </task>
-    <task id="LOCAL-00004" summary="added TemperatureModule to controller">
-      <created>1654542374436</created>
-      <option name="number" value="00004" />
-      <option name="presentableId" value="LOCAL-00004" />
-      <option name="project" value="LOCAL" />
-      <updated>1654542374436</updated>
-    </task>
-    <task id="LOCAL-00005" summary="fixes&#10;added dev branch">
-      <created>1654542474070</created>
-      <option name="number" value="00005" />
-      <option name="presentableId" value="LOCAL-00005" />
-      <option name="project" value="LOCAL" />
-      <updated>1654542474070</updated>
+      <workItem from="1654631588109" duration="19789000" />
     </task>
     <task id="LOCAL-00006" summary="added diagnostic data function to BModule and Temperature">
       <created>1654542699536</created>
@@ -469,7 +452,28 @@
       <option name="project" value="LOCAL" />
       <updated>1654718261503</updated>
     </task>
-    <option name="localTasksCounter" value="52" />
+    <task id="LOCAL-00052" summary="Added exception handling for initialization of modules">
+      <created>1654718545634</created>
+      <option name="number" value="00052" />
+      <option name="presentableId" value="LOCAL-00052" />
+      <option name="project" value="LOCAL" />
+      <updated>1654718545634</updated>
+    </task>
+    <task id="LOCAL-00053" summary="Added exception handling of update functions and failure counters">
+      <created>1654718563870</created>
+      <option name="number" value="00053" />
+      <option name="presentableId" value="LOCAL-00053" />
+      <option name="project" value="LOCAL" />
+      <updated>1654718563870</updated>
+    </task>
+    <task id="LOCAL-00054" summary="Added exception handling of update functions and failure counters">
+      <created>1654718584014</created>
+      <option name="number" value="00054" />
+      <option name="presentableId" value="LOCAL-00054" />
+      <option name="project" value="LOCAL" />
+      <updated>1654718584014</updated>
+    </task>
+    <option name="localTasksCounter" value="55" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -477,7 +481,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="Added capability to initialize temperature module differently for internal/external" />
     <MESSAGE value="Added communications module&#10;Added the ability to initialize on specified ports" />
     <MESSAGE value="specified active in all modules" />
     <MESSAGE value="added time awareness to Controller.py" />
@@ -502,17 +505,18 @@
     <MESSAGE value="added debug mode to Controller.py" />
     <MESSAGE value="Added checks for transmission to the CommunicationsModule.py and the associated code in Controller.py, added some documentation" />
     <MESSAGE value="Added exception handling for initialization of modules" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added exception handling for initialization of modules" />
+    <MESSAGE value="Added exception handling of update functions and failure counters" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added exception handling of update functions and failure counters" />
   </component>
   <component name="WindowStateProjectService">
     <state x="456" y="291" key="#xdebugger.XInspectDialog" timestamp="1654704134951">
       <screen x="0" y="23" width="1792" height="1017" />
     </state>
     <state x="456" y="291" key="#xdebugger.XInspectDialog/0.23.1792.1017@0.23.1792.1017" timestamp="1654704134951" />
-    <state x="264" y="154" key="CommitChangelistDialog2" timestamp="1654718563759">
+    <state x="264" y="154" key="CommitChangelistDialog2" timestamp="1654718583883">
       <screen x="0" y="23" width="1792" height="1017" />
     </state>
-    <state x="264" y="154" key="CommitChangelistDialog2/0.23.1792.1017@0.23.1792.1017" timestamp="1654718563759" />
+    <state x="264" y="154" key="CommitChangelistDialog2/0.23.1792.1017@0.23.1792.1017" timestamp="1654718583883" />
     <state x="683" y="293" key="FileChooserDialogImpl" timestamp="1654631288597">
       <screen x="0" y="23" width="1792" height="1017" />
     </state>
@@ -553,10 +557,10 @@
       <screen x="0" y="23" width="1792" height="1017" />
     </state>
     <state x="397" y="170" key="SettingsEditor/0.23.1792.1017@0.23.1792.1017" timestamp="1654631930370" />
-    <state x="496" y="260" key="Vcs.Push.Dialog.v2" timestamp="1654718547818">
+    <state x="496" y="260" key="Vcs.Push.Dialog.v2" timestamp="1654718585573">
       <screen x="0" y="23" width="1792" height="1017" />
     </state>
-    <state x="496" y="260" key="Vcs.Push.Dialog.v2/0.23.1792.1017@0.23.1792.1017" timestamp="1654718547818" />
+    <state x="496" y="260" key="Vcs.Push.Dialog.v2/0.23.1792.1017@0.23.1792.1017" timestamp="1654718585573" />
     <state x="679" y="455" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1654706102493">
       <screen x="0" y="23" width="1792" height="1017" />
     </state>

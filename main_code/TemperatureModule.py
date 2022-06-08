@@ -25,7 +25,7 @@ class TemperatureModule(BModule):
     spi = None
     cs = None
     sensor = None
-    def __init__(self, name, board_pin):
+    def activate(self, name, board_pin):
         # board pin is D5 or D6
         self.name=name
         self.spi = board.SPI()

@@ -15,6 +15,11 @@ class BModule():
 
     update_failure_counter = 0
 
+    # when the object is created just call the activate function. This means we can re-initialize the object without
+    # destroying it (if we want)
+    def __init__(self, *params):
+        self.activate(self, *params)
+
     def update(self):
         """Called every n seconds for all modules in the controller module. The update rate is
         set in the controller module."""
