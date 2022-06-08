@@ -137,12 +137,15 @@ class Controller():
         except:
             print("Failed to initialize communications module")
 
+        print("Modules Status:")
         for module in self.mod_list:
             self.modules[module.name] = module
+            print(f"{module.name}: {module.active}")
 
         # create the directory for instrument data
         if not os.path.isdir(f'/home/phys5492022/Desktop/instrument_data/'):
             os.makedirs(f'/home/phys5492022/Desktop/instrument_data/')
+
 
     def update_time(self):
         # if the gps is active and has a time measurement, read it
