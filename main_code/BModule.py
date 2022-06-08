@@ -20,7 +20,7 @@ class BModule():
     # when the object is created just call the activate function. This means we can re-initialize the object without
     # destroying it (if we want)
     def __init__(self, *params):
-        self.activate(self, *params)
+        pass
 
     def update(self):
         """Called every n seconds for all modules in the controller module. The update rate is
