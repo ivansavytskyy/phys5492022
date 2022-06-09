@@ -142,6 +142,8 @@ class CommunicationsModule(BModule):
         if gps_package is not None and type(gps_package) == list:
             # latitude
             if gps_package[0] not in ["", None]:
+                # todo: fix formatting here such that if it rounds up at
+                #  50 deg 59.999 minutes it doesn't report 50 deg 60 minutes
                 out_lat = str(round(float(gps_package[0]), 2)) + gps_package[1]
             else:
                 out_lat = "XXXXX.XX"
