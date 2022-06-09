@@ -165,11 +165,18 @@ class Controller():
     def update_time(self):
         # if the gps is active and has a time measurement, read it
         # otherwise use system time
+        gps_time_available = False
+
         if self.modules["CopernicusII-GPS"].active == True and self.modules["CopernicusII-GPS"].utc not in [None, ""]:
-            self.last_time = self.current_time
-            self.current_time = str(round(float(self.modules["CopernicusII-GPS"].utc), 2))
-            print(f"Read current time from GPS and set to {self.current_time}")
-        else:
+            try:
+                self.last_time = self.current_time
+                self.current_time = str(round(float(self.modules["CopernicusII-GPS"].utc), 2))
+                print(f"Read current time from GPS and set to {self.current_time}")
+                gps_time_available = True
+            except:
+                print("Encountered exception when retrieving GPS time!")
+                gps_time_available = False
+        if not gps_time_available:
             # gets time and formats it like hhmmss.ss to match gps output
             time_object = datetime.now(timezone.utc)
             self.last_time = self.current_time
