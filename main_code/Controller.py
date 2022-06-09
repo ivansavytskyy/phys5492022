@@ -235,4 +235,5 @@ class Controller():
                                                          t_ext = self.get_t_ext(),
                                                          t_int = self.get_t_int(),
                                                          t_cpu = self.get_t_CPU(),
+                                                         humidity= self.get_humidity(),
                                                          print_debug = True)

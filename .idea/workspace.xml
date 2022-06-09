@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="cedd325f-df50-42ce-b8ff-ec855d63322b" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/main_code/CameraModule.py" beforeDir="false" afterPath="$PROJECT_DIR$/main_code/CameraModule.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main_code/HumidityModule.py" beforeDir="false" afterPath="$PROJECT_DIR$/main_code/HumidityModule.py" afterDir="false" />
-    </list>
+    <list default="true" id="cedd325f-df50-42ce-b8ff-ec855d63322b" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -125,21 +122,7 @@
       <workItem from="1654548376782" duration="98000" />
       <workItem from="1654613335280" duration="13016000" />
       <workItem from="1654631588109" duration="23074000" />
-      <workItem from="1654787209919" duration="3194000" />
-    </task>
-    <task id="LOCAL-00026" summary="included CommunicationsModule.py">
-      <created>1654618502856</created>
-      <option name="number" value="00026" />
-      <option name="presentableId" value="LOCAL-00026" />
-      <option name="project" value="LOCAL" />
-      <updated>1654618502856</updated>
-    </task>
-    <task id="LOCAL-00027" summary="small fix">
-      <created>1654618765844</created>
-      <option name="number" value="00027" />
-      <option name="presentableId" value="LOCAL-00027" />
-      <option name="project" value="LOCAL" />
-      <updated>1654618765844</updated>
+      <workItem from="1654787209919" duration="3859000" />
     </task>
     <task id="LOCAL-00028" summary="added debug">
       <created>1654618837476</created>
@@ -470,7 +453,21 @@
       <option name="project" value="LOCAL" />
       <updated>1654791201373</updated>
     </task>
-    <option name="localTasksCounter" value="75" />
+    <task id="LOCAL-00075" summary="reworked camera module">
+      <created>1654792118840</created>
+      <option name="number" value="00075" />
+      <option name="presentableId" value="LOCAL-00075" />
+      <option name="project" value="LOCAL" />
+      <updated>1654792118840</updated>
+    </task>
+    <task id="LOCAL-00076" summary="reworked camera module">
+      <created>1654792184022</created>
+      <option name="number" value="00076" />
+      <option name="presentableId" value="LOCAL-00076" />
+      <option name="project" value="LOCAL" />
+      <updated>1654792184022</updated>
+    </task>
+    <option name="localTasksCounter" value="77" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -478,7 +475,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="Added format and send code in CommunicationsModule.py&#10;Small fixes to supporting functions" />
     <MESSAGE value="Added capability for controller to collect data and send them to the communications module" />
     <MESSAGE value="Added/updated documentation" />
     <MESSAGE value="added debug mode to Controller.py" />
@@ -503,17 +499,18 @@
     <MESSAGE value="testing sleep instead of wait recording" />
     <MESSAGE value="prepared for comm test - turned off camera module for now" />
     <MESSAGE value="fixed lat/long formatting" />
-    <option name="LAST_COMMIT_MESSAGE" value="fixed lat/long formatting" />
+    <MESSAGE value="reworked camera module" />
+    <option name="LAST_COMMIT_MESSAGE" value="reworked camera module" />
   </component>
   <component name="WindowStateProjectService">
     <state x="456" y="291" key="#xdebugger.XInspectDialog" timestamp="1654704134951">
       <screen x="0" y="23" width="1792" height="1017" />
     </state>
     <state x="456" y="291" key="#xdebugger.XInspectDialog/0.23.1792.1017@0.23.1792.1017" timestamp="1654704134951" />
-    <state x="397" y="147" key="CommitChangelistDialog2" timestamp="1654792118725">
+    <state x="397" y="147" key="CommitChangelistDialog2" timestamp="1654792860299">
       <screen x="0" y="23" width="1792" height="1017" />
     </state>
-    <state x="397" y="147" key="CommitChangelistDialog2/0.23.1792.1017@0.23.1792.1017" timestamp="1654792118725" />
+    <state x="397" y="147" key="CommitChangelistDialog2/0.23.1792.1017@0.23.1792.1017" timestamp="1654792860299" />
     <state x="683" y="293" key="FileChooserDialogImpl" timestamp="1654631288597">
       <screen x="0" y="23" width="1792" height="1017" />
     </state>
@@ -558,10 +555,10 @@
       <screen x="0" y="23" width="1792" height="1017" />
     </state>
     <state x="397" y="170" key="SettingsEditor/0.23.1792.1017@0.23.1792.1017" timestamp="1654631930370" />
-    <state x="496" y="260" key="Vcs.Push.Dialog.v2" timestamp="1654792121219">
+    <state x="496" y="260" key="Vcs.Push.Dialog.v2" timestamp="1654792185512">
       <screen x="0" y="23" width="1792" height="1017" />
     </state>
-    <state x="496" y="260" key="Vcs.Push.Dialog.v2/0.23.1792.1017@0.23.1792.1017" timestamp="1654792121219" />
+    <state x="496" y="260" key="Vcs.Push.Dialog.v2/0.23.1792.1017@0.23.1792.1017" timestamp="1654792185512" />
     <state x="679" y="455" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1654789139788">
       <screen x="0" y="23" width="1792" height="1017" />
     </state>
