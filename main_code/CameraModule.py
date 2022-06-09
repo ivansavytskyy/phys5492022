@@ -40,13 +40,13 @@ class CameraModule(BModule):
     def _camera_video(self):
         # how we want it to run
         while True:
-            self.sensor.start_preview()
+            # self.sensor.start_preview()
             # start video, record for video length, then stop
             self.sensor.start_recording(self.filename)
             self.sensor.wait_recording(self.video_length)
             self.sensor.stop_recording()
 
-            self.sensor.stop_preview()
+            # self.sensor.stop_preview()
             # need to update the filename
             self._update_filename()
 
