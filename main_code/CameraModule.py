@@ -6,6 +6,7 @@ from BModule import BModule
 from picamera import PiCamera
 from multiprocessing import Process
 import time
+import multiprocessing as mp
 import os
 
 
@@ -30,6 +31,7 @@ class CameraModule(BModule):
         if not os.path.isdir(self.filepath):
             os.makedirs(self.filepath)
         self._update_filename()
+        mp.set_start_method("spawn")
 
     def start_video(self):
         # creates process to start camera_video
