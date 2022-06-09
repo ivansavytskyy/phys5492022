@@ -47,7 +47,7 @@ class CameraModule(BModule):
             # start video, record for video length, then stop
             print("Starting video recording...")
             self.sensor.start_recording(self.filename)
-            self.sensor.wait_recording(self.video_length)
+            time.sleep(self.video_length)
             print("Stopping video recording")
             self.sensor.stop_recording()
 
