@@ -39,7 +39,7 @@ class HumidityModule(BModule):
         # time is in utc
         # append to the file
         with open(self.filename, "a") as myfile:
-            myfile.write(str(time) + "," + str (self.hum)+ "," + str(self.temp)+ "\n" )
+            myfile.write(str(time) + "," + str (self.hum)+ "," + str(self.ct)+ "\n" )
             self.line_counter += 1
 
         if self.line_counter >= self.num_lines:
