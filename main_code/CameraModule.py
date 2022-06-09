@@ -22,7 +22,6 @@ class CameraModule(BModule):
 
     def activate(self):
         self.name="PiCamera"
-        self.sensor = PiCamera()
 
         self.active = False
         time.sleep(2) # TODO: neeed delay to let camera warm up the first time?
@@ -39,6 +38,7 @@ class CameraModule(BModule):
 
     def _camera_video(self):
         # how we want it to run
+        self.sensor = PiCamera()
         while True:
             # self.sensor.start_preview()
             # start video, record for video length, then stop
