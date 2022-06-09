@@ -35,7 +35,7 @@ class CameraModule(BModule):
 
     def start_video(self):
         # creates process to start camera_video
-        p = Process(target=self._camera_video(), daemon=True)
+        p = Process(target=self._camera_video(), daemon=False)
         p.start()
         print("Started camera recording")
 
