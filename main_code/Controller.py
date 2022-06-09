@@ -101,8 +101,11 @@ class Controller():
             last_cycle_delay_true = float(self.current_time[-5:]) - float(self.last_time[-5:])
         else:
             last_cycle_delay_true = 0
-        last_cycle_delay_true = 0  # todo: fix self-correcting time cycle
-        time.sleep(self.cycle_time * (1-last_cycle_delay_true))
+        sleep_time = self.cycle_time * (1-last_cycle_delay_true)
+        if sleep_time < 0:
+            sleep_time = 0
+        print(f"Last timestamp: {self.last_time}, current timestamp: {self.current_time}. Sleeping for {sleep_time}")
+        time.sleep(sleep_time)
 
     def __init__(self):
 
@@ -132,7 +135,6 @@ class Controller():
             self.mod_list[-1].active = True
         except:
             print("Failed to initialize GPS module")
-        # self.mod_list.append(CameraModule())
         try:
             self.mod_list.append(HumidityModule())
             self.mod_list[-1].activate()
@@ -243,4 +245,4 @@ class Controller():
                                                          t_int = self.get_t_int(),
                                                          t_cpu = self.get_t_CPU(),
                                                          humidity= self.get_humidity(),
-                                                         print_debug = True)
+                                                         print_debug = False)

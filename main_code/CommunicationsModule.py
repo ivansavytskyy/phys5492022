@@ -50,7 +50,7 @@ class CommunicationsModule(BModule):
             :returns bool
         """
 
-    communication_interval = 5  # controller cycles
+    communication_interval = 1  # controller cycles
     communication_interval_counter = 0
 
     def activate(self, serial_port = "/dev/ttyACM0"):
