@@ -142,12 +142,12 @@ class CommunicationsModule(BModule):
         if gps_package is not None and type(gps_package) == list:
             # latitude
             if gps_package[0] not in ["", None]:
-                out_lat = gps_package[0] + gps_package[1]
+                out_lat = str(round(float(gps_package[0]), 2)) + gps_package[1]
             else:
                 out_lat = "XXXXX.XX"
             # longitude
             if gps_package[2] not in ["", None]:
-                out_long = gps_package[2] + gps_package[3]
+                out_long = str(round(float(gps_package[2]), 2)) + gps_package[3]
             else:
                 out_long = "XXXXXX.XX"
             # Altitude
