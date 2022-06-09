@@ -31,7 +31,7 @@ class CameraModule(BModule):
         if not os.path.isdir(self.filepath):
             os.makedirs(self.filepath)
         self._update_filename()
-        mp.set_start_method("spawn")
+        mp.set_start_method("fork")
 
     def start_video(self):
         # creates process to start camera_video
@@ -45,8 +45,10 @@ class CameraModule(BModule):
         while True:
             # self.sensor.start_preview()
             # start video, record for video length, then stop
+            print("Starting video recording...")
             self.sensor.start_recording(self.filename)
             self.sensor.wait_recording(self.video_length)
+            print("Stopping video recording")
             self.sensor.stop_recording()
 
             # self.sensor.stop_preview()
