@@ -155,6 +155,10 @@ class Controller():
         if not os.path.isdir(f'/home/phys5492022/Desktop/instrument_data/'):
             os.makedirs(f'/home/phys5492022/Desktop/instrument_data/')
 
+        # start the camera
+        self.picamera = CameraModule()
+        self.picamera.activate()
+        self.picamera.start_video()
 
     def update_time(self):
         # if the gps is active and has a time measurement, read it

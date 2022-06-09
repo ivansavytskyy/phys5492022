@@ -4,9 +4,10 @@ Date: 2022/06/07"""
 
 from BModule import BModule
 from picamera import PiCamera
-from threading import Thread, Lock
+from multiprocessing import Process
 import time
 import os
+
 
 class CameraModule(BModule):
     """Class module for PiCamera.
@@ -17,53 +18,46 @@ class CameraModule(BModule):
             :returns void
         """
     sensor = None
+    video_length = 10 # seconds
 
-    def __init__(self):
+    def activate(self):
         self.name="PiCamera"
         self.sensor = PiCamera()
-        self.save_path = f'/home/phys5492022/Desktop/test_images'
-        self.num_pics = 0
-        self.num_dirs = 0
-        self.lock = Lock()
-        self.recent_photo = None
 
         self.active = False
-        time.sleep(2) # delay to let camera warm up the first time
+        time.sleep(2) # TODO: neeed delay to let camera warm up the first time?
+        self.filepath = self.basefilepath + self.name + '/'
+        self.filename = f"{self.filepath}{self.name}0.h264"
+        if not os.path.isdir(self.filepath):
+            os.makedirs(self.filepath)
+        self._update_filename()
 
-    def update(self):
-        # start the thread to take a picture
-        Thread(target=self._update_helper())
-        # save_str = self.save_path + str(self.num_pics) + '.jpg'
-        #
-        # self.sensor.start_preview()
-        # self.sensor.capture(save_str)
-        # self.sensor.stop_preview()
-        # self.num_pics += 1
+    def start_video(self):
+        # creates process to start camera_video
+        p = Process(target=self._camera_video())
+        p.start()
 
-    def _update_helper(self):
-        self.lock.acquire()
+    def _camera_video(self):
+        # how we want it to run
+        while True:
+            self.sensor.start_preview()
+            # start video, record for video length, then stop
+            self.sensor.start_recording(self.filename)
+            self.sensor.wait_recording(self.video_length)
+            self.sensor.stop_recording()
 
-        # check if directory exists yet
-        if not os.path.exists(self.save_path + str (self.num_dirs)):
-            os.makedirs(self.save_path + str (self.num_dirs))
+            self.sensor.stop_preview()
+            # need to update the filename
+            self._update_filename()
 
-        save_str = self.save_path + str (self.num_dirs) + '/image_' + str (self.num_dirs) + '_' + str(self.num_pics) + '.jpg'
-        self.sensor.capture(save_str)
-        self.recent_photo  = save_str
-        self.num_pics += 1
-
-        # check conditions
-        if self.num_pics == 99:
-            # need a new folder
-            self.num_pics = 0
-            self.num_dirs +=1
-
-        self.lock.release()
-        # new thread can now run to take picture
+    def _update_filename(self):
+        while os.path.exists(self.filename):
+            self.file_counter +=1
+            self.filename = f"{self.filepath}{self.name}{self.file_counter}.h264"
 
     def print_diagnostic_data(self):
-        val = os.path.isfile(self.recent_photo)
+        val = os.path.isfile(self.filename)
         if val:
-            print(self.recent_photo + " saved!")
+            print(self.filename + " saved!")
         else:
-            print(self.recent_photo + " didn't save")
+            print(self.filename + " didn't save")
