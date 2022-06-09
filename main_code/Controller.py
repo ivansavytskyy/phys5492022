@@ -105,7 +105,7 @@ class Controller():
         if sleep_time < 0:
             sleep_time = 0
         print(f"Last timestamp: {self.last_time}, current timestamp: {self.current_time}. Sleeping for {sleep_time}")
-        time.sleep(sleep_time)
+        time.sleep(self.cycle_time)
 
     def __init__(self):
 
