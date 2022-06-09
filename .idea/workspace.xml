@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="cedd325f-df50-42ce-b8ff-ec855d63322b" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/main_code/CommunicationsModule.py" beforeDir="false" afterPath="$PROJECT_DIR$/main_code/CommunicationsModule.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main_code/CameraModule.py" beforeDir="false" afterPath="$PROJECT_DIR$/main_code/CameraModule.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main_code/HumidityModule.py" beforeDir="false" afterPath="$PROJECT_DIR$/main_code/HumidityModule.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -124,14 +125,7 @@
       <workItem from="1654548376782" duration="98000" />
       <workItem from="1654613335280" duration="13016000" />
       <workItem from="1654631588109" duration="23074000" />
-      <workItem from="1654787209919" duration="2240000" />
-    </task>
-    <task id="LOCAL-00025" summary="included CommunicationsModule.py">
-      <created>1654618292373</created>
-      <option name="number" value="00025" />
-      <option name="presentableId" value="LOCAL-00025" />
-      <option name="project" value="LOCAL" />
-      <updated>1654618292373</updated>
+      <workItem from="1654787209919" duration="3194000" />
     </task>
     <task id="LOCAL-00026" summary="included CommunicationsModule.py">
       <created>1654618502856</created>
@@ -469,7 +463,14 @@
       <option name="project" value="LOCAL" />
       <updated>1654790787277</updated>
     </task>
-    <option name="localTasksCounter" value="74" />
+    <task id="LOCAL-00074" summary="fixed lat/long formatting">
+      <created>1654791201373</created>
+      <option name="number" value="00074" />
+      <option name="presentableId" value="LOCAL-00074" />
+      <option name="project" value="LOCAL" />
+      <updated>1654791201373</updated>
+    </task>
+    <option name="localTasksCounter" value="75" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -477,7 +478,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="Finished and tested formatting in format_test.py - not implemented in CommunicationsModule.py yet" />
     <MESSAGE value="Added format and send code in CommunicationsModule.py&#10;Small fixes to supporting functions" />
     <MESSAGE value="Added capability for controller to collect data and send them to the communications module" />
     <MESSAGE value="Added/updated documentation" />
@@ -502,17 +502,18 @@
     <MESSAGE value="changed multiprocessing method to fork&#10;added some diagnostic stuff" />
     <MESSAGE value="testing sleep instead of wait recording" />
     <MESSAGE value="prepared for comm test - turned off camera module for now" />
-    <option name="LAST_COMMIT_MESSAGE" value="prepared for comm test - turned off camera module for now" />
+    <MESSAGE value="fixed lat/long formatting" />
+    <option name="LAST_COMMIT_MESSAGE" value="fixed lat/long formatting" />
   </component>
   <component name="WindowStateProjectService">
     <state x="456" y="291" key="#xdebugger.XInspectDialog" timestamp="1654704134951">
       <screen x="0" y="23" width="1792" height="1017" />
     </state>
     <state x="456" y="291" key="#xdebugger.XInspectDialog/0.23.1792.1017@0.23.1792.1017" timestamp="1654704134951" />
-    <state x="397" y="147" key="CommitChangelistDialog2" timestamp="1654790787158">
+    <state x="397" y="147" key="CommitChangelistDialog2" timestamp="1654792061623">
       <screen x="0" y="23" width="1792" height="1017" />
     </state>
-    <state x="397" y="147" key="CommitChangelistDialog2/0.23.1792.1017@0.23.1792.1017" timestamp="1654790787158" />
+    <state x="397" y="147" key="CommitChangelistDialog2/0.23.1792.1017@0.23.1792.1017" timestamp="1654792061623" />
     <state x="683" y="293" key="FileChooserDialogImpl" timestamp="1654631288597">
       <screen x="0" y="23" width="1792" height="1017" />
     </state>
@@ -553,10 +554,10 @@
       <screen x="0" y="23" width="1792" height="1017" />
     </state>
     <state x="397" y="170" key="SettingsEditor/0.23.1792.1017@0.23.1792.1017" timestamp="1654631930370" />
-    <state x="496" y="260" key="Vcs.Push.Dialog.v2" timestamp="1654790792574">
+    <state x="496" y="260" key="Vcs.Push.Dialog.v2" timestamp="1654791202813">
       <screen x="0" y="23" width="1792" height="1017" />
     </state>
-    <state x="496" y="260" key="Vcs.Push.Dialog.v2/0.23.1792.1017@0.23.1792.1017" timestamp="1654790792574" />
+    <state x="496" y="260" key="Vcs.Push.Dialog.v2/0.23.1792.1017@0.23.1792.1017" timestamp="1654791202813" />
     <state x="679" y="455" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1654789139788">
       <screen x="0" y="23" width="1792" height="1017" />
     </state>

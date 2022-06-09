@@ -139,6 +139,14 @@ class Controller():
             self.mod_list[-1].active = True
         except:
             print("Failed to initialize humidity module")
+
+        try:
+            self.mod_list.append(CameraModule())
+            self.mod_list[-1].activate()
+            self.mod_list[-1].active = True
+        except:
+            print("Failed to initialize camera module")
+
         try:
             self.mod_list.append(CommunicationsModule())
             self.mod_list[-1].activate()
@@ -154,12 +162,6 @@ class Controller():
         # create the directory for instrument data
         if not os.path.isdir(f'/home/phys5492022/Desktop/instrument_data/'):
             os.makedirs(f'/home/phys5492022/Desktop/instrument_data/')
-
-        # start the camera
-        self.picamera = CameraModule()
-        self.picamera.activate()
-        self.picamera.start_video()
-
     def update_time(self):
         # if the gps is active and has a time measurement, read it
         # otherwise use system time
