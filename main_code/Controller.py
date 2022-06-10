@@ -168,10 +168,11 @@ class Controller():
             print("Failed to initialize camera module")
 
         try:
-            self.mod_list.append(CommunicationsModule())
-            self.mod_list[-1].activate()
-            self.modules[self.mod_list[-1].name] = self.mod_list[-1]
-            self.mod_list[-1].active = True
+            # self.mod_list.append(CommunicationsModule())
+            # self.mod_list[-1].activate()
+            # self.modules[self.mod_list[-1].name] = self.mod_list[-1]
+            # self.mod_list[-1].active = True
+            x = 0
         except:
             print("Failed to initialize communications module")
     
