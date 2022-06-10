@@ -111,33 +111,50 @@ class Controller():
 
         # try initializing every module - if they fail just ignore it. The rest of the program can function fine without
         # any individual module. If you don't like naked exceptions bite me.
+        self.boot_modules()
+
+        print("Modules Status:")
+        for module in self.mod_list:
+            print(f"{module.name}: {module.active}")
+
+        # create the directory for instrument data
+        if not os.path.isdir(f'/home/phys5492022/Desktop/instrument_data/'):
+            os.makedirs(f'/home/phys5492022/Desktop/instrument_data/')
+    
+    def boot_modules(self):
+        print("Booting sensors...")
         try:
             self.mod_list.append(TemperatureModule())
             self.mod_list[-1].activate(name="MAX31865-E", board_pin="D5")
+            self.modules[self.mod_list[-1].name] = self.mod_list[-1]
             self.mod_list[-1].active = True
         except:
             print("Failed to initialize MAX31865-E")
         try:
             self.mod_list.append(TemperatureModule())
             self.mod_list[-1].activate(name="MAX31865-I", board_pin="D6")
+            self.modules[self.mod_list[-1].name] = self.mod_list[-1]
             self.mod_list[-1].active = True
         except:
             print("Failed to initialize MAX31865-I")
         try:
             self.mod_list.append(TemperatureCPUModule())
             self.mod_list[-1].activate()
+            self.modules[self.mod_list[-1].name] = self.mod_list[-1]
             self.mod_list[-1].active = True
         except:
             print("Failed to initialize CPUTemp")
         try:
             self.mod_list.append(GPSModule())
             self.mod_list[-1].activate()
+            self.modules[self.mod_list[-1].name] = self.mod_list[-1]
             self.mod_list[-1].active = True
         except:
             print("Failed to initialize GPS module")
         try:
             self.mod_list.append(HumidityModule())
             self.mod_list[-1].activate()
+            self.modules[self.mod_list[-1].name] = self.mod_list[-1]
             self.mod_list[-1].active = True
         except:
             print("Failed to initialize humidity module")
@@ -145,6 +162,7 @@ class Controller():
         try:
             self.mod_list.append(CameraModule())
             self.mod_list[-1].activate()
+            self.modules[self.mod_list[-1].name] = self.mod_list[-1]
             self.mod_list[-1].active = True
         except:
             print("Failed to initialize camera module")
@@ -152,40 +170,13 @@ class Controller():
         try:
             self.mod_list.append(CommunicationsModule())
             self.mod_list[-1].activate()
+            self.modules[self.mod_list[-1].name] = self.mod_list[-1]
             self.mod_list[-1].active = True
         except:
             print("Failed to initialize communications module")
-
-        print("Modules Status:")
-        for module in self.mod_list:
-            self.modules[module.name] = module
-            print(f"{module.name}: {module.active}")
-
-        # create the directory for instrument data
-        if not os.path.isdir(f'/home/phys5492022/Desktop/instrument_data/'):
-            os.makedirs(f'/home/phys5492022/Desktop/instrument_data/')
+    
     def update_time(self):
-        # if the gps is active and has a time measurement, read it
-        # otherwise use system time
-        gps_time_available = False
-
-        if self.modules["CopernicusII-GPS"].active == True and self.modules["CopernicusII-GPS"].utc not in [None, ""]:
-            try:
-                self.last_time = self.current_time
-                self.current_time = str(round(float(self.modules["CopernicusII-GPS"].utc), 2))
-                print(f"Read current time from GPS and set to {self.current_time}")
-                gps_time_available = True
-            except:
-                print("Encountered exception when retrieving GPS time!")
-                gps_time_available = False
-        if not gps_time_available:
-            # gets time and formats it like hhmmss.ss to match gps output
-            time_object = datetime.now(timezone.utc)
-            self.last_time = self.current_time
-            base_time = f"{time_object.hour:02}{time_object.minute:02}{time_object.second:02}"
-            decimal_time = f"{time_object.microsecond/1e6:.2}"
-            self.current_time = base_time + decimal_time[-3:]
-            print(f"Read current time from computer and set to {self.current_time}")
+        pass
 
     def get_t_ext(self):
         # External temperature
