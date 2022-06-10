@@ -168,11 +168,10 @@ class Controller():
             print("Failed to initialize camera module")
 
         try:
-            # self.mod_list.append(CommunicationsModule())
-            # self.mod_list[-1].activate()
-            # self.modules[self.mod_list[-1].name] = self.mod_list[-1]
-            # self.mod_list[-1].active = True
-            x = 0
+            self.mod_list.append(CommunicationsModule())
+            self.mod_list[-1].activate()
+            self.modules[self.mod_list[-1].name] = self.mod_list[-1]
+            self.mod_list[-1].active = True
         except:
             print("Failed to initialize communications module")
 
@@ -180,6 +179,8 @@ class Controller():
         """this is ugly and hackey but I think it works. It checks to see if the GPS module is active, reads the time,
         and sets it in this module such that it's available for everything else that needs it. If the gps module is
         not available, not active, or gives a weird reading it'll just take the system time."""
+        
+        self.last_time = self.current_time
         # check if the GPS is active
         gps_active = False
         if "CopernicusII-GPS" in self.modules.keys():

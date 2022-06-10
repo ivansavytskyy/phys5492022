@@ -130,9 +130,7 @@ class CommunicationsModule(BModule):
 
         # format time - get date from computer and time from satellite
         if utc is not None and type(utc) == str:
-            cdt = datetime.now(timezone.utc)
-            cyear = str(cdt.year)[-2:]
-            out_datetime = f"{cyear}{cdt.month:02}{cdt.day:02}" + utc
+            out_datetime = utc
         else:
             out_datetime = "XXXXXXXXXXXX.XX"
         if print_debug:
