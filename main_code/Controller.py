@@ -175,9 +175,91 @@ class Controller():
             x = 0
         except:
             print("Failed to initialize communications module")
-    
+
     def update_time(self):
-        pass
+        """this is ugly and hackey but I think it works. It checks to see if the GPS module is active, reads the time,
+        and sets it in this module such that it's available for everything else that needs it. If the gps module is
+        not available, not active, or gives a weird reading it'll just take the system time."""
+        # check if the GPS is active
+        gps_active = False
+        if "CopernicusII-GPS" in self.modules.keys():
+            if self.modules["CopernicusII-GPS"].active:
+                gps_active = True
+
+        # gets time and formats it like hhmmss.ss to match gps output
+        # gets date from system
+        time_object = datetime.now(timezone.utc)
+        year = str(time_object.year)[2:]
+        month = str(time_object.month)
+        if len(month) == 1:
+            month = "0" + month
+        day = str(time_object.day)
+
+
+        if len(day) == 1:
+            day = "0" + day
+        if gps_active:
+            try:
+                rounded_utc = str(round(float(self.modules["CopernicusII-GPS"].utc), 2))
+                split_time = rounded_utc.split(".")
+                second = split_time[0][4:6]
+
+                if len(second) == 1:
+                    second = "0" + second
+
+                if second == "60":
+                    second = "00"
+                    minute = str(int(split_time[0][2:4]) + 1)
+                else:
+                    minute = split_time[0][2:4]
+
+                if len(minute) == 1:
+                    minute = "0" + minute
+
+                if minute == "60":
+                    minute = "00"
+                    hour = str(int(split_time[0][:2]) + 1)
+                else:
+                    hour = split_time[0][:2]
+
+                if len(hour) == 1:
+                    hour = "0" + hour
+
+                if len(split_time[1]) == 1:
+                    fracsecond = split_time[1] + "0"
+                else:
+                    fracsecond = split_time[1]
+                self.current_time = f"{year}{month}{day}{hour}{minute}{second}.{fracsecond}"
+            except:
+                gps_active = False
+        if not gps_active:
+            split_fracsecond = str(round(time_object.microsecond / 1e6, 2)).split(".")
+            fracsecond = split_fracsecond[1]
+            if len(fracsecond) == 1:
+                fracsecond = fracsecond + "0"
+            if split_fracsecond[0] == "1":
+                second = str(time_object.second + 1)
+            else:
+                second = str(time_object.second)
+            if len(second) == 1:
+                second = "0" + second
+
+            if second == "60":
+                second = "00"
+                minute = str(time_object.minute + 1)
+            else:
+                minute = str(time_object.minute)
+            if len(minute) == 1:
+                minute = "0" + minute
+
+            if minute == "60":
+                minute = "00"
+                hour = str(time_object.hour + 1)
+            else:
+                hour = str(time_object.hour)
+            if len(hour) == 1:
+                hour = "0" + hour
+            self.current_time = f"{year}{month}{day}{hour}{minute}{second}.{fracsecond}"
 
     def get_t_ext(self):
         # External temperature
