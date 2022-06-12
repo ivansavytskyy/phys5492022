@@ -18,7 +18,7 @@ class CameraModule(BModule):
         """
     sensor = None
     recording_counter = None
-    video_length = 10  # controller cycles
+    video_length = 24  # controller cycles
 
     def activate(self):
         self.name="PiCamera"

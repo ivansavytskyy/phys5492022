@@ -86,7 +86,7 @@ class CommunicationsModule(BModule):
             all gps package information in strings. They will be empty if there is no data.
 
         Format information
-        [time],[lat],[long],[altitude],[nsats],[groundspeed],[quality_flag],[itemp],[etemp],[cputemp],[humidity]\n
+        [time],[lat],[long],[altitude],[nsats],[groundspeed],[quality_flag],[itemp],[etemp],[cputemp],[humidity],&buffer\n
         time (15): YYMMDDhhmmss.ss
             min/max: 000101000000.00 / 991231235959.99 - 00:00:00.00 Jan 1, 2000 / 23:59:59.99 Dec 31, 2099
             YY = Year, MM = month, DD = day, hh = hour, mm = minute, ss.ss = seconds
@@ -118,7 +118,9 @@ class CommunicationsModule(BModule):
 
         Delimiters: 10
         newline:1
-        Total characters: 92
+        Total characters: 93
+        Buffer characters: 35
+        Total characters: 128
 
         Non-numeric characters:
         E/W/N/S - directions for coordinates
@@ -126,6 +128,9 @@ class CommunicationsModule(BModule):
         G - data over upper bound
         L - data under lower bound
         F - float formatting error
+        T - true time flag from GPS
+        C - computer time flag
+        B - buffer
         """
 
         # format time - get date from computer and time from satellite
@@ -142,14 +147,14 @@ class CommunicationsModule(BModule):
             if gps_package[0] not in ["", None]:
                 # todo: fix formatting here such that if it rounds up at
                 #  50 deg 59.999 minutes it doesn't report 50 deg 60 minutes
-                out_lat = str(round(float(gps_package[0]), 2)) + gps_package[1]
+                out_lat = str(force_format_float(round(float(gps_package[0]), 2)), 4, 2) + gps_package[1]
             else:
-                out_lat = "XXXXX.XX"
+                out_lat = "XXXX.XXN"
             # longitude
             if gps_package[2] not in ["", None]:
-                out_long = str(round(float(gps_package[2]), 2)) + gps_package[3]
+                out_long = str(force_format_float(round(float(gps_package[2]), 2)), 5, 2) + gps_package[3]
             else:
-                out_long = "XXXXXX.XX"
+                out_long = "XXXXX.XXE"
             # Altitude
             if gps_package[7] not in ["", None]:
                 f_alt = round(float(gps_package[7]), 2)
@@ -261,13 +266,14 @@ class CommunicationsModule(BModule):
             # [time][lat][long][altitude][nsats][groundspeed][quality_flag][itemp][etemp][cputemp][humidity]\n
             print("Lengths:")
             print(
-                f"time: {len(out_datetime) == 15}, lat: {len(out_lat) == 8}, long: {len(out_long) == 9}, alt: {len(out_alt) == 8},"
+                f"time: {len(out_datetime) == 16}, lat: {len(out_lat) == 8}, long: {len(out_long) == 9}, alt: {len(out_alt) == 8},"
                 f"nsats: {len(out_nsats) == 2}, gs: {len(out_gs) == 6}, qf: {len(out_qf) == 1}, t_i: {len(out_t_int) == 7},"
                 f"t_e: {len(out_t_ext) == 7}, t_cpu: {len(out_t_cpu) == 7}, humidity: {len(out_humidity) == 11}")
 
         string_to_send = \
             f"{out_datetime},{out_lat},{out_long},{out_alt}," \
-            f"{out_nsats},{out_gs},{out_qf},{out_t_int},{out_t_ext},{out_t_cpu},{out_humidity}\n"
+            f"{out_nsats},{out_gs},{out_qf},{out_t_int},{out_t_ext},{out_t_cpu},{out_humidity},"
+        string_to_send += f"&{'B'*(126-len(string_to_send))}\n"
 
         if print_debug:
             print("String to send:", string_to_send)

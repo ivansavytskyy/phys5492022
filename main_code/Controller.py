@@ -63,14 +63,21 @@ class Controller():
     last_time = None
     current_time = None
 
-    cycle_time = 1.0  # second
+    cycle_time = 10.0  # second
 
     debug_mode = True
+    
+    cycle_counter = 0
+    
+    
 
     def run(self):
+        # grab the time from the GPS or computer and set it in the controller
+        self.update_time()
+        
         # run update on all the modules
         if self.debug_mode:
-            print("\n ===== STARTING RUN =======")
+            print(f"\n ===== STARTING ITERATION {self.cycle_counter} =======")
 
         for module in self.mod_list:
             if module.active:
@@ -83,8 +90,7 @@ class Controller():
                     module.print_diagnostic_data()
 
 
-        # grab the time from the GPS or computer and set it in the controller
-        self.update_time()
+        
 
         # if communication module is still alive, check if we should transmit
         if "Antenna" in self.modules.keys() and self.modules["Antenna"].active:
@@ -96,16 +102,17 @@ class Controller():
             if module.active:
                 module.write_to_file(self.current_time)
 
-        # if cycle length is longer than 60 seconds this breaks
-        if self.current_time is not None and self.last_time is not None:
-            last_cycle_delay_true = float(self.current_time[-5:]) - float(self.last_time[-5:])
-        else:
-            last_cycle_delay_true = 0
-        sleep_time = self.cycle_time * (1-last_cycle_delay_true)
-        if sleep_time < 0:
-            sleep_time = 0
-        print(f"Last timestamp: {self.last_time}, current timestamp: {self.current_time}. Sleeping for {sleep_time}")
-        time.sleep(self.cycle_time)
+        try:
+            sleep_time = self.determine_sleep_time()
+            if sleep_time < 0: # if the sleep time is less than zero we're lagging behind by more than a cycle
+                sleep_time = 0
+            elif sleep_time > 2*self.cycle_time: # if the sleep time is big something probably went wrong
+                time.sleep(self.cycle_time)
+            print(f"Last timestamp: {self.last_time}, current timestamp: {self.current_time}. Sleeping for {sleep_time}")
+            time.sleep(sleep_time)
+        except: # if anything above breaks just sleep for the cycle time
+            time.sleep(self.cycle_time)
+        self.cycle_counter += 1
 
     def __init__(self):
 
@@ -230,7 +237,7 @@ class Controller():
                     fracsecond = split_time[1] + "0"
                 else:
                     fracsecond = split_time[1]
-                self.current_time = f"{year}{month}{day}{hour}{minute}{second}.{fracsecond}"
+                self.current_time = f"T{year}{month}{day}{hour}{minute}{second}.{fracsecond}"
             except:
                 gps_active = False
         if not gps_active:
@@ -260,7 +267,7 @@ class Controller():
                 hour = str(time_object.hour)
             if len(hour) == 1:
                 hour = "0" + hour
-            self.current_time = f"{year}{month}{day}{hour}{minute}{second}.{fracsecond}"
+            self.current_time = f"C{year}{month}{day}{hour}{minute}{second}.{fracsecond}"
 
     def get_t_ext(self):
         # External temperature
@@ -321,3 +328,25 @@ class Controller():
                                                          t_cpu = self.get_t_CPU(),
                                                          humidity= self.get_humidity(),
                                                          print_debug = False)
+    def determine_sleep_time(self):
+        time_diff = 0
+        
+        # if the dates are the same, then do work
+        if self.current_time[-15:-9] == self.last_time[-15:-9]:
+            chour = float(self.current_time[-9:-7])
+            cminutes = float(self.current_time[-7:-5])
+            cseconds = float(self.current_time[-5:])
+            
+            lhour = float(self.last_time[-9:-7])
+            lminutes = float(self.last_time[-7:-5])
+            lseconds = float(self.last_time[-5:])
+            if chour != lhour:
+                time_diff += 3600 * (chour-lhour)
+            if cminutes != lminutes:
+                time_diff += 60 * (cminutes-lminutes)
+            time_diff += cseconds-lseconds
+            sleep_time = 2*self.cycle_time - time_diff
+            return sleep_time
+        # otherwise just set the time difference to 10 seconds
+        else:
+            return 10.0
