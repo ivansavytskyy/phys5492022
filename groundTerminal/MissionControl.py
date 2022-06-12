@@ -84,14 +84,18 @@ TempInt         = 0     # sttt.tt
 TempExt         = 0     # sttt.tt
 TempCPU         = 0     # sttt.tt
 Humidity        = 0     # hh.hhhhhhhh
-xTime       = list(np.zeros(NUM_PLOT_POINTS))
-xLong       = list(np.ones(NUM_PLOT_POINTS)*106)
-yLat        = list(np.ones(NUM_PLOT_POINTS)*52)
-yTempCPU    = list(np.zeros(NUM_PLOT_POINTS))
-yTempI      = list(np.zeros(NUM_PLOT_POINTS))
-yTempE      = list(np.zeros(NUM_PLOT_POINTS))
-yAlt        = list(np.zeros(NUM_PLOT_POINTS))
-yHum        = list(np.zeros(NUM_PLOT_POINTS))
+
+timeNow         = float(dt.datetime.now().strftime('%H%M%S'))
+xTime           = list(np.ones(NUM_PLOT_POINTS))
+for t in np.arange(NUM_PLOT_POINTS):
+    xTime[t]    = timeNow - (NUM_PLOT_POINTS - t)
+xLong           = list(np.ones(NUM_PLOT_POINTS)*106)
+yLat            = list(np.ones(NUM_PLOT_POINTS)*52)
+yTempCPU        = list(np.ones(NUM_PLOT_POINTS)*60)
+yTempI          = list(np.zeros(NUM_PLOT_POINTS)*20)
+yTempE          = list(np.zeros(NUM_PLOT_POINTS)*20)
+yAlt            = list(np.ones(NUM_PLOT_POINTS)*1)
+yHum            = list(np.zeros(NUM_PLOT_POINTS)*40)
 
 # initialize connection with COM port
 serialPort = serial.Serial(port="COM47", baudrate=9600, bytesize=8, timeout=2, stopbits=serial.STOPBITS_ONE)
@@ -100,71 +104,80 @@ print('Initial serial read:')
 print(dataFull)
 
 # this function is called periodically from FuncAnimation
-def animate(i, xTime, xLong, yLat, yTempCPU, yTempI, yTempE, yAlt, yHum):
+def animate(i, Time, Latitude, Longitude, Altitude, NSats, GroundSpeed,\
+            QualityFlag, TempInt, TempExt, TempCPU, Humidity,xTime, xLong,\
+            yLat, yTempCPU, yTempI, yTempE, yAlt, yHum):
 
     # read data from serial port
     dataFull = serialPort.read_until(b'\nRSSI:')
     dataExtract = dataFull[-(NUM_CHARS+TM_END_BYTE_LEN):-TM_END_BYTE_LEN].strip()
     serialString = dataExtract.decode("utf-8").split(",")
     print(serialString)
+    # save data
+    with open("MissionControl_testData.txt", "a") as f:
+        f.write(f"{serialString}\n")
+    # # flight data
+    # with open("MissionControl_flightData.txt", "a") as f:
+    #     f.write(dataExtract)
+    # process data with error handling
     try:
-        Time        = float(serialString[0][-6:-3])    # YYMMDDhhmmss.ss
+        Time        = float(serialString[0][6:12])    # YYMMDDhhmmss.ss
     except:
         print("Error: Time")
-        Time = 0.0
+        # Time = 0.0
     try:
-        Latitude    = float(serialString[1][:-5])/100  # DDmm.mmO
+        Latitude    = float(serialString[1][:4])/100  # DDmm.mmO
     except:
         print("Error: Latitude")
-        Latitude = 0.0
+        # Latitude = 0.0
     try:
-        Longitude   = float(serialString[2][:-4])/100  # DDDmm.mmO
+        Longitude   = float(serialString[2][:5])/100  # DDDmm.mmO
     except:
         print("Error: Longitude")
-        Longitude = 0.0
+        # Longitude = 0.0
     try:
-        Altitude    = float(serialString[3][2:4])      # aaaaa.aa
+        Altitude    = float(serialString[3][2:5])      # aaaaa.aa
     except:
         print("Error: Altitude")
-        Altitude = 0.0
+        # Altitude = 0.0
     try:
         NSats       = int(float(serialString[4]))      # nn
     except:
         print("Error: NSats")
-        NSats = 0
+        # NSats = 0
     try:
         GroundSpeed = float(serialString[5])           # kkk.kk
     except:
         print("Error: Ground Speed")
-        GroundSpeed = 0.0
+        # GroundSpeed = 0.0
     try:
         QualityFlag = int(float(serialString[6]))      # n
     except:
         print("Error: Quality Flag")
-        QualityFlag = 0
+        # QualityFlag = 0
     try:
         TempInt     = float(serialString[7])           # sttt.tt
     except:
         print("Error: Temp Int")
-        TempInt     = 0.0
+        # TempInt     = 0.0
     try:
         TempExt     = float(serialString[8])           # sttt.tt
     except:
         print("Error: Temp Ext")
-        TempExt     = 0.0
+        # TempExt     = 0.0
     try:
         TempCPU     = float(serialString[9])           # sttt.tt
     except:
         print("Error: Temp CPU")
-        TempCPU     = 0.0
+        # TempCPU     = 0.0
     try:
         Humidity    = float(serialString[10][:6])      # hh.hhhhhhhh
     except:
         print("Error: Humidity")
-        Humidity    = 0.0
+        # Humidity    = 0.0
 
     # append data arrays
-    xTime.append(Time)
+    xTime.append(float(dt.datetime.now().strftime('%H%M%S')))
     xLong.append(Longitude)
     yLat.append(Latitude)
     yTempCPU.append(TempCPU)
@@ -197,7 +210,7 @@ def animate(i, xTime, xLong, yLat, yTempCPU, yTempI, yTempE, yAlt, yHum):
     axAlt.plot(xTime, yAlt, color="yellow")
     axHum.plot(xTime, yHum, color="orchid")
 
-    # Format plots
+    # format plots
     # Coords
     axCoords.set_title("Coordinates", fontweight="bold")
     axCoords.set_xlabel("Longitude [deg]")
@@ -223,7 +236,7 @@ def animate(i, xTime, xLong, yLat, yTempCPU, yTempI, yTempE, yAlt, yHum):
     axAlt.set_title("Altitude", fontweight="bold")
     axAlt.set_xlabel("Time [UTC]")
     axAlt.set_ylabel('A [km]')
-    axAlt.set_ylim(0, 10)
+    axAlt.set_ylim(0, 100)
     # Hum
     axHum.set_title("Humidity", fontweight="bold")
     axHum.set_xlabel("Time [UTC]")
@@ -237,7 +250,8 @@ def animate(i, xTime, xLong, yLat, yTempCPU, yTempI, yTempE, yAlt, yHum):
         ax.grid(True, color="dimgrey")
         plt.setp(ax.spines.values(), color="white")
 
-    textTime    = "Time [UTC]      : " + serialString[0][6:]
+    serTime     = serialString[0]
+    textTime    = "Time [UTC]      : " + serTime[6:8] + ":" + serTime[8:10] + ":" + serTime[10:]
     textY       = 0.80
     plt.text(0.82, textY, textTime, fontsize=12, transform=plt.gcf().transFigure)
     plt.text(0.82, textY-.15 , "Coordinates     : " + str(Longitude) + " W", fontsize=12, transform=plt.gcf().transFigure)
@@ -252,5 +266,7 @@ def animate(i, xTime, xLong, yLat, yTempCPU, yTempI, yTempE, yAlt, yHum):
     plt.text(0.82, textY-.60 , "Humidity [%]    : " + str(Humidity), fontsize=12, transform=plt.gcf().transFigure)
 
 # set up plot to call animate() function periodically
-ani = animation.FuncAnimation(fig, animate, fargs=(xTime, xLong, yLat, yTempCPU, yTempI, yTempE, yAlt, yHum), interval=1000)
+ani = animation.FuncAnimation(fig, animate, fargs=(Time, Latitude, Longitude, Altitude, NSats, GroundSpeed,\
+            QualityFlag, TempInt, TempExt, TempCPU, Humidity,xTime, xLong, \
+            yLat, yTempCPU, yTempI, yTempE, yAlt, yHum), interval=1000)
 plt.show()
