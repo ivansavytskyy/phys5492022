@@ -147,12 +147,12 @@ class CommunicationsModule(BModule):
             if gps_package[0] not in ["", None]:
                 # todo: fix formatting here such that if it rounds up at
                 #  50 deg 59.999 minutes it doesn't report 50 deg 60 minutes
-                out_lat = str(force_format_float(round(float(gps_package[0]), 2)), 4, 2) + gps_package[1]
+                out_lat = str(force_format_float(round(float(gps_package[0]), 2), 4, 2))[1:] + gps_package[1]
             else:
                 out_lat = "XXXX.XXN"
             # longitude
             if gps_package[2] not in ["", None]:
-                out_long = str(force_format_float(round(float(gps_package[2]), 2)), 5, 2) + gps_package[3]
+                out_long = str(force_format_float(round(float(gps_package[2]), 2), 5, 2))[1:] + gps_package[3]
             else:
                 out_long = "XXXXX.XXE"
             # Altitude

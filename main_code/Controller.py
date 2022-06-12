@@ -101,17 +101,8 @@ class Controller():
         for module in self.mod_list:
             if module.active:
                 module.write_to_file(self.current_time)
-
-        try:
-            sleep_time = self.determine_sleep_time()
-            if sleep_time < 0: # if the sleep time is less than zero we're lagging behind by more than a cycle
-                sleep_time = 0
-            elif sleep_time > 2*self.cycle_time: # if the sleep time is big something probably went wrong
-                time.sleep(self.cycle_time)
-            print(f"Last timestamp: {self.last_time}, current timestamp: {self.current_time}. Sleeping for {sleep_time}")
-            time.sleep(sleep_time)
-        except: # if anything above breaks just sleep for the cycle time
-            time.sleep(self.cycle_time)
+        
+        time.sleep(self.cycle_time)
         self.cycle_counter += 1
 
     def __init__(self):
@@ -328,25 +319,3 @@ class Controller():
                                                          t_cpu = self.get_t_CPU(),
                                                          humidity= self.get_humidity(),
                                                          print_debug = False)
-    def determine_sleep_time(self):
-        time_diff = 0
-        
-        # if the dates are the same, then do work
-        if self.current_time[-15:-9] == self.last_time[-15:-9]:
-            chour = float(self.current_time[-9:-7])
-            cminutes = float(self.current_time[-7:-5])
-            cseconds = float(self.current_time[-5:])
-            
-            lhour = float(self.last_time[-9:-7])
-            lminutes = float(self.last_time[-7:-5])
-            lseconds = float(self.last_time[-5:])
-            if chour != lhour:
-                time_diff += 3600 * (chour-lhour)
-            if cminutes != lminutes:
-                time_diff += 60 * (cminutes-lminutes)
-            time_diff += cseconds-lseconds
-            sleep_time = 2*self.cycle_time - time_diff
-            return sleep_time
-        # otherwise just set the time difference to 10 seconds
-        else:
-            return 10.0
