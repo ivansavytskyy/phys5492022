@@ -8,9 +8,9 @@ and provides live plotting of relevant variables
 
 Format information
 [time],[lat],[long],[altitude],[nsats],[groundspeed],[quality_flag],[itemp],[etemp],[cputemp],[humidity]\n
-    time (15): YYMMDDhhmmss.ss
+    time (16): TYYMMDDhhmmss.ss
         min/max: 000101000000.00 / 991231235959.99 - 00:00:00.00 Jan 1, 2000 / 23:59:59.99 Dec 31, 2099
-        YY = Year, MM = month, DD = day, hh = hour, mm = minute, ss.ss = seconds
+        T = type, YY = Year, MM = month, DD = day, hh = hour, mm = minute, ss.ss = seconds
     lat (8): DDmm.mmO
         min/max: 0000.00N / 9000.00N
         DD = degrees, mm.mm = minutes of arc, O = orientation N/S
@@ -36,6 +36,8 @@ Format information
         s = sign, ttt.tt = temp
     humidity (11): hh.hhhhhhhh
         min/max 00.00000000 / 99.99999999
+    buffer (remaining): &BBBB....
+        additional buffer bytes
 """
 
 import serial
@@ -46,7 +48,7 @@ import matplotlib.pyplot as plt
 import matplotlib.animation as animation
 import numpy as np
 
-NUM_CHARS = 92
+NUM_CHARS = 128
 TM_END_BYTE = "\nRSSI:"
 TM_END_BYTE_LEN = len(TM_END_BYTE)
 NUM_PLOT_POINTS = 24
@@ -85,7 +87,7 @@ TempExt         = 0     # sttt.tt
 TempCPU         = 0     # sttt.tt
 Humidity        = 0     # hh.hhhhhhhh
 
-timeNow         = float(dt.datetime.now().strftime('%H%M%S'))
+timeNow         = float(dt.datetime.utcnow().strftime('%H%M%S'))
 xTime           = list(np.ones(NUM_PLOT_POINTS))
 for t in np.arange(NUM_PLOT_POINTS):
     xTime[t]    = timeNow - (NUM_PLOT_POINTS - t)
@@ -118,66 +120,73 @@ def animate(i, Time, Latitude, Longitude, Altitude, NSats, GroundSpeed,\
         f.write(f"{serialString}\n")
     # # flight data
     # with open("MissionControl_flightData.txt", "a") as f:
-    #     f.write(dataExtract)
+        # f.write(f"{dataExtract}\n")
+        
     # process data with error handling
-    try:
-        Time        = float(serialString[0][6:12])    # YYMMDDhhmmss.ss
-    except:
-        print("Error: Time")
-        # Time = 0.0
-    try:
-        Latitude    = float(serialString[1][:4])/100  # DDmm.mmO
-    except:
-        print("Error: Latitude")
-        # Latitude = 0.0
-    try:
-        Longitude   = float(serialString[2][:5])/100  # DDDmm.mmO
-    except:
-        print("Error: Longitude")
-        # Longitude = 0.0
-    try:
-        Altitude    = float(serialString[3][2:5])      # aaaaa.aa
-    except:
-        print("Error: Altitude")
-        # Altitude = 0.0
-    try:
-        NSats       = int(float(serialString[4]))      # nn
-    except:
-        print("Error: NSats")
-        # NSats = 0
-    try:
-        GroundSpeed = float(serialString[5])           # kkk.kk
-    except:
-        print("Error: Ground Speed")
-        # GroundSpeed = 0.0
-    try:
-        QualityFlag = int(float(serialString[6]))      # n
-    except:
-        print("Error: Quality Flag")
-        # QualityFlag = 0
-    try:
-        TempInt     = float(serialString[7])           # sttt.tt
-    except:
-        print("Error: Temp Int")
-        # TempInt     = 0.0
-    try:
-        TempExt     = float(serialString[8])           # sttt.tt
-    except:
-        print("Error: Temp Ext")
-        # TempExt     = 0.0
-    try:
-        TempCPU     = float(serialString[9])           # sttt.tt
-    except:
-        print("Error: Temp CPU")
-        # TempCPU     = 0.0
-    try:
-        Humidity    = float(serialString[10][:6])      # hh.hhhhhhhh
-    except:
-        print("Error: Humidity")
-        # Humidity    = 0.0
+    dataTrue = (((serialString[0][0] == 'C') or (serialString[0][0] == 'T')))
+    print("Data true argument:", dataTrue)
+    if (dataTrue):
+        try:
+            Time        = float(serialString[0][7:13])    # TYYMMDDhhmmss.ss
+        except:
+            print("Error: Time --- using local time")
+            Time        = float(dt.datetime.utcnow().strftime('%H%M%S'))
+            Time        = xTime[-1]
+        try:
+            Latitude    = float(serialString[1][:4])/100  # DDmm.mmO
+        except:
+            print("Error: Latitude")
+            Latitude    = yLat[-1]
+        try:
+            Longitude   = float(serialString[2][:5])/100  # DDDmm.mmO
+        except:
+            print("Error: Longitude")
+            Longitude   = xLong[-1]
+        try:
+            Altitude    = float(serialString[3][:4])/1000 # aaaaa.aa
+        except:
+            print("Error: Altitude")
+            Altitude    = yAlt[-1]
+        try:
+            NSats       = int(float(serialString[4]))      # nn
+        except:
+            print("Error: NSats")
+            NSats       = NSats
+        try:
+            GroundSpeed = float(serialString[5])           # kkk.kk
+        except:
+            print("Error: Ground Speed")
+            GroundSpeed = GroundSpeed
+        try:
+            QualityFlag = int(float(serialString[6]))      # n
+        except:
+            print("Error: Quality Flag")
+            QualityFlag = QualityFlag
+        try:
+            TempInt     = float(serialString[7])           # sttt.tt
+        except:
+            print("Error: Temp Int")
+            TempInt     = yTempI[-1]
+        try:
+            TempExt     = float(serialString[8])           # sttt.tt
+        except:
+            print("Error: Temp Ext")
+            TempExt     = yTempE[-1]
+        try:
+            TempCPU     = float(serialString[9])           # sttt.tt
+        except:
+            print("Error: Temp CPU")
+            TempCPU     = yTempCPU[-1]
+        try:
+            Humidity    = float(serialString[10][:6])      # hh.hhhhhhhh
+        except:
+            print("Error: Humidity")
+            Humidity    = yHum[-1]
+    else:
+        print("TM packet not valid --- proceeding to next TM packet")
 
     # append data arrays
-    xTime.append(float(dt.datetime.now().strftime('%H%M%S')))
+    xTime.append(Time)
     xLong.append(Longitude)
     yLat.append(Latitude)
     yTempCPU.append(TempCPU)
@@ -251,19 +260,21 @@ def animate(i, Time, Latitude, Longitude, Altitude, NSats, GroundSpeed,\
         plt.setp(ax.spines.values(), color="white")
 
     serTime     = serialString[0]
-    textTime    = "Time [UTC]      : " + serTime[6:8] + ":" + serTime[8:10] + ":" + serTime[10:]
+    textTimeGPS = "Time GPS [UTC]  : " + str(Time)[0:2] + ":" + str(Time)[2:4] + ":" + str(Time)[4:6]
+    textTimeLoc = "Time Loc [UTC]  : " + dt.datetime.utcnow().strftime('%H%M%S.%f')
     textY       = 0.80
-    plt.text(0.82, textY, textTime, fontsize=12, transform=plt.gcf().transFigure)
-    plt.text(0.82, textY-.15 , "Coordinates     : " + str(Longitude) + " W", fontsize=12, transform=plt.gcf().transFigure)
-    plt.text(0.82, textY-.20 , "                  " + str(Latitude) + " N", fontsize=12, transform=plt.gcf().transFigure)
-    plt.text(0.82, textY-.25 , "Altitude [km]   : " + str(Altitude), fontsize=12, transform=plt.gcf().transFigure)
-    plt.text(0.82, textY-.30 , "NSats           : " + str(NSats), fontsize=12, transform=plt.gcf().transFigure)
-    plt.text(0.82, textY-.35 , "Speed [kph]     : " + str(GroundSpeed), fontsize=12, transform=plt.gcf().transFigure)
-    plt.text(0.82, textY-.40 , "Quality         : " + str(QualityFlag), fontsize=12, transform=plt.gcf().transFigure)
-    plt.text(0.82, textY-.45 , "TempInt [deg C] : " + str(TempInt), fontsize=12, transform=plt.gcf().transFigure)
-    plt.text(0.82, textY-.50 , "TempExt [deg C] : " + str(TempExt), fontsize=12, transform=plt.gcf().transFigure)
-    plt.text(0.82, textY-.55 , "TempCPU [deg C] : " + str(TempCPU), fontsize=12, transform=plt.gcf().transFigure)
-    plt.text(0.82, textY-.60 , "Humidity [%]    : " + str(Humidity), fontsize=12, transform=plt.gcf().transFigure)
+    plt.text(0.82, textY, textTimeGPS, fontsize=12, transform=plt.gcf().transFigure)
+    plt.text(0.82, textY-.05, textTimeLoc, fontsize=12, transform=plt.gcf().transFigure)
+    plt.text(0.82, textY-.15, "Coordinates     : " + str(Longitude) + " W", fontsize=12, transform=plt.gcf().transFigure)
+    plt.text(0.82, textY-.20, "                  " + str(Latitude) + " N", fontsize=12, transform=plt.gcf().transFigure)
+    plt.text(0.82, textY-.25, "Altitude [km]   : " + str(Altitude), fontsize=12, transform=plt.gcf().transFigure)
+    plt.text(0.82, textY-.30, "NSats           : " + str(NSats), fontsize=12, transform=plt.gcf().transFigure)
+    plt.text(0.82, textY-.35, "Speed [kph]     : " + str(GroundSpeed), fontsize=12, transform=plt.gcf().transFigure)
+    plt.text(0.82, textY-.40, "Quality         : " + str(QualityFlag), fontsize=12, transform=plt.gcf().transFigure)
+    plt.text(0.82, textY-.45, "TempInt [deg C] : " + str(TempInt), fontsize=12, transform=plt.gcf().transFigure)
+    plt.text(0.82, textY-.50, "TempExt [deg C] : " + str(TempExt), fontsize=12, transform=plt.gcf().transFigure)
+    plt.text(0.82, textY-.55, "TempCPU [deg C] : " + str(TempCPU), fontsize=12, transform=plt.gcf().transFigure)
+    plt.text(0.82, textY-.60, "Humidity [%]    : " + str(Humidity), fontsize=12, transform=plt.gcf().transFigure)
 
 # set up plot to call animate() function periodically
 ani = animation.FuncAnimation(fig, animate, fargs=(Time, Latitude, Longitude, Altitude, NSats, GroundSpeed,\
