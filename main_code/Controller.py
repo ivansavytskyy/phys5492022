@@ -123,7 +123,7 @@ class Controller():
             if not os.path.isdir(f'/home/phys5492022/Desktop/instrument_data/'):
                 os.makedirs(f'/home/phys5492022/Desktop/instrument_data/')
         except OSError:
-            print("Probably no disc space, therefore we're skipping saving locally"
+            print("Probably no disc space, therefore we're skipping saving locally")
     
     def boot_modules(self):
         print("Booting sensors...")
