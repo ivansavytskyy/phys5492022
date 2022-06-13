@@ -72,10 +72,7 @@ axTempI     = fig.add_subplot(2, 3, 5)
 axTempE     = fig.add_subplot(2, 3, 6)
 
 # create data and data arrays
-dataFull        = []
-dataExtract     = []
-serialString    = []
-Time            = 0     # YYMMDDhhmmss.ss
+Time            = float(dt.datetime.utcnow().strftime('%H%M%S'))     # YYMMDDhhmmss.ss
 Latitude        = 0     # DDmm.mmO
 Longitude       = 0     # DDDmm.mmO
 Altitude        = 0     # aaaaa.aa
@@ -87,10 +84,9 @@ TempExt         = 0     # sttt.tt
 TempCPU         = 0     # sttt.tt
 Humidity        = 0     # hh.hhhhhhhh
 
-timeNow         = float(dt.datetime.utcnow().strftime('%H%M%S'))
-xTime           = list(np.ones(NUM_PLOT_POINTS))
+xTime           = list(np.ones(NUM_PLOT_POINTS)*Time)
 for t in np.arange(NUM_PLOT_POINTS):
-    xTime[t]    = timeNow - (NUM_PLOT_POINTS - t)
+    xTime[t]    = Time - (NUM_PLOT_POINTS - t)
 xLong           = list(np.ones(NUM_PLOT_POINTS)*106)
 yLat            = list(np.ones(NUM_PLOT_POINTS)*52)
 yTempCPU        = list(np.ones(NUM_PLOT_POINTS)*60)
@@ -106,9 +102,27 @@ print('Initial serial read:')
 print(dataFull)
 
 # this function is called periodically from FuncAnimation
-def animate(i, Time, Latitude, Longitude, Altitude, NSats, GroundSpeed,\
-            QualityFlag, TempInt, TempExt, TempCPU, Humidity,xTime, xLong,\
-            yLat, yTempCPU, yTempI, yTempE, yAlt, yHum):
+def animate(i):
+
+    global Time            
+    global Latitude        
+    global Longitude       
+    global Altitude       
+    global NSats           
+    global GroundSpeed     
+    global QualityFlag     
+    global TempInt         
+    global TempExt       
+    global TempCPU         
+    global Humidity               
+    global xTime           
+    global xLong           
+    global yLat           
+    global yTempCPU      
+    global yTempI        
+    global yTempE        
+    global yAlt         
+    global yHum         
 
     # read data from serial port
     dataFull = serialPort.read_until(b'\nRSSI:')
@@ -117,71 +131,59 @@ def animate(i, Time, Latitude, Longitude, Altitude, NSats, GroundSpeed,\
     print(serialString)
     # save data
     with open("MissionControl_testData.txt", "a") as f:
-        f.write(f"{serialString}\n")
+        f.write(f"{dt.datetime.utcnow().strftime('%H%M%S.%f')}::{serialString}\n")
     # # flight data
     # with open("MissionControl_flightData.txt", "a") as f:
         # f.write(f"{dataExtract}\n")
         
     # process data with error handling
-    dataTrue = (((serialString[0][0] == 'C') or (serialString[0][0] == 'T')))
+    dataTrue = (len(serialString) > 1)
     print("Data true argument:", dataTrue)
     if (dataTrue):
         try:
             Time        = float(serialString[0][7:13])    # TYYMMDDhhmmss.ss
         except:
             print("Error: Time --- using local time")
-            Time        = float(dt.datetime.utcnow().strftime('%H%M%S'))
-            Time        = xTime[-1]
         try:
             Latitude    = float(serialString[1][:4])/100  # DDmm.mmO
         except:
             print("Error: Latitude")
-            Latitude    = yLat[-1]
         try:
             Longitude   = float(serialString[2][:5])/100  # DDDmm.mmO
         except:
             print("Error: Longitude")
-            Longitude   = xLong[-1]
         try:
             Altitude    = float(serialString[3][:4])/1000 # aaaaa.aa
         except:
             print("Error: Altitude")
-            Altitude    = yAlt[-1]
         try:
             NSats       = int(float(serialString[4]))      # nn
         except:
             print("Error: NSats")
-            NSats       = NSats
         try:
             GroundSpeed = float(serialString[5])           # kkk.kk
         except:
             print("Error: Ground Speed")
-            GroundSpeed = GroundSpeed
         try:
             QualityFlag = int(float(serialString[6]))      # n
         except:
             print("Error: Quality Flag")
-            QualityFlag = QualityFlag
         try:
             TempInt     = float(serialString[7])           # sttt.tt
         except:
             print("Error: Temp Int")
-            TempInt     = yTempI[-1]
         try:
             TempExt     = float(serialString[8])           # sttt.tt
         except:
             print("Error: Temp Ext")
-            TempExt     = yTempE[-1]
         try:
             TempCPU     = float(serialString[9])           # sttt.tt
         except:
             print("Error: Temp CPU")
-            TempCPU     = yTempCPU[-1]
         try:
             Humidity    = float(serialString[10][:6])      # hh.hhhhhhhh
         except:
             print("Error: Humidity")
-            Humidity    = yHum[-1]
     else:
         print("TM packet not valid --- proceeding to next TM packet")
 
@@ -213,11 +215,11 @@ def animate(i, Time, Latitude, Longitude, Altitude, NSats, GroundSpeed,\
     axAlt.clear()
     axHum.clear()
     axCoords.scatter(xLong, yLat, color="white")
-    axTempCPU.plot(xTime, yTempCPU, color="limegreen")
-    axTempI.plot(xTime, yTempI, color="red")
-    axTempE.plot(xTime, yTempE, color="dodgerblue")
-    axAlt.plot(xTime, yAlt, color="yellow")
-    axHum.plot(xTime, yHum, color="orchid")
+    axTempCPU.plot(xTime, yTempCPU, color="limegreen", marker=".", markersize=8)
+    axTempI.plot(xTime, yTempI, color="red", marker=".", markersize=8)
+    axTempE.plot(xTime, yTempE, color="dodgerblue", marker=".", markersize=8)
+    axAlt.plot(xTime, yAlt, color="yellow", marker=".", markersize=8)
+    axHum.plot(xTime, yHum, color="orchid", marker=".", markersize=8)
 
     # format plots
     # Coords
@@ -277,7 +279,5 @@ def animate(i, Time, Latitude, Longitude, Altitude, NSats, GroundSpeed,\
     plt.text(0.82, textY-.60, "Humidity [%]    : " + str(Humidity), fontsize=12, transform=plt.gcf().transFigure)
 
 # set up plot to call animate() function periodically
-ani = animation.FuncAnimation(fig, animate, fargs=(Time, Latitude, Longitude, Altitude, NSats, GroundSpeed,\
-            QualityFlag, TempInt, TempExt, TempCPU, Humidity,xTime, xLong, \
-            yLat, yTempCPU, yTempI, yTempE, yAlt, yHum), interval=1000)
+ani = animation.FuncAnimation(fig, animate, interval=1000)
 plt.show()
