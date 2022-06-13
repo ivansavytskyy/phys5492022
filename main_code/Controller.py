@@ -100,7 +100,10 @@ class Controller():
         # writing it to file
         for module in self.mod_list:
             if module.active:
-                module.write_to_file(self.current_time)
+                try:
+                    module.write_to_file(self.current_time)
+                except OSError:
+                    print("Probably out of disc space - skipping write to file")
         
         time.sleep(self.cycle_time)
         self.cycle_counter += 1
@@ -116,8 +119,11 @@ class Controller():
             print(f"{module.name}: {module.active}")
 
         # create the directory for instrument data
-        if not os.path.isdir(f'/home/phys5492022/Desktop/instrument_data/'):
-            os.makedirs(f'/home/phys5492022/Desktop/instrument_data/')
+        try:
+            if not os.path.isdir(f'/home/phys5492022/Desktop/instrument_data/'):
+                os.makedirs(f'/home/phys5492022/Desktop/instrument_data/')
+        except OSError:
+            print("Probably no disc space, therefore we're skipping saving locally"
     
     def boot_modules(self):
         print("Booting sensors...")
