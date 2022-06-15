@@ -41,9 +41,7 @@ Format information
 """
 
 import serial
-import time
 import datetime as dt
-import matplotlib
 import matplotlib.pyplot as plt
 import matplotlib.animation as animation
 import numpy as np
@@ -51,7 +49,7 @@ import numpy as np
 NUM_CHARS = 128
 TM_END_BYTE = "\nRSSI:"
 TM_END_BYTE_LEN = len(TM_END_BYTE)
-NUM_PLOT_POINTS = 24
+NUM_PLOT_POINTS = 16
 
 # create figure for plotting
 fig = plt.figure(figsize=(16,8))
@@ -68,11 +66,12 @@ axCoords    = fig.add_subplot(2, 3, 1)
 axAlt       = fig.add_subplot(2, 3, 2)
 axHum       = fig.add_subplot(2, 3, 3)
 axTempCPU   = fig.add_subplot(2, 3, 4)
-axTempI     = fig.add_subplot(2, 3, 5)
-axTempE     = fig.add_subplot(2, 3, 6)
+axTempE     = fig.add_subplot(2, 3, 5)
+axTempI     = fig.add_subplot(2, 3, 6)
 
 # create data and data arrays
-Time            = float(dt.datetime.utcnow().strftime('%H%M%S'))     # YYMMDDhhmmss.ss
+Time            = int(dt.datetime.utcnow().strftime('%H%M%S'))     # YYMMDDhhmmss.ss
+TimeType        = "C"
 Latitude        = 0     # DDmm.mmO
 Longitude       = 0     # DDDmm.mmO
 Altitude        = 0     # aaaaa.aa
@@ -89,10 +88,10 @@ for t in np.arange(NUM_PLOT_POINTS):
     xTime[t]    = Time - (NUM_PLOT_POINTS - t)
 xLong           = list(np.ones(NUM_PLOT_POINTS)*106)
 yLat            = list(np.ones(NUM_PLOT_POINTS)*52)
-yTempCPU        = list(np.ones(NUM_PLOT_POINTS)*60)
+yTempCPU        = list(np.ones(NUM_PLOT_POINTS)*30)
 yTempI          = list(np.zeros(NUM_PLOT_POINTS)*20)
 yTempE          = list(np.zeros(NUM_PLOT_POINTS)*20)
-yAlt            = list(np.ones(NUM_PLOT_POINTS)*1)
+yAlt            = list(np.ones(NUM_PLOT_POINTS)*500)
 yHum            = list(np.zeros(NUM_PLOT_POINTS)*40)
 
 # initialize connection with COM port
@@ -104,7 +103,8 @@ print(dataFull)
 # this function is called periodically from FuncAnimation
 def animate(i):
 
-    global Time            
+    global Time    
+    global TimeType        
     global Latitude        
     global Longitude       
     global Altitude       
@@ -130,11 +130,13 @@ def animate(i):
     serialString = dataExtract.decode("utf-8").split(",")
     print(serialString)
     # save data
+    timeString  = dt.datetime.utcnow().strftime('%Y%m%d%H%M%S.%f')
+    timeHMS     = timeString[8:14]
     with open("MissionControl_testData.txt", "a") as f:
-        f.write(f"{dt.datetime.utcnow().strftime('%H%M%S.%f')}::{serialString}\n")
-    # # flight data
+        f.write(timeString + "::" + dataExtract.decode("utf-8") + "\n")
+    # flight data
     # with open("MissionControl_flightData.txt", "a") as f:
-        # f.write(f"{dataExtract}\n")
+    #     f.write(timeString + "::" + serialString + "\n")
         
     # process data with error handling
     dataTrue = (len(serialString) > 1)
@@ -142,6 +144,7 @@ def animate(i):
     if (dataTrue):
         try:
             Time        = float(serialString[0][7:13])    # TYYMMDDhhmmss.ss
+            TimeType    = serialString[0][0]
         except:
             print("Error: Time --- using local time")
         try:
@@ -153,7 +156,7 @@ def animate(i):
         except:
             print("Error: Longitude")
         try:
-            Altitude    = float(serialString[3][:4])/1000 # aaaaa.aa
+            Altitude    = float(serialString[3][:5])/1000 # aaaaa.aa
         except:
             print("Error: Altitude")
         try:
@@ -169,13 +172,13 @@ def animate(i):
         except:
             print("Error: Quality Flag")
         try:
-            TempInt     = float(serialString[7])           # sttt.tt
-        except:
-            print("Error: Temp Int")
-        try:
-            TempExt     = float(serialString[8])           # sttt.tt
+            TempExt     = float(serialString[7])           # sttt.tt
         except:
             print("Error: Temp Ext")
+        try:
+            TempInt     = float(serialString[8])           # sttt.tt
+        except:
+            print("Error: Temp Int")
         try:
             TempCPU     = float(serialString[9])           # sttt.tt
         except:
@@ -184,99 +187,99 @@ def animate(i):
             Humidity    = float(serialString[10][:6])      # hh.hhhhhhhh
         except:
             print("Error: Humidity")
+
+        # append data arrays
+        xTime.append(timeHMS)
+        xLong.append(Longitude)
+        yLat.append(Latitude)
+        yTempCPU.append(TempCPU)
+        yTempE.append(TempExt)
+        yTempI.append(TempInt)
+        yAlt.append(Altitude)
+        yHum.append(Humidity)
+        xTime       = xTime[-NUM_PLOT_POINTS:]
+        xLong       = xLong[-NUM_PLOT_POINTS:]
+        yLat        = yLat[-NUM_PLOT_POINTS:]
+        yTempCPU    = yTempCPU[-NUM_PLOT_POINTS:]
+        yTempE      = yTempE[-NUM_PLOT_POINTS:]
+        yTempI      = yTempI[-NUM_PLOT_POINTS:]
+        yAlt        = yAlt[-NUM_PLOT_POINTS:]
+        yHum        = yHum[-NUM_PLOT_POINTS:]
+
+        # plot data
+        axCoords.clear()
+        axTempCPU.clear()
+        axTempE.clear()
+        axTempI.clear()
+        axAlt.clear()
+        axHum.clear()
+        axCoords.scatter(xLong, yLat, color="white")
+        axCoords.scatter(106.38, 52.08, color="orange", marker="*", s=3)
+        axTempCPU.plot(xTime, yTempCPU, color="limegreen", marker=".", markersize=8)
+        axTempE.plot(xTime, yTempE, color="dodgerblue", marker=".", markersize=8)
+        axTempI.plot(xTime, yTempI, color="red", marker=".", markersize=8)
+        axAlt.plot(xTime, yAlt, color="yellow", marker=".", markersize=8)
+        axHum.plot(xTime, yHum, color="orchid", marker=".", markersize=8)
+
+        # format plots
+        # Coords
+        axCoords.set_title("Coordinates", fontweight="bold")
+        axCoords.set_xlabel("Longitude [deg]")
+        axCoords.set_ylabel("Latitude [deg]")
+        axCoords.set_xlim(96, 116)
+        axCoords.set_ylim(42, 62)
+        # TempCPU
+        axTempCPU.set_title("Temperature: CPU", fontweight="bold")
+        axTempCPU.set_xlabel("Time [UTC]")
+        axTempCPU.set_ylabel("T [deg C]")
+        # axTempCPU.set_ylim(20,100)
+        # Temp E
+        axTempE.set_title("Temperature: external", fontweight="bold")
+        axTempE.set_xlabel("Time [UTC]")
+        axTempE.set_ylabel("T [deg C]")
+        # axTempE.set_ylim(-50, 50)
+        # Temp I
+        axTempI.set_title("Temperature: internal", fontweight="bold")
+        axTempI.set_xlabel("Time [UTC]")
+        axTempI.set_ylabel("T [deg C]")
+        # axTempI.set_ylim(-50,50)
+        # Alt
+        axAlt.set_title("Altitude", fontweight="bold")
+        axAlt.set_xlabel("Time [UTC]")
+        axAlt.set_ylabel('A [km]')
+        # axAlt.set_ylim(0, 30)
+        # Hum
+        axHum.set_title("Humidity", fontweight="bold")
+        axHum.set_xlabel("Time [UTC]")
+        axHum.set_ylabel("Hum [%]")
+        axHum.set_ylim(0, 100)
+
+        # extra formatting
+        for ax in [axCoords, axTempCPU, axTempI, axTempE, axAlt, axHum]:
+            ax.tick_params(labelrotation=90, colors="white")
+            ax.set_facecolor("black")
+            ax.grid(True, color="dimgrey")
+            plt.setp(ax.spines.values(), color="white")
+
+        serTime     = serialString[0]
+        textTimeGPS = "Time GPS [UTC]  : " + str(Time)[0:2] + ":" + str(Time)[2:4] + ":" + str(Time)[4:6] + " " + TimeType
+        textTimeLoc = "Time Loc [UTC]  : " + timeHMS[:2] + ":" + timeHMS[2:4] + ":" + timeHMS[4:6]
+        textY       = 0.80
+        plt.text(0.82, textY, textTimeGPS, fontsize=12, transform=plt.gcf().transFigure)
+        plt.text(0.82, textY-.05, textTimeLoc, fontsize=12, transform=plt.gcf().transFigure)
+        plt.text(0.82, textY-.15, "Coordinates     : " + str(Longitude) + " W", fontsize=12, transform=plt.gcf().transFigure)
+        plt.text(0.82, textY-.20, "                   "+ str(Latitude) + " N", fontsize=12, transform=plt.gcf().transFigure)
+        plt.text(0.82, textY-.25, "Altitude [km]   : " + str(Altitude), fontsize=12, transform=plt.gcf().transFigure)
+        plt.text(0.82, textY-.30, "NSats           : " + str(NSats), fontsize=12, transform=plt.gcf().transFigure)
+        plt.text(0.82, textY-.35, "Speed [kph]     : " + str(GroundSpeed), fontsize=12, transform=plt.gcf().transFigure)
+        plt.text(0.82, textY-.40, "Quality         : " + str(QualityFlag), fontsize=12, transform=plt.gcf().transFigure)
+        plt.text(0.82, textY-.45, "TempExt [deg C] : " + str(TempExt), fontsize=12, transform=plt.gcf().transFigure)
+        plt.text(0.82, textY-.50, "TempInt [deg C] : " + str(TempInt), fontsize=12, transform=plt.gcf().transFigure)
+        plt.text(0.82, textY-.55, "TempCPU [deg C] : " + str(TempCPU), fontsize=12, transform=plt.gcf().transFigure)
+        plt.text(0.82, textY-.60, "Humidity [%]    : " + str(Humidity), fontsize=12, transform=plt.gcf().transFigure)
+
     else:
         print("TM packet not valid --- proceeding to next TM packet")
-
-    # append data arrays
-    xTime.append(Time)
-    xLong.append(Longitude)
-    yLat.append(Latitude)
-    yTempCPU.append(TempCPU)
-    yTempI.append(TempInt)
-    yTempE.append(TempExt)
-    yAlt.append(Altitude)
-    yHum.append(Humidity)
-    xTime       = xTime[-NUM_PLOT_POINTS:]
-    xLong       = xLong[-NUM_PLOT_POINTS:]
-    xLong[0]    = 106
-    yLat        = yLat[-NUM_PLOT_POINTS:]
-    yLat[0]     = 52
-    yTempCPU    = yTempCPU[-NUM_PLOT_POINTS:]
-    yTempI      = yTempI[-NUM_PLOT_POINTS:]
-    yTempE      = yTempE[-NUM_PLOT_POINTS:]
-    yAlt        = yAlt[-NUM_PLOT_POINTS:]
-    yHum        = yHum[-NUM_PLOT_POINTS:]
-
-    # plot data
-    axCoords.clear()
-    axTempCPU.clear()
-    axTempI.clear()
-    axTempE.clear()
-    axAlt.clear()
-    axHum.clear()
-    axCoords.scatter(xLong, yLat, color="white")
-    axTempCPU.plot(xTime, yTempCPU, color="limegreen", marker=".", markersize=8)
-    axTempI.plot(xTime, yTempI, color="red", marker=".", markersize=8)
-    axTempE.plot(xTime, yTempE, color="dodgerblue", marker=".", markersize=8)
-    axAlt.plot(xTime, yAlt, color="yellow", marker=".", markersize=8)
-    axHum.plot(xTime, yHum, color="orchid", marker=".", markersize=8)
-
-    # format plots
-    # Coords
-    axCoords.set_title("Coordinates", fontweight="bold")
-    axCoords.set_xlabel("Longitude [deg]")
-    axCoords.set_ylabel("Latitude [deg]")
-    axCoords.set_xlim(96, 116)
-    axCoords.set_ylim(42, 62)
-    # TempCPU
-    axTempCPU.set_title("Temperature: CPU", fontweight="bold")
-    axTempCPU.set_xlabel("Time [UTC]")
-    axTempCPU.set_ylabel("T [deg C]")
-    axTempCPU.set_ylim(40,100)
-    # Temp I
-    axTempI.set_title("Temperature: internal", fontweight="bold")
-    axTempI.set_xlabel("Time [UTC]")
-    axTempI.set_ylabel("T [deg C]")
-    axTempI.set_ylim(0,80)
-    # Temp E
-    axTempE.set_title("Temperature: external", fontweight="bold")
-    axTempE.set_xlabel("Time [UTC]")
-    axTempE.set_ylabel("T [deg C]")
-    axTempE.set_ylim(0, 80)
-    # Alt
-    axAlt.set_title("Altitude", fontweight="bold")
-    axAlt.set_xlabel("Time [UTC]")
-    axAlt.set_ylabel('A [km]')
-    axAlt.set_ylim(0, 100)
-    # Hum
-    axHum.set_title("Humidity", fontweight="bold")
-    axHum.set_xlabel("Time [UTC]")
-    axHum.set_ylabel("Hum [%]")
-    axHum.set_ylim(0, 100)
-
-    # extra formatting
-    for ax in [axCoords, axTempCPU, axTempI, axTempE, axAlt, axHum]:
-        ax.tick_params(labelrotation=90, colors="white")
-        ax.set_facecolor("black")
-        ax.grid(True, color="dimgrey")
-        plt.setp(ax.spines.values(), color="white")
-
-    serTime     = serialString[0]
-    textTimeGPS = "Time GPS [UTC]  : " + str(Time)[0:2] + ":" + str(Time)[2:4] + ":" + str(Time)[4:6]
-    textTimeLoc = "Time Loc [UTC]  : " + dt.datetime.utcnow().strftime('%H%M%S.%f')
-    textY       = 0.80
-    plt.text(0.82, textY, textTimeGPS, fontsize=12, transform=plt.gcf().transFigure)
-    plt.text(0.82, textY-.05, textTimeLoc, fontsize=12, transform=plt.gcf().transFigure)
-    plt.text(0.82, textY-.15, "Coordinates     : " + str(Longitude) + " W", fontsize=12, transform=plt.gcf().transFigure)
-    plt.text(0.82, textY-.20, "                  " + str(Latitude) + " N", fontsize=12, transform=plt.gcf().transFigure)
-    plt.text(0.82, textY-.25, "Altitude [km]   : " + str(Altitude), fontsize=12, transform=plt.gcf().transFigure)
-    plt.text(0.82, textY-.30, "NSats           : " + str(NSats), fontsize=12, transform=plt.gcf().transFigure)
-    plt.text(0.82, textY-.35, "Speed [kph]     : " + str(GroundSpeed), fontsize=12, transform=plt.gcf().transFigure)
-    plt.text(0.82, textY-.40, "Quality         : " + str(QualityFlag), fontsize=12, transform=plt.gcf().transFigure)
-    plt.text(0.82, textY-.45, "TempInt [deg C] : " + str(TempInt), fontsize=12, transform=plt.gcf().transFigure)
-    plt.text(0.82, textY-.50, "TempExt [deg C] : " + str(TempExt), fontsize=12, transform=plt.gcf().transFigure)
-    plt.text(0.82, textY-.55, "TempCPU [deg C] : " + str(TempCPU), fontsize=12, transform=plt.gcf().transFigure)
-    plt.text(0.82, textY-.60, "Humidity [%]    : " + str(Humidity), fontsize=12, transform=plt.gcf().transFigure)
 
 # set up plot to call animate() function periodically
 ani = animation.FuncAnimation(fig, animate, interval=1000)
